@@ -3,38 +3,53 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ligue N3 – 25–26 avril 2026</title>
+  <title>Ligue N3 – 25–26 avril 2026 – Twirling Bâton Trets</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div id="site-header"></div>
   <script src="assets/inject-header.js" defer></script>
+
   <section class="hero wrap">
-    <span class="badge">🏆 Ligue N3 PACA Corse — 25–26 avril 2026</span>
+    <span class="badge">🏆 Ligue N3 PACA — 25–26 avril 2026</span>
     <h1>Informations évènement</h1>
     <ul>
       <li><strong>Lieu :</strong> Gymnase de la Gardi — 1120 Av. Marius Joly, 13530 Trets</li>
-      <li><strong>Accès parking :</strong> chemin de Fond de Tuile — GPS 43.445891, 5.702016</li>
-      <li><strong>Buvette :</strong> paiements espèces et carte (petit TPE), <em>pas de chèques</em> ; système de tickets</li>
+      <li><strong>Accès parking :</strong> Chemin de Fond de Tuile — GPS 43.445891, 5.702016</li>
+      <li><strong>Buvette :</strong> paiements espèces et carte, <em>pas de chèques</em> ; système de tickets</li>
       <li class="rule"><strong>Règlement :</strong> Interdiction de manger dans le gymnase — seules bouteilles d’eau et gourdes sont acceptées.</li>
     </ul>
     <p>
       📍 Ouvrir le plan d’accès :
-      <a id="gmaps" href="https://www.google.com/maps/search/?api=1&query=43.445891,5.702016" target="_blank" rel="noopener">Google Maps</a>
+      <a
+        id="gmaps"
+        href="https://www.google.com/maps/search/?api=1&query=43.445891,5.702016"
+        target="_blank"
+        rel="noopener"
+      >Google Maps</a>
       •
-      <a id="amaps" href="https://maps.apple.com/?ll=43.445891,5.702016&q=Gymnase%20de%20la%20Gardi" target="_blank" rel="noopener">Apple Plans</a>
+      <a
+        id="amaps"
+        href="https://maps.apple.com/?ll=43.445891,5.702016&q=Gymnase%20de%20la%20Gardi"
+        target="_blank"
+        rel="noopener"
+      >Apple Plans</a>
     </p>
   </section>
+
   <main class="wrap">
     <section class="card">
       <h2>Buvette – Ligue N3 (25–26 avril 2026)</h2>
-      <p><strong>Paiements acceptés :</strong> espèces et carte bancaire (petit TPE). <strong>Pas de chèques.</strong></p>
-      <p class="rule">⚠️ Interdiction de manger dans le gymnase. Seules les bouteilles d’eau et gourdes sont acceptées.</p>
-      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:12px">
+      <p class="muted" style="margin-top:-4px">
+        Encaissement = <strong>ticket</strong> → remise du produit. Paiements : <strong>espèces et carte</strong>. <em>Pas de chèques.</em>
+      </p>
+
+      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:12px 0">
         <input id="q" type="search" placeholder="Rechercher un article…" aria-label="Rechercher" />
         <select id="filterCat" aria-label="Filtrer par catégorie"></select>
         <button onclick="window.print()">🖨️ Imprimer</button>
       </div>
+
       <div style="overflow:auto">
         <table id="menuTable">
           <thead>
@@ -44,40 +59,75 @@
               <th>Prix</th>
             </tr>
           </thead>
-          <tbody>
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
+
       <p class="note">Pour modifier la carte, éditez le fichier <code>menu.json</code>.</p>
     </section>
   </main>
+
+  <div id="site-footer"></div>
+  <script src="assets/inject-footer.js" defer></script>
+
   <script>
-    (function(){ try{ var ua=navigator.userAgent||''; var isApple=/iPhone|iPad|Macintosh/.test(ua); if(isApple){ var a=document.getElementById('amaps'); if(a){ a.style.fontWeight='800'; } } else { var g=document.getElementById('gmaps'); if(g){ g.style.fontWeight='800'; } } }catch(e){} })();
-  </script>
-  <script>
-    const el=(s)=>document.querySelector(s);
-    const fmt=(p)=> (String(p).includes(',')||String(p).includes('x')) ? (String(p).replace('.', ',') + (String(p).includes('€')?'':' €')) : (Number(p).toFixed(2).replace('.', ',') + ' €');
-    fetch('menu.json').then(r=>r.json()).then(ITEMS=>{
-      const cats=[...new Set(ITEMS.map(i=>i.category))];
-      document.querySelector('#filterCat').innerHTML = '<option value="">Catégorie: toutes</option>' + cats.map(c=>`<option>${c}</option>`).join('');
-      function render(){
-        const q=(document.querySelector('#q').value||'').trim().toLowerCase();
-        const cat=document.querySelector('#filterCat').value;
-        const rows=ITEMS.filter(i=>!cat||i.category===cat)
-          .filter(i=>!q||i.name.toLowerCase().includes(q))
-          .map(i=>`<tr><td>${i.name}</td><td><span class=\"pill\">${i.category}</span></td><td class=\"price\">${fmt(i.price)}</td></tr>`).join('');
-        document.querySelector('#menuTable tbody').innerHTML = rows || '<tr><td colspan=\"3\" class=\"muted\">Aucun article…</td></tr>';
-      }
-      ['#q','#filterCat'].forEach(id=> document.querySelector(id).addEventListener('input', render));
-      render();
-    });
-  </script>
-  <footer class="footer wrap">
-    <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
-  </footer>
-  <script>
-    document.querySelectorAll('#year').forEach(function(n){ n.textContent = new Date().getFullYear(); });
+    // Mise en avant du lien carte selon l'appareil
+    (function(){
+      try {
+        var ua = navigator.userAgent || "";
+        var isApple = /iPhone|iPad|Macintosh/.test(ua);
+        if (isApple) {
+          var a = document.getElementById('amaps');
+          if (a) a.style.fontWeight = '800';
+        } else {
+          var g = document.getElementById('gmaps');
+          if (g) g.style.fontWeight = '800';
+        }
+      } catch(e) {}
+    })();
   </script>
 
+  <script>
+    // Buvette: chargement du menu depuis menu.json + recherche/filtre
+    const fmt = (p) => {
+      const s = String(p);
+      if (s.includes('x') || s.includes(',')) {
+        return s.replace('.', ',') + (s.includes('€') ? '' : ' €');
+      }
+      const n = Number(p);
+      return (isNaN(n) ? s : n.toFixed(2).replace('.', ',')) + ' €';
+    };
+
+    fetch('menu.json')
+      .then(r => r.json())
+      .then(ITEMS => {
+        // Catégories
+        const select = document.getElementById('filterCat');
+        const cats = [...new Set(ITEMS.map(i => i.category))].filter(Boolean);
+        select.innerHTML = '<option value="">Catégorie : toutes</option>' + cats.map(c => '<option>' + c + '</option>').join('');
+
+        function render() {
+          const q = (document.getElementById('q').value || '').trim().toLowerCase();
+          const cat = select.value;
+          const rows = ITEMS
+            .filter(i => !cat || i.category === cat)
+            .filter(i => !q || (i.name || '').toLowerCase().includes(q))
+            .map(i =>
+              '<tr>' +
+                '<td>' + i.name + '</td>' +
+                '<td><span class="pill">' + (i.category || '') + '</span></td>' +
+                '<td class="price">' + fmt(i.price) + '</td>' +
+              '</tr>'
+            ).join('');
+
+          document.querySelector('#menuTable tbody').innerHTML =
+            rows || '<tr><td colspan="3" class="muted">Aucun article…</td></tr>';
+        }
+
+        document.getElementById('q').addEventListener('input', render);
+        select.addEventListener('input', render);
+        render();
+      });
+  </script>
 </body>
 </html>
