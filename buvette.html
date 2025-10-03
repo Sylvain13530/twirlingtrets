@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang='fr'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width, initial-scale=1'/><title>Buvette – Twirling Bâton Trets</title><link rel='stylesheet' href='styles.css'/></head><body>
+<header>
+  <div class="head">
+    <div class="brand">
+      <img src="assets/logo-club.png" alt="Logo club" onerror="this.style.display='none'"/>
+      <div>
+        <strong>Twirling Bâton Trets</strong><br>
+        <span class="muted">Ligue N3 PACA Corse</span>
+      </div>
+    </div>
+    
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="le-club.html">Le club</a>
+      <a href="actualites.html">Actualités</a>
+      <a href="galerie.html">Galerie</a>
+      <a href="calendrier.html">Calendrier</a>
+      <a href="buvette.html">Buvette</a>
+      <a href="sponsors.html">Sponsors</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    
+  </div>
+  
+</header>
+<section class='hero wrap'><h1>Buvette – Ligue N3 (25–26 avril 2026)</h1><p><strong>Paiements acceptés :</strong> espèces et carte bancaire (petit TPE). <strong>Pas de chèques.</strong></p><p class='rule'>⚠️ Interdiction de manger dans le gymnase. Seules les bouteilles d’eau et gourdes sont acceptées.</p></section><main class='wrap card'><div style='display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:12px'><input id='q' type='search' placeholder='Rechercher un article…' aria-label='Rechercher'/><select id='filterCat' aria-label='Filtrer par catégorie'></select><button onclick='window.print()'>🖨️ Imprimer</button></div><div style='overflow:auto'><table id='menuTable'><thead><tr><th>Article</th><th>Catégorie</th><th>Prix</th></tr></thead><tbody></tbody></table></div><p class='note'>Pour modifier la carte, éditez le fichier <code>menu.json</code>.</p></main>
+<footer class="footer wrap">
+  <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
+</footer>
+<script>document.querySelectorAll('#year').forEach(n=>n.textContent=new Date().getFullYear());</script>
+<script>const el=(s)=>document.querySelector(s);const fmt=(p)=> (String(p).includes(',')||String(p).includes('x')) ? (String(p).replace('.', ',') + (String(p).includes('€')?'':' €')) : (Number(p).toFixed(2).replace('.', ',') + ' €');fetch('menu.json').then(r=>r.json()).then(ITEMS=>{  const cats=[...new Set(ITEMS.map(i=>i.category))];  el('#filterCat').innerHTML = '<option value="">Catégorie: toutes</option>' + cats.map(c=>`<option>${c}</option>`).join('');  function render(){    const q=(el('#q').value||'').trim().toLowerCase();    const cat=el('#filterCat').value;    const rows=ITEMS.filter(i=>!cat||i.category===cat)      .filter(i=>!q||i.name.toLowerCase().includes(q))      .map(i=>`<tr><td>${i.name}</td><td><span class="pill">${i.category}</span></td><td class="price">${fmt(i.price)}</td></tr>`).join('');    el('#menuTable tbody').innerHTML = rows || '<tr><td colspan="3" class="muted">Aucun article…</td></tr>';  }  ['#q','#filterCat'].forEach(id=> el(id).addEventListener('input', render));  render();});</script></body></html>
