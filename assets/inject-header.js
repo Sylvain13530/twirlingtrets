@@ -2,6 +2,7 @@
   function injectHeader() {
     var mount = document.getElementById('site-header');
     if (!mount) return;
+
     fetch('partials/header.html', { cache: 'no-cache' })
       .then(function (r) { return r.text(); })
       .then(function (html) {
@@ -13,6 +14,7 @@
 
   function afterHeaderInjected() {
     try {
+      // ----- Marquee: fallback JS si l'anim CSS est désactivée -----
       var track = document.getElementById('marqueeTrack');
       if (track) {
         var cssAnimOn = getComputedStyle(track).animationName !== 'none';
@@ -29,6 +31,14 @@
         }
       }
 
+      // ----- Bandeau: cacher UNIQUEMENT sur la page buvette.html -----
+      var hideBanner = /(^|\/)buvette\.html$/i.test(location.pathname);
+      if (hideBanner) {
+        var banner = document.querySelector('.banner');
+        if (banner) banner.style.display = 'none';
+      }
+
+      // ----- Popup auto (1er janv. -> 26 avril 2026), mémorisation fermeture -----
       var popup = document.getElementById('popup');
       var btnClose = document.getElementById('closePopup');
       if (popup && btnClose) {
@@ -45,21 +55,17 @@
         });
       }
 
+      // ----- Lien actif dans la nav -----
       var links = document.querySelectorAll('header nav a[href]');
-      var path = location.pathname.split('/').pop() || 'index.html';
+      var current = location.pathname.split('/').pop() || 'index.html';
       links.forEach(function (a) {
-        if (a.getAttribute('href') === path) {
+        if (a.getAttribute('href') === current) {
           a.setAttribute('data-active', 'true');
         }
       });
-
-      // Hide banner on buvette page only
-      var hideBanner = /(^|\/)buvette\.html$/.test(location.pathname);
-      if (hideBanner) {
-        var b = document.querySelector('.banner');
-        if (b) b.style.display = 'none';
-      }
-    } catch (e) { /* noop */ }
+    } catch (e) {
+      // silence is golden :)
+    }
   }
 
   document.addEventListener('DOMContentLoaded', injectHeader);
