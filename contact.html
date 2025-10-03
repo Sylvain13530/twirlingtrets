@@ -9,16 +9,26 @@
 <body>
   <div id="site-header"></div>
   <script src="assets/inject-header.js" defer></script>
+
   <section class="hero wrap">
     <h1>Contact</h1>
-    <p>Mail : <a href="mailto:twirlingtrets@gmail.com">twirlingtrets@gmail.com</a></p>
+    <p>Pour toute demande d’information, contactez-nous :</p>
   </section>
-  <footer class="footer wrap">
-    <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
-  </footer>
-  <script>
-    document.querySelectorAll('#year').forEach(function(n){ n.textContent = new Date().getFullYear(); });
-  </script>
 
+  <main class="wrap card">
+    <p>
+      📧 Email : 
+      <a href="mailto:twirlingtrets@gmail.com">twirlingtrets@gmail.com</a>
+    </p>
+    <p>
+      🌐 Facebook : 
+      <a href="https://www.facebook.com/twirlingtrets" target="_blank" rel="noopener">
+        TWIRLING BATON TRETS TBT
+      </a>
+    </p>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="assets/inject-footer.js" defer></script>
 </body>
 </html>
