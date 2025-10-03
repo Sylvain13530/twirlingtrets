@@ -17,40 +17,39 @@
 
   <main class="wrap card">
     <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous"
+    <script
+      async
+      defer
+      crossorigin="anonymous"
       src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v19.0">
     </script>
 
-<div
-  class="fb-page"
-  data-href="https://www.facebook.com/twirlingtrets"
-  data-tabs="timeline"
-  data-width="960"
-  data-height="700"
-  data-small-header="false"
-  data-adapt-container-width="true"
-  data-hide-cover="false"
-  data-show-facepile="true">
-  <blockquote class="fb-xfbml-parse-ignore">
-    <a href="https://www.facebook.com/twirlingtrets" target="_blank" rel="noopener">
-      TWIRLING BATON TRETS TBT
-    </a>
-  </blockquote>
-</div>
-
+    <div
+      class="fb-page"
+      data-href="https://www.facebook.com/twirlingtrets"
+      data-tabs="timeline"
+      data-width="960"
+      data-height="700"
+      data-small-header="false"
+      data-adapt-container-width="true"
+      data-hide-cover="false"
+      data-show-facepile="true">
+      <blockquote class="fb-xfbml-parse-ignore">
+        <a
+          href="https://www.facebook.com/twirlingtrets"
+          target="_blank"
+          rel="noopener">
+          TWIRLING BATON TRETS TBT
+        </a>
+      </blockquote>
+    </div>
 
     <noscript>
       Veuillez activer JavaScript pour afficher la timeline Facebook.
     </noscript>
   </main>
 
-  <footer class="footer wrap">
-    <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
-  </footer>
-  <script>
-    document.querySelectorAll('#year').forEach(function(n){
-      n.textContent = new Date().getFullYear();
-    });
-  </script>
+  <div id="site-footer"></div>
+  <script src="assets/inject-footer.js" defer></script>
 </body>
 </html>
