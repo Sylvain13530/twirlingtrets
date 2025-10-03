@@ -25,12 +25,8 @@
     <div id="gallery" class="gallery-grid"></div>
   </main>
 
-  <footer class="footer wrap">
-    <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
-  </footer>
-  <script>
-    document.querySelectorAll('#year').forEach(function(n){ n.textContent = new Date().getFullYear(); });
-  </script>
+  <div id="site-footer"></div>
+  <script src="assets/inject-footer.js" defer></script>
 
   <script>
     // Liste des fichiers présents dans assets/galerie/
@@ -50,7 +46,6 @@
       "Compet 9.jpg",
       "Gala 2023.jpg",
       "Gala 2024.jpg",
-      "Gala 2025 1.jpg",
       "Gala 2025 2.jpg",
       "Journées des associations 2025 1.jpg",
       "Journées des associations 2025 2.jpg",
