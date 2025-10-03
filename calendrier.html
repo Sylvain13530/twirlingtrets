@@ -9,18 +9,31 @@
 <body>
   <div id="site-header"></div>
   <script src="assets/inject-header.js" defer></script>
+
   <section class="hero wrap">
     <h1>Calendrier</h1>
-    <ul class="card">
-      <li>Ligue N3 PACA Corse — 25–26 avril 2026 — Gymnase de la Gardi, Trets</li>
-    </ul>
+    <p>Compétitions 2026</p>
   </section>
+
+  <main class="wrap card">
+    <ul>
+      <li>11 et 12 avril 2026 — <strong>Ligue N2</strong></li>
+      <li>18 et 19 avril 2026 — <strong>Ligue N1</strong></li>
+      <li>25 et 26 avril 2026 — <strong>Ligue N3 PACA</strong> (à Trets)</li>
+      <li>9 et 10 mai 2026 — <strong>Demi-finale N2</strong></li>
+      <li>16 et 17 mai 2026 — <strong>Demi-finale N1</strong></li>
+      <li>30 et 31 mai 2026 — <strong>Demi-finale N3</strong></li>
+      <li>6 et 7 juin 2026 — <strong>Finale N2</strong></li>
+      <li>13 et 14 juin 2026 — <strong>Finale N1</strong></li>
+      <li>20 et 21 juin 2026 — <strong>Finale N3</strong></li>
+    </ul>
+  </main>
+
   <footer class="footer wrap">
     <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
   </footer>
   <script>
     document.querySelectorAll('#year').forEach(function(n){ n.textContent = new Date().getFullYear(); });
   </script>
-
 </body>
 </html>
