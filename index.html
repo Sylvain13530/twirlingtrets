@@ -28,22 +28,20 @@
       <a href="contact.html">Contact</a>
     </nav>
     </div>
-<div class="banner">
-  <a href="LigueN3 25-26Avril.html" title="Infos Ligue N3 & plan d'accès">
-    <div class="marquee">
-      <div class="marquee__track" id="marqueeTrack">
-        <span class="marquee__item">🏆 Ligue N3 25–26 avril 2026</span>
-        <span class="marquee__item">• 🍽️ Buvette et plan d'accès 📍</span>
-        <span class="marquee__item">• Gymnase de la Gardi</span>
-
-        <!-- duplication pour défilement continu -->
-        <span class="marquee__item">🏆 Ligue N3 25–26 avril 2026</span>
-        <span class="marquee__item">• 🍽️ Buvette et plan d'accès 📍</span>
-        <span class="marquee__item">• Gymnase de la Gardi</span>
+  <div class="banner">
+    <a href="LigueN3-25-26Avril.html" title="Infos Ligue N3 & plan d'accès">
+      <div class="marquee">
+        <div class="marquee__track" id="marqueeTrack">
+          <span class="marquee__item">🏆 Ligue N3 25–26 avril 2026</span>
+          <span class="marquee__item">• 🍽️ Buvette et plan d'accès 📍</span>
+          <span class="marquee__item">• Gymnase de la Gardi</span>
+          <span class="marquee__item">🏆 Ligue N3 25–26 avril 2026</span>
+          <span class="marquee__item">• 🍽️ Buvette et plan d'accès 📍</span>
+          <span class="marquee__item">• Gymnase de la Gardi</span>
+        </div>
       </div>
-    </div>
-  </a>
-</div>
+    </a>
+  </div>
   </header>
   <section class="hero wrap">
     <h1>Site officiel du Twirling Bâton Trets</h1>
@@ -73,9 +71,7 @@
   <footer class="footer wrap">
     <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
   </footer>
-  <script>
-    document.querySelectorAll('#year').forEach(n=>n.textContent=new Date().getFullYear());
-  </script>
+  <script>document.querySelectorAll('#year').forEach(n=>n.textContent=new Date().getFullYear());</script>
   <!-- Pop-up buvette auto (01/01/2026 → 26/04/2026) -->
   <div id="popup" class="modal" role="dialog" aria-modal="true" aria-labelledby="popTitle">
     <div class="box">
@@ -89,41 +85,7 @@
     </div>
   </div>
   <script>
-  (function(){
-      (function () {
-    try {
-      var track = document.getElementById('marqueeTrack');
-      if (!track) return;
-      // Si l’animation CSS est désactivée (certaines prefs), on fait défiler en JS
-      var cssWorks = getComputedStyle(track).animationName !== 'none';
-      if (cssWorks) return;
-
-      var offset = 0;
-      function tick() {
-        offset -= 1; // vitesse
-        // largeur de moitié de piste (on a dupliqué 2x la séquence)
-        var half = track.scrollWidth / 2;
-        if (Math.abs(offset) >= half) offset = 0;
-        track.style.transform = 'translateX(' + offset + 'px)';
-        requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    } catch (e) {}
-  })();
-    try{
-      const today = new Date();
-      const start = new Date('2026-01-01T00:00:00');
-      const end   = new Date('2026-04-26T23:59:59');
-      const dismissed = localStorage.getItem('popupDismissed2026')==='1';
-      if(!dismissed && today>=start && today<=end){
-        document.getElementById('popup').style.display='flex';
-      }
-      document.getElementById('closePopup').addEventListener('click', function(){
-        document.getElementById('popup').style.display='none';
-        localStorage.setItem('popupDismissed2026','1');
-      });
-    }catch(e){}
-  })();
+  (function(){ try{ const today=new Date(); const start=new Date('2026-01-01T00:00:00'); const end=new Date('2026-04-26T23:59:59'); const dismissed=localStorage.getItem('popupDismissed2026')==='1'; if(!dismissed && today>=start && today<=end){ document.getElementById('popup').style.display='flex'; } document.getElementById('closePopup').addEventListener('click', function(){ document.getElementById('popup').style.display='none'; localStorage.setItem('popupDismissed2026','1'); }); }catch(e){} })();
   </script>
 </body>
 </html>
