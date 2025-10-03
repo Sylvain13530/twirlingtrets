@@ -9,19 +9,15 @@
     .cards { display:grid; grid-template-columns:repeat(12,1fr); gap:16px }
     .card-link { text-decoration:none; color:inherit; display:block }
     .card.clickable:hover { box-shadow:0 6px 18px rgba(0,0,0,.08) }
-    /* Media thumbs */
     .thumb { width:100%; height:180px; border-radius:10px; object-fit:cover; background:#f1f5f9; display:block }
     .thumb-fallback { width:100%; height:180px; border-radius:10px; background:linear-gradient(135deg,#fde68a,#fecaca); display:flex; align-items:center; justify-content:center; font-weight:700 }
-    /* Layout spans */
     .span-4 { grid-column:span 4 }
     .span-8 { grid-column:span 8 }
     .span-12 { grid-column:span 12 }
-    @media (max-width:900px){
-      .span-4, .span-8 { grid-column:span 12 }
-    }
-    /* Mini list in cards */
+    @media (max-width:900px){ .span-4, .span-8 { grid-column:span 12 } }
     .mini { margin:8px 0 0; padding-left:18px }
     .mini li { margin:4px 0 }
+    .fb-avatar { width:80px; height:80px; border-radius:999px; border:1px solid var(--line); object-fit:cover; background:#fff }
   </style>
 </head>
 <body>
@@ -34,7 +30,6 @@
   </section>
 
   <main class="wrap cards">
-    <!-- Le club -->
     <a href="le-club.html" class="card-link span-8">
       <section class="card clickable">
         <h2>Le club</h2>
@@ -42,16 +37,25 @@
       </section>
     </a>
 
-    <!-- Actualités -->
     <a href="actualites.html" class="card-link span-4">
       <section class="card clickable">
         <h2>Actualités</h2>
-        <p>Suivez nos dernières nouvelles publiées sur Facebook.</p>
-        <p class="muted">La v6 ajoutera la photo de profil Facebook ici.</p>
+        <div style="display:flex; align-items:center; gap:12px">
+          <img
+            class="fb-avatar"
+            src="https://graph.facebook.com/v19.0/twirlingtrets/picture?type=large"
+            alt="Photo de profil Facebook du club"
+            referrerpolicy="no-referrer"
+            onerror="this.style.display='none'"
+          />
+          <div>
+            <p style="margin:0">Suivez nos dernières nouvelles.</p>
+            <p class="muted" style="margin:4px 0 0">Cliquez pour voir le fil complet.</p>
+          </div>
+        </div>
       </section>
     </a>
 
-    <!-- Galerie avec mini diapo -->
     <a href="galerie.html" class="card-link span-8">
       <section class="card clickable">
         <h2>Galerie</h2>
@@ -62,7 +66,6 @@
       </section>
     </a>
 
-    <!-- Calendrier (aperçu) -->
     <a href="calendrier.html" class="card-link span-4">
       <section class="card clickable">
         <h2>Calendrier</h2>
@@ -80,12 +83,17 @@
       </section>
     </a>
 
-    <!-- Buvette -->
     <a href="buvette.html" class="card-link span-12">
       <section class="card clickable">
         <h2>Buvette</h2>
         <div id="buvetteThumbWrap">
-          <img id="buvetteThumb" class="thumb" src="assets/buvette.jpg" alt="Buvette – aperçu" onerror="this.style.display='none';document.getElementById('buvetteFallback').style.display='flex';" />
+          <img
+            id="buvetteThumb"
+            class="thumb"
+            src="assets/buvette.jpg"
+            alt="Buvette – aperçu"
+            onerror="this.style.display='none';document.getElementById('buvetteFallback').style.display='flex';"
+          />
           <div id="buvetteFallback" class="thumb-fallback" style="display:none">
             <span>Photo buvette à venir</span>
           </div>
@@ -94,7 +102,6 @@
       </section>
     </a>
 
-    <!-- Sponsors -->
     <a href="sponsors.html" class="card-link span-12">
       <section class="card clickable">
         <h2>Sponsors</h2>
@@ -110,25 +117,20 @@
     </a>
   </main>
 
-  <footer class="footer wrap">
-    <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
-  </footer>
-  <script>
-    document.querySelectorAll('#year').forEach(function(n){ n.textContent = new Date().getFullYear(); });
-  </script>
+  <div id="site-footer"></div>
+  <script src="assets/inject-footer.js" defer></script>
 
   <script>
-    // --- Diaporama Galerie (modifie la liste selon tes fichiers) ---
     const galleryFiles = [
-      "Gala 2025 1.jpg",
       "Gala 2025 2.jpg",
       "Compet 1.jpg",
       "Compet 2.jpg",
-      "Journées des associations 2025 1.jpg"
+      "Journées des associations 2025 1.jpg",
+      "Gala 2024.jpg"
     ];
     (function(){
       var img = document.getElementById("slideshow");
-      if(!img) return;
+      if(!img || !galleryFiles.length) return;
       var i = 0;
       function setSrc(){
         var src = "assets/galerie/" + galleryFiles[i % galleryFiles.length];
@@ -137,7 +139,6 @@
       setSrc();
       setInterval(function(){ i++; setSrc(); }, 2500);
       img.addEventListener("error", function(){
-        // Si un fichier n'existe pas, on passe au suivant
         i++;
         setSrc();
       });
