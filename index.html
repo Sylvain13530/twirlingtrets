@@ -9,26 +9,55 @@
 <body>
   <div id="site-header"></div>
   <script src="assets/inject-header.js" defer></script>
+
   <section class="hero wrap">
     <h1>Site officiel du Twirling Bâton Trets</h1>
     <p>Bienvenue. Retrouvez les informations du club et les actualités.</p>
   </section>
+
   <main class="wrap grid">
+    <section class="card" style="grid-column:span 12">
+      <h2>Accès rapide</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <a href="le-club.html" class="quick" style="display:inline-block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none">Le club</a>
+        <a href="actualites.html" class="quick" style="display:inline-block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none">Actualités</a>
+        <a href="galerie.html" class="quick" style="display:inline-block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none">Galerie</a>
+        <a href="calendrier.html" class="quick" style="display:inline-block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none">Calendrier</a>
+        <a href="buvette.html" class="quick" style="display:inline-block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none">Buvette</a>
+        <a href="sponsors.html" class="quick" style="display:inline-block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none">Sponsors</a>
+        <a href="contact.html" class="quick" style="display:inline-block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none">Contact</a>
+      </div>
+    </section>
+
     <section class="card" style="grid-column:span 8">
       <h2>Le club</h2>
       <p>(Texte de présentation à venir.)</p>
     </section>
+
     <section class="card" style="grid-column:span 4">
       <h2>Actualités</h2>
-      <p>Les derniers posts Facebook seront intégrés ici.</p>
+      <p>Retrouvez notre fil sur la page <a href="actualites.html">Actualités</a>.</p>
+      <p class="muted">Pour la v6, on ajoutera la photo de profil Facebook ici.</p>
+    </section>
+
+    <section class="card" style="grid-column:span 12">
+      <h2>Sponsors</h2>
+      <div class="sponsors">
+        <a href="https://www.trets.fr/" target="_blank" rel="noopener" title="Ville de Trets">
+          <img src="assets/sponsor-trets.png" alt="Ville de Trets" />
+        </a>
+        <a href="https://www.syal-services.fr/" target="_blank" rel="noopener" title="Syal Services">
+          <img src="assets/sponsor-syal.jpg" alt="Syal Services" />
+        </a>
+      </div>
     </section>
   </main>
+
   <footer class="footer wrap">
     <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
   </footer>
   <script>
     document.querySelectorAll('#year').forEach(function(n){ n.textContent = new Date().getFullYear(); });
   </script>
-
 </body>
 </html>
