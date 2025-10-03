@@ -9,25 +9,35 @@
 <body>
   <div id="site-header"></div>
   <script src="assets/inject-header.js" defer></script>
+
   <section class="hero wrap">
     <h1>Sponsors et partenaires</h1>
+    <p>Merci à nos partenaires pour leur soutien.</p>
   </section>
+
   <main class="wrap card">
     <div class="sponsors">
-      <a href="https://www.trets.fr/" target="_blank" rel="noopener" title="Ville de Trets">
+      <a
+        href="https://www.trets.fr/"
+        target="_blank"
+        rel="noopener"
+        title="Ville de Trets"
+      >
         <img src="assets/sponsor-trets.png" alt="Ville de Trets" />
       </a>
-      <a href="https://www.syal-services.fr/" target="_blank" rel="noopener" title="Syal Services">
+
+      <a
+        href="https://www.syal-services.fr/"
+        target="_blank"
+        rel="noopener"
+        title="Syal Services"
+      >
         <img src="assets/sponsor-syal.jpg" alt="Syal Services" />
       </a>
     </div>
   </main>
-  <footer class="footer wrap">
-    <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
-  </footer>
-  <script>
-    document.querySelectorAll('#year').forEach(function(n){ n.textContent = new Date().getFullYear(); });
-  </script>
 
+  <div id="site-footer"></div>
+  <script src="assets/inject-footer.js" defer></script>
 </body>
 </html>
