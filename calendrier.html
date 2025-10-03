@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calendrier – Twirling Bâton Trets</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+  <script src="assets/inject-header.js" defer></script>
+  <section class="hero wrap">
+    <h1>Calendrier</h1>
+    <ul class="card">
+      <li>Ligue N3 PACA Corse — 25–26 avril 2026 — Gymnase de la Gardi, Trets</li>
+    </ul>
+  </section>
+  <footer class="footer wrap">
+    <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
+  </footer>
+  <script>
+    document.querySelectorAll('#year').forEach(function(n){ n.textContent = new Date().getFullYear(); });
+  </script>
+
+</body>
+</html>

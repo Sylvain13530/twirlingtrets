@@ -1,0 +1,66 @@
+(function () {
+  function injectHeader() {
+    var mount = document.getElementById('site-header');
+    if (!mount) return;
+    fetch('partials/header.html', { cache: 'no-cache' })
+      .then(function (r) { return r.text(); })
+      .then(function (html) {
+        mount.innerHTML = html;
+        afterHeaderInjected();
+      })
+      .catch(function () { /* noop */ });
+  }
+
+  function afterHeaderInjected() {
+    try {
+      var track = document.getElementById('marqueeTrack');
+      if (track) {
+        var cssAnimOn = getComputedStyle(track).animationName !== 'none';
+        if (!cssAnimOn) {
+          var offset = 0;
+          function tick() {
+            offset -= 1;
+            var half = track.scrollWidth / 2;
+            if (Math.abs(offset) >= half) offset = 0;
+            track.style.transform = 'translateX(' + offset + 'px)';
+            requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        }
+      }
+
+      var popup = document.getElementById('popup');
+      var btnClose = document.getElementById('closePopup');
+      if (popup && btnClose) {
+        var today = new Date();
+        var start = new Date('2026-01-01T00:00:00');
+        var end = new Date('2026-04-26T23:59:59');
+        var dismissed = localStorage.getItem('popupDismissed2026') === '1';
+        if (!dismissed && today >= start && today <= end) {
+          popup.style.display = 'flex';
+        }
+        btnClose.addEventListener('click', function () {
+          popup.style.display = 'none';
+          localStorage.setItem('popupDismissed2026', '1');
+        });
+      }
+
+      var links = document.querySelectorAll('header nav a[href]');
+      var path = location.pathname.split('/').pop() || 'index.html';
+      links.forEach(function (a) {
+        if (a.getAttribute('href') === path) {
+          a.setAttribute('data-active', 'true');
+        }
+      });
+
+      // Hide banner on buvette page only
+      var hideBanner = /(^|\/)buvette\.html$/.test(location.pathname);
+      if (hideBanner) {
+        var b = document.querySelector('.banner');
+        if (b) b.style.display = 'none';
+      }
+    } catch (e) { /* noop */ }
+  }
+
+  document.addEventListener('DOMContentLoaded', injectHeader);
+})();

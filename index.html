@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Accueil – Twirling Bâton Trets</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+  <script src="assets/inject-header.js" defer></script>
+  <section class="hero wrap">
+    <h1>Site officiel du Twirling Bâton Trets</h1>
+    <p>Bienvenue. Retrouvez les informations du club et les actualités.</p>
+  </section>
+  <main class="wrap grid">
+    <section class="card" style="grid-column:span 8">
+      <h2>Le club</h2>
+      <p>(Texte de présentation à venir.)</p>
+    </section>
+    <section class="card" style="grid-column:span 4">
+      <h2>Actualités</h2>
+      <p>Les derniers posts Facebook seront intégrés ici.</p>
+    </section>
+  </main>
+  <footer class="footer wrap">
+    <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
+  </footer>
+  <script>
+    document.querySelectorAll('#year').forEach(function(n){ n.textContent = new Date().getFullYear(); });
+  </script>
+
+</body>
+</html>
