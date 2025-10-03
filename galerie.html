@@ -5,14 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Galerie – Twirling Bâton Trets</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .gallery-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px }
+    .gallery-item { background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.04) }
+    .gallery-item img { width:100%; height:220px; object-fit:cover; display:block }
+    .gallery-item figcaption { padding:10px 12px; font-size:14px; color:#374151 }
+  </style>
 </head>
 <body>
   <div id="site-header"></div>
   <script src="assets/inject-header.js" defer></script>
+
   <section class="hero wrap">
     <h1>Galerie</h1>
-    <p>Albums et photos seront ajoutés prochainement.</p>
+    <p>Quelques moments du club en images.</p>
   </section>
+
+  <main class="wrap">
+    <div id="gallery" class="gallery-grid"></div>
+  </main>
+
   <footer class="footer wrap">
     <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
   </footer>
@@ -20,5 +32,46 @@
     document.querySelectorAll('#year').forEach(function(n){ n.textContent = new Date().getFullYear(); });
   </script>
 
+  <script>
+    // Liste des fichiers présents dans assets/galerie/
+    const photos = [
+      "Champions de la ville de Trets 1.jpg",
+      "Compet 1.jpg",
+      "Compet 10.jpg",
+      "Compet 11.jpg",
+      "Compet 12.jpg",
+      "Compet 2.jpg",
+      "Compet 3.jpg",
+      "Compet 4.jpg",
+      "Compet 5.jpg",
+      "Compet 6.jpg",
+      "Compet 7.jpg",
+      "Compet 8.jpg",
+      "Compet 9.jpg",
+      "Gala 2023.jpg",
+      "Gala 2024.jpg",
+      "Gala 2025 1.jpg",
+      "Gala 2025 2.jpg",
+      "Journées des associations 2025 1.jpg",
+      "Journées des associations 2025 2.jpg",
+      "Journées des associations 2025 3.jpg"
+    ];
+
+    // Génération du HTML
+    const root = document.getElementById("gallery");
+    const toCaption = (name) => name.replace(/\.[^.]+$/, "");
+    const escapeAttr = (s) => s.replace(/"/g, "&quot;");
+
+    root.innerHTML = photos.map(function(file){
+      const src = "assets/galerie/" + file;
+      const caption = toCaption(file);
+      return (
+        '<figure class="gallery-item">' +
+          '<img src="' + escapeAttr(src) + '" alt="' + escapeAttr(caption) + '" loading="lazy" />' +
+          '<figcaption>' + caption + '</figcaption>' +
+        '</figure>'
+      );
+    }).join("");
+  </script>
 </body>
 </html>
