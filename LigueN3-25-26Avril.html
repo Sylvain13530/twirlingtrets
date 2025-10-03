@@ -122,23 +122,9 @@
     </ul>
     <p>
       📍 Ouvrir le plan d’accès :
-      <a
-        id="gmaps"
-        href="https://www.google.com/maps/search/?api=1&query=43.445891,5.702016"
-        target="_blank"
-        rel="noopener"
-      >
-        Google Maps
-      </a>
+      <a id="gmaps" href="https://www.google.com/maps/search/?api=1&query=43.445891,5.702016" target="_blank" rel="noopener">Google Maps</a>
       •
-      <a
-        id="amaps"
-        href="https://maps.apple.com/?ll=43.445891,5.702016&q=Gymnase%20de%20la%20Gardi"
-        target="_blank"
-        rel="noopener"
-      >
-        Apple Plans
-      </a>
+      <a id="amaps" href="https://maps.apple.com/?ll=43.445891,5.702016&q=Gymnase%20de%20la%20Gardi" target="_blank" rel="noopener">Apple Plans</a>
     </p>
   </section>
 
@@ -221,7 +207,6 @@
       </p>
     </section>
 
-    <!-- Réservations clubs (intégrées sous la buvette) -->
     <section class="card">
       <h2>Réservations clubs</h2>
       <p class="muted">
@@ -233,19 +218,16 @@
           <label for="club2">Nom du club</label>
           <input id="club2" type="text" placeholder="Ex. TBT Marseille" />
         </div>
-
         <div class="col-6" style="grid-column:span 6">
           <label for="contact2">Contact (nom + téléphone / e-mail)</label>
           <input id="contact2" type="text" placeholder="Ex. Dupont 06 12 34 56 78" />
         </div>
-
         <div class="col-12" style="grid-column:span 12">
           <label for="commande2">Détails de commande</label>
           <textarea id="commande2" placeholder="Ex. 6 sandwich saucisse, 4 panini jambon, 10 Coca, 8 crêpes Nutella…" style="min-height:120px"></textarea>
         </div>
-
         <div class="col-12" style="grid-column:span 12; display:flex; gap:8px; flex-wrap:wrap; align-items:center">
-          <button id="btnMail2">📧 Envoyer la demande</button>
+          <button id="btnMail2" type="button">📧 Envoyer la demande</button>
           <span class="muted">
             Pour toute autre demande concernant la buvette :
             <a href="mailto:buvettetbt@gmail.com">buvettetbt@gmail.com</a>
@@ -253,15 +235,31 @@
         </div>
       </div>
 
+      <a id="mailtoTmp2" href="#" style="display:none">mail</a>
       <script>
         (function(){
           const RESA_EMAIL = "buvettetbt@gmail.com";
           const SUBJECT = "Réservation clubs – Ligue N3 25–26 avril 2026";
-          function body(lines){ return encodeURIComponent(lines.join("\n")); }
 
+          function buildBody(lines){
+            return encodeURIComponent(lines.join("\r\n"));
+          }
+          function openMailto(href){
+            try {
+              var a = document.getElementById("mailtoTmp2");
+              if (a) {
+                a.setAttribute("href", href);
+                a.click();
+              }
+              window.open(href, "_self");
+            } catch(e){
+              alert("Si l’e-mail ne s’ouvre pas, envoyez votre demande à : " + RESA_EMAIL);
+            }
+          }
           var btn = document.getElementById("btnMail2");
           if (!btn) return;
-          btn.addEventListener("click", function(){
+          btn.addEventListener("click", function(e){
+            e.preventDefault();
             var club = (document.getElementById("club2").value || "").trim();
             var contact = (document.getElementById("contact2").value || "").trim();
             var commande = (document.getElementById("commande2").value || "").trim();
@@ -278,24 +276,17 @@
               "",
               "Merci !"
             ];
-
             var href = "mailto:" + encodeURIComponent(RESA_EMAIL)
                      + "?subject=" + encodeURIComponent(SUBJECT)
-                     + "&body=" + body(lines);
-            window.location.href = href;
+                     + "&body=" + buildBody(lines);
+            openMailto(href);
           });
         })();
       </script>
     </section>
   </main>
 
-  <div
-    id="lightbox"
-    class="lightbox"
-    aria-modal="true"
-    role="dialog"
-    aria-label="Agrandissement photo"
-  >
+  <div id="lightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Agrandissement photo">
     <button class="lb-close" id="lbClose" aria-label="Fermer">✕</button>
     <button class="lb-prev" id="lbPrev" aria-label="Précédente">‹</button>
     <img id="lbImg" alt="Photo gymnase" />
@@ -395,7 +386,6 @@
       const n = Number(p);
       return (isNaN(n) ? s : n.toFixed(2).replace('.', ',')) + ' €';
     };
-
     fetch('menu.json')
       .then(function(r){ return r.json(); })
       .then(function(ITEMS){
@@ -404,7 +394,6 @@
         select.innerHTML =
           '<option value="">Catégorie : toutes</option>' +
           cats.map(function(c){ return '<option>' + c + '</option>'; }).join('');
-
         function render() {
           const q = (document.getElementById('q').value || '').trim().toLowerCase();
           const cat = select.value;
@@ -420,11 +409,9 @@
                 '</tr>'
               );
             }).join('');
-
           document.querySelector('#menuTable tbody').innerHTML =
             rows || '<tr><td colspan="3" class="muted">Aucun article…</td></tr>';
         }
-
         document.getElementById('q').addEventListener('input', render);
         select.addEventListener('input', render);
         render();
