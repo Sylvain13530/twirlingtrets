@@ -90,6 +90,26 @@
   </div>
   <script>
   (function(){
+      (function () {
+    try {
+      var track = document.getElementById('marqueeTrack');
+      if (!track) return;
+      // Si l’animation CSS est désactivée (certaines prefs), on fait défiler en JS
+      var cssWorks = getComputedStyle(track).animationName !== 'none';
+      if (cssWorks) return;
+
+      var offset = 0;
+      function tick() {
+        offset -= 1; // vitesse
+        // largeur de moitié de piste (on a dupliqué 2x la séquence)
+        var half = track.scrollWidth / 2;
+        if (Math.abs(offset) >= half) offset = 0;
+        track.style.transform = 'translateX(' + offset + 'px)';
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    } catch (e) {}
+  })();
     try{
       const today = new Date();
       const start = new Date('2026-01-01T00:00:00');
