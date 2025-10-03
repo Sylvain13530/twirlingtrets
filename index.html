@@ -5,6 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Accueil – Twirling Bâton Trets</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .cards { display:grid; grid-template-columns:repeat(12,1fr); gap:16px }
+    .card-link { text-decoration:none; color:inherit; display:block }
+    .card.clickable:hover { box-shadow:0 6px 18px rgba(0,0,0,.08) }
+    /* Media thumbs */
+    .thumb { width:100%; height:180px; border-radius:10px; object-fit:cover; background:#f1f5f9; display:block }
+    .thumb-fallback { width:100%; height:180px; border-radius:10px; background:linear-gradient(135deg,#fde68a,#fecaca); display:flex; align-items:center; justify-content:center; font-weight:700 }
+    /* Layout spans */
+    .span-4 { grid-column:span 4 }
+    .span-8 { grid-column:span 8 }
+    .span-12 { grid-column:span 12 }
+    @media (max-width:900px){
+      .span-4, .span-8 { grid-column:span 12 }
+    }
+    /* Mini list in cards */
+    .mini { margin:8px 0 0; padding-left:18px }
+    .mini li { margin:4px 0 }
+  </style>
 </head>
 <body>
   <div id="site-header"></div>
@@ -15,42 +33,81 @@
     <p>Bienvenue. Retrouvez les informations du club et les actualités.</p>
   </section>
 
-  <main class="wrap grid">
-    <section class="card" style="grid-column:span 12">
-      <h2>Accès rapide</h2>
-      <div style="display:flex;flex-wrap:wrap;gap:10px">
-        <a href="le-club.html" class="quick" style="display:inline-block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none">Le club</a>
-        <a href="actualites.html" class="quick" style="display:inline-block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none">Actualités</a>
-        <a href="galerie.html" class="quick" style="display:inline-block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none">Galerie</a>
-        <a href="calendrier.html" class="quick" style="display:inline-block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none">Calendrier</a>
-        <a href="buvette.html" class="quick" style="display:inline-block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none">Buvette</a>
-        <a href="sponsors.html" class="quick" style="display:inline-block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none">Sponsors</a>
-        <a href="contact.html" class="quick" style="display:inline-block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;text-decoration:none">Contact</a>
-      </div>
-    </section>
+  <main class="wrap cards">
+    <!-- Le club -->
+    <a href="le-club.html" class="card-link span-8">
+      <section class="card clickable">
+        <h2>Le club</h2>
+        <p>Présentation, valeurs, encadrement, inscriptions…</p>
+      </section>
+    </a>
 
-    <section class="card" style="grid-column:span 8">
-      <h2>Le club</h2>
-      <p>(Texte de présentation à venir.)</p>
-    </section>
+    <!-- Actualités -->
+    <a href="actualites.html" class="card-link span-4">
+      <section class="card clickable">
+        <h2>Actualités</h2>
+        <p>Suivez nos dernières nouvelles publiées sur Facebook.</p>
+        <p class="muted">La v6 ajoutera la photo de profil Facebook ici.</p>
+      </section>
+    </a>
 
-    <section class="card" style="grid-column:span 4">
-      <h2>Actualités</h2>
-      <p>Retrouvez notre fil sur la page <a href="actualites.html">Actualités</a>.</p>
-      <p class="muted">Pour la v6, on ajoutera la photo de profil Facebook ici.</p>
-    </section>
+    <!-- Galerie avec mini diapo -->
+    <a href="galerie.html" class="card-link span-8">
+      <section class="card clickable">
+        <h2>Galerie</h2>
+        <div style="position:relative">
+          <img id="slideshow" class="thumb" src="" alt="Aperçu galerie" />
+        </div>
+        <p class="muted">Un aperçu de nos photos récentes.</p>
+      </section>
+    </a>
 
-    <section class="card" style="grid-column:span 12">
-      <h2>Sponsors</h2>
-      <div class="sponsors">
-        <a href="https://www.trets.fr/" target="_blank" rel="noopener" title="Ville de Trets">
-          <img src="assets/sponsor-trets.png" alt="Ville de Trets" />
-        </a>
-        <a href="https://www.syal-services.fr/" target="_blank" rel="noopener" title="Syal Services">
-          <img src="assets/sponsor-syal.jpg" alt="Syal Services" />
-        </a>
-      </div>
-    </section>
+    <!-- Calendrier (aperçu) -->
+    <a href="calendrier.html" class="card-link span-4">
+      <section class="card clickable">
+        <h2>Calendrier</h2>
+        <ul class="mini">
+          <li>11–12 avril 2026 — Ligue N2</li>
+          <li>18–19 avril 2026 — Ligue N1</li>
+          <li>25–26 avril 2026 — Ligue N3 PACA</li>
+          <li>9–10 mai 2026 — Demi-finale N2</li>
+          <li>16–17 mai 2026 — Demi-finale N1</li>
+          <li>30–31 mai 2026 — Demi-finale N3</li>
+          <li>6–7 juin 2026 — Finale N2</li>
+          <li>13–14 juin 2026 — Finale N1</li>
+          <li>20–21 juin 2026 — Finale N3</li>
+        </ul>
+      </section>
+    </a>
+
+    <!-- Buvette -->
+    <a href="buvette.html" class="card-link span-12">
+      <section class="card clickable">
+        <h2>Buvette</h2>
+        <div id="buvetteThumbWrap">
+          <img id="buvetteThumb" class="thumb" src="assets/buvette.jpg" alt="Buvette – aperçu" onerror="this.style.display='none';document.getElementById('buvetteFallback').style.display='flex';" />
+          <div id="buvetteFallback" class="thumb-fallback" style="display:none">
+            <span>Photo buvette à venir</span>
+          </div>
+        </div>
+        <p>Menu, prix, infos pratiques. Paiements : espèces et carte (pas de chèques).</p>
+      </section>
+    </a>
+
+    <!-- Sponsors -->
+    <a href="sponsors.html" class="card-link span-12">
+      <section class="card clickable">
+        <h2>Sponsors</h2>
+        <div class="sponsors">
+          <span style="display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:12px;padding:8px">
+            <img src="assets/sponsor-trets.png" alt="Ville de Trets" style="max-height:56px;max-width:100%" />
+          </span>
+          <span style="display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:12px;padding:8px">
+            <img src="assets/sponsor-syal.jpg" alt="Syal Services" style="max-height:56px;max-width:100%" />
+          </span>
+        </div>
+      </section>
+    </a>
   </main>
 
   <footer class="footer wrap">
@@ -58,6 +115,33 @@
   </footer>
   <script>
     document.querySelectorAll('#year').forEach(function(n){ n.textContent = new Date().getFullYear(); });
+  </script>
+
+  <script>
+    // --- Diaporama Galerie (modifie la liste selon tes fichiers) ---
+    const galleryFiles = [
+      "Gala 2025 1.jpg",
+      "Gala 2025 2.jpg",
+      "Compet 1.jpg",
+      "Compet 2.jpg",
+      "Journées des associations 2025 1.jpg"
+    ];
+    (function(){
+      var img = document.getElementById("slideshow");
+      if(!img) return;
+      var i = 0;
+      function setSrc(){
+        var src = "assets/galerie/" + galleryFiles[i % galleryFiles.length];
+        img.src = src;
+      }
+      setSrc();
+      setInterval(function(){ i++; setSrc(); }, 2500);
+      img.addEventListener("error", function(){
+        // Si un fichier n'existe pas, on passe au suivant
+        i++;
+        setSrc();
+      });
+    })();
   </script>
 </body>
 </html>
