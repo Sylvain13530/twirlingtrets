@@ -29,11 +29,7 @@
     </ul>
   </main>
 
-  <footer class="footer wrap">
-    <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
-  </footer>
-  <script>
-    document.querySelectorAll('#year').forEach(function(n){ n.textContent = new Date().getFullYear(); });
-  </script>
+  <div id="site-footer"></div>
+  <script src="assets/inject-footer.js" defer></script>
 </body>
 </html>
