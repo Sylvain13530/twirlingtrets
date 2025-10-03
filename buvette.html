@@ -6,7 +6,6 @@
   <title>Buvette – Twirling Bâton Trets</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Hero avec image de fond + voile pour lisibilité */
     .hero--bg {
       position: relative;
       background-image: url("assets/galerie/Gala%202025%202.jpg");
@@ -26,127 +25,52 @@
       position: relative;
       z-index: 1;
     }
-    .hero--bg h1 { color: #fff; }
-    .hero--bg p { color: #f3f4f6; }
-
-    /* Formulaire de réservation */
+    .hero--bg h1 {
+      color: #fff;
+    }
+    .hero--bg p {
+      color: #f3f4f6;
+    }
     .form-grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       gap: 12px;
     }
-    .col-6 { grid-column: span 6; }
-    .col-12 { grid-column: span 12; }
-    @media (max-width:900px){
-      .col-6 { grid-column: span 12; }
+    .col-6 {
+      grid-column: span 6;
     }
-    textarea { min-height: 120px; }
+    .col-12 {
+      grid-column: span 12;
+    }
+    @media (max-width:900px){
+      .col-6 {
+        grid-column: span 12;
+      }
+    }
+    textarea {
+      min-height: 120px;
+    }
   </style>
 </head>
 <body>
   <div id="site-header"></div>
   <script src="assets/inject-header.js" defer></script>
 
-  <!-- Bannière avec photo d’équipe en fond -->
   <section class="hero hero--bg">
     <div class="wrap">
       <h1>Buvette – Ligue N3 (25–26 avril 2026)</h1>
       <p class="muted" style="color:#e5e7eb">
         Pour l’accès, le règlement (interdiction de manger dans le gymnase) et les modalités de paiement,
-        voir la page <a href="LigueN3-25-26Avril.html" style="color:#fff;text-decoration:underline">évènement</a>.
+        voir la page
+        <a href="LigueN3-25-26Avril.html" style="color:#fff;text-decoration:underline">évènement</a>.
       </p>
     </div>
   </section>
 
   <main class="wrap" style="display:grid;grid-template-columns:repeat(12,1fr);gap:16px">
-    <!-- Réservations clubs -->
-    <section class="card" style="grid-column:span 12">
-      <h2>Réservations clubs</h2>
-      <p class="muted">Réservez vos repas ou commandes à l’avance : nous préparons et vous retirez sur place (paiement au retrait).</p>
-
-      <div class="form-grid">
-        <div class="col-6">
-          <label for="club">Nom du club</label>
-          <input id="club" type="text" placeholder="Ex. TBT Marseille" />
-        </div>
-
-        <div class="col-6">
-          <label for="contact">Contact (nom + téléphone / e-mail)</label>
-          <input id="contact" type="text" placeholder="Ex. Dupont 06 12 34 56 78" />
-        </div>
-
-        <div class="col-6">
-          <label for="jour">Jour</label>
-          <select id="jour">
-            <option value="">— Sélectionner —</option>
-            <option>Samedi 25 avril – Midi</option>
-            <option>Samedi 25 avril – Après-midi</option>
-            <option>Dimanche 26 avril – Midi</option>
-            <option>Dimanche 26 avril – Après-midi</option>
-          </select>
-        </div>
-
-        <div class="col-6">
-          <label for="heure">Heure souhaitée de retrait (approx.)</label>
-          <input id="heure" type="time" />
-        </div>
-
-        <div class="col-12">
-          <label for="commande">Détails de commande</label>
-          <textarea id="commande" placeholder="Ex. 6 sandwich saucisse, 4 panini jambon, 10 Coca, 8 crêpes Nutella…"></textarea>
-        </div>
-
-        <div class="col-12" style="display:flex; gap:8px; flex-wrap:wrap">
-          <button id="btnMail">📧 Envoyer par e-mail</button>
-          <a id="mailtoLink" href="#" style="display:none">Ouvrir l’e-mail</a>
-          <span class="muted">L’e-mail s’ouvre dans votre logiciel (aucune donnée n’est stockée sur le site).</span>
-        </div>
-      </div>
-
-      <script>
-        // Adresse de destination : à changer quand vous aurez l’adresse dédiée
-        const RESA_EMAIL = "twirlingtrets@gmail.com";
-        const SUBJECT = "Réservation clubs – Ligue N3 25–26 avril 2026";
-
-        function encodeBody(lines){
-          return encodeURIComponent(lines.join("\\n"));
-        }
-
-        document.getElementById("btnMail").addEventListener("click", function(){
-          var club = document.getElementById("club").value.trim();
-          var contact = document.getElementById("contact").value.trim();
-          var jour = document.getElementById("jour").value.trim();
-          var heure = document.getElementById("heure").value.trim();
-          var commande = document.getElementById("commande").value.trim();
-
-          var bodyLines = [
-            "Bonjour,",
-            "",
-            "Je souhaite effectuer une réservation pour la buvette :",
-            "Club : " + (club || "—"),
-            "Contact : " + (contact || "—"),
-            "Jour : " + (jour || "—"),
-            "Heure de retrait : " + (heure || "—"),
-            "",
-            "Commande :",
-            (commande || "—"),
-            "",
-            "Merci !"
-          ];
-
-          var href = "mailto:" + encodeURIComponent(RESA_EMAIL)
-                   + "?subject=" + encodeURIComponent(SUBJECT)
-                   + "&body=" + encodeBody(bodyLines);
-
-          // Ouvre l'e-mail
-          window.location.href = href;
-        });
-      </script>
-    </section>
-
-    <!-- Carte buvette -->
     <section class="card" style="grid-column:span 12">
       <h2>Carte de la buvette</h2>
+
       <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:12px">
         <input id="q" type="search" placeholder="Rechercher un article…" aria-label="Rechercher" />
         <select id="filterCat" aria-label="Filtrer par catégorie"></select>
@@ -166,7 +90,76 @@
         </table>
       </div>
 
-      <p class="note">Pour modifier la carte, éditez le fichier <code>menu.json</code>.</p>
+      <p class="note">
+        Pour modifier la carte, éditez le fichier
+        <code>menu.json</code>.
+      </p>
+    </section>
+
+    <section class="card" style="grid-column:span 12">
+      <h2>Réservations clubs</h2>
+      <p class="muted">
+        Réservez vos repas ou commandes à l’avance : nous préparons et vous retirez sur place (paiement au retrait).
+      </p>
+
+      <div class="form-grid">
+        <div class="col-6">
+          <label for="club">Nom du club</label>
+          <input id="club" type="text" placeholder="Ex. TBT Marseille" />
+        </div>
+
+        <div class="col-6">
+          <label for="contact">Contact (nom + téléphone / e-mail)</label>
+          <input id="contact" type="text" placeholder="Ex. Dupont 06 12 34 56 78" />
+        </div>
+
+        <div class="col-12">
+          <label for="commande">Détails de commande</label>
+          <textarea id="commande" placeholder="Ex. 6 sandwich saucisse, 4 panini jambon, 10 Coca, 8 crêpes Nutella…"></textarea>
+        </div>
+
+        <div class="col-12" style="display:flex; gap:8px; flex-wrap:wrap; align-items:center">
+          <button id="btnMail">📧 Envoyer la demande</button>
+          <span class="muted">
+            Pour toute autre demande concernant la buvette :
+            <a href="mailto:buvettetbt@gmail.com">buvettetbt@gmail.com</a>
+          </span>
+        </div>
+      </div>
+
+      <script>
+        const RESA_EMAIL = "buvettetbt@gmail.com";
+        const SUBJECT = "Réservation clubs – Ligue N3 25–26 avril 2026";
+
+        function encodeBody(lines){
+          return encodeURIComponent(lines.join("\n"));
+        }
+
+        document.getElementById("btnMail").addEventListener("click", function(){
+          var club = document.getElementById("club").value.trim();
+          var contact = document.getElementById("contact").value.trim();
+          var commande = document.getElementById("commande").value.trim();
+
+          var bodyLines = [
+            "Bonjour,",
+            "",
+            "Je souhaite effectuer une réservation pour la buvette :",
+            "Club : " + (club || "—"),
+            "Contact : " + (contact || "—"),
+            "",
+            "Commande :",
+            (commande || "—"),
+            "",
+            "Merci !"
+          ];
+
+          var href = "mailto:" + encodeURIComponent(RESA_EMAIL)
+                   + "?subject=" + encodeURIComponent(SUBJECT)
+                   + "&body=" + encodeBody(bodyLines);
+
+          window.location.href = href;
+        });
+      </script>
     </section>
   </main>
 
@@ -174,7 +167,6 @@
   <script src="assets/inject-footer.js" defer></script>
 
   <script>
-    // Charge le menu et applique recherche/filtre
     const fmt = (p) => {
       const s = String(p);
       if (s.includes('x') || s.includes(',')) {
