@@ -10,14 +10,10 @@
     .card-link { text-decoration:none; color:inherit; display:block }
     .card.clickable:hover { box-shadow:0 6px 18px rgba(0,0,0,.08) }
     .thumb { width:100%; height:180px; border-radius:10px; object-fit:cover; background:#f1f5f9; display:block }
-    .thumb-fallback { width:100%; height:180px; border-radius:10px; background:linear-gradient(135deg,#fde68a,#fecaca); display:flex; align-items:center; justify-content:center; font-weight:700 }
     .span-4 { grid-column:span 4 }
     .span-8 { grid-column:span 8 }
     .span-12 { grid-column:span 12 }
     @media (max-width:900px){ .span-4, .span-8 { grid-column:span 12 } }
-    .mini { margin:8px 0 0; padding-left:18px }
-    .mini li { margin:4px 0 }
-    .fb-avatar { width:80px; height:80px; border-radius:999px; border:1px solid var(--line); object-fit:cover; background:#fff }
   </style>
 </head>
 <body>
@@ -42,11 +38,11 @@
         <h2>Actualités</h2>
         <div style="display:flex; align-items:center; gap:12px">
           <img
-            class="fb-avatar"
             src="https://graph.facebook.com/v19.0/twirlingtrets/picture?type=large"
             alt="Photo de profil Facebook du club"
             referrerpolicy="no-referrer"
             onerror="this.style.display='none'"
+            style="width:80px;height:80px;border-radius:999px;border:1px solid var(--line);object-fit:cover;background:#fff"
           />
           <div>
             <p style="margin:0">Suivez nos dernières nouvelles.</p>
@@ -69,7 +65,7 @@
     <a href="calendrier.html" class="card-link span-4">
       <section class="card clickable">
         <h2>Calendrier</h2>
-        <ul class="mini">
+        <ul style="margin:8px 0 0; padding-left:18px">
           <li>11–12 avril 2026 — Ligue N2</li>
           <li>18–19 avril 2026 — Ligue N1</li>
           <li>25–26 avril 2026 — Ligue N3 PACA</li>
@@ -83,22 +79,25 @@
       </section>
     </a>
 
-    <a href="buvette.html" class="card-link span-12">
+    <a href="LigueN3-25-26Avril.html" class="card-link span-12">
       <section class="card clickable">
         <h2>Buvette</h2>
         <div id="buvetteThumbWrap">
           <img
             id="buvetteThumb"
             class="thumb"
-            src="assets/buvette.jpg"
+            src="/assets/Buvette.jpeg"
             alt="Buvette – aperçu"
             onerror="this.style.display='none';document.getElementById('buvetteFallback').style.display='flex';"
           />
-          <div id="buvetteFallback" class="thumb-fallback" style="display:none">
+          <div
+            id="buvetteFallback"
+            style="display:none;width:100%;height:180px;border-radius:10px;background:linear-gradient(135deg,#fde68a,#fecaca);display:flex;align-items:center;justify-content:center;font-weight:700"
+          >
             <span>Photo buvette à venir</span>
           </div>
         </div>
-        <p>Menu, prix, infos pratiques. Paiements : espèces et carte (pas de chèques).</p>
+        <p>Menu, prix, infos pratiques.</p>
       </section>
     </a>
 
@@ -138,10 +137,7 @@
       }
       setSrc();
       setInterval(function(){ i++; setSrc(); }, 2500);
-      img.addEventListener("error", function(){
-        i++;
-        setSrc();
-      });
+      img.addEventListener("error", function(){ i++; setSrc(); });
     })();
   </script>
 </body>
