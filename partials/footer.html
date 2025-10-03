@@ -1,0 +1,10 @@
+<footer class="footer wrap">
+  <div>© <span id="year"></span> Twirling Bâton Trets</div>
+</footer>
+
+<script>
+  // Met l'année courante automatiquement
+  document.querySelectorAll('#year').forEach(function (n) {
+    n.textContent = new Date().getFullYear();
+  });
+</script>
