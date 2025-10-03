@@ -272,73 +272,53 @@
       "Photo gymnase.png"
     ];
 
-    /* Construit des URL sûres (gère espaces/accents) */
-    const fullUrl = (f) => "assets/" + encodeURIComponent(f).replace(/%2F/g, "/");
+ const url = (f) => "assets/gymnase/" + encodeURIComponent(f).replace(/%2F/g,"/");
 
-    (function(){
-      var grid = document.getElementById("gymGrid");
-      if (!grid) return;
+  (function(){
+    var grid = document.getElementById("gymGrid");
+    if (!grid) return;
 
-      /* Inject miniatures (ici on utilise directement les originaux redimensionnés par CSS) */
-      grid.innerHTML = GYM_FILES.map(function(file, i){
-        const f = fullUrl(file);
-        return (
-          '<img ' +
-            'class="gym-thumb" ' +
-            'src="' + f + '" ' +
-            'alt="Photo gymnase ' + (i+1) + '" ' +
-            'loading="lazy" ' +
-            'data-idx="' + i + '"' +
-          ' />'
-        );
-      }).join("");
+    // Inject vignettes
+    grid.innerHTML = GYM_FILES.map(function(file, i){
+      return '<img class="gym-thumb" src="'+url(file)+'" alt="Photo gymnase '+(i+1)+'" loading="lazy" data-idx="'+i+'" />';
+    }).join("");
 
-      /* Lightbox */
-      var lb = document.getElementById("lightbox");
-      var img = document.getElementById("lbImg");
-      var btnPrev = document.getElementById("lbPrev");
-      var btnNext = document.getElementById("lbNext");
-      var btnClose = document.getElementById("lbClose");
-      var count = document.getElementById("lbCount");
-      var idx = 0;
+    // Lightbox
+    var lb = document.getElementById("lightbox");
+    var img = document.getElementById("lbImg");
+    var btnPrev = document.getElementById("lbPrev");
+    var btnNext = document.getElementById("lbNext");
+    var btnClose = document.getElementById("lbClose");
+    var count = document.getElementById("lbCount");
+    var idx = 0;
 
-      function openAt(i){
-        idx = (i + GYM_FILES.length) % GYM_FILES.length;
-        img.src = fullUrl(GYM_FILES[idx]);
-        count.textContent = (idx+1) + " / " + GYM_FILES.length;
-        lb.classList.add("open");
+    function openAt(i){
+      idx = (i + GYM_FILES.length) % GYM_FILES.length;
+      img.src = url(GYM_FILES[idx]);
+      count.textContent = (idx+1) + " / " + GYM_FILES.length;
+      lb.classList.add("open");
+    }
+    function close(){ lb.classList.remove("open"); img.src = ""; }
+    function prev(){ openAt(idx - 1); }
+    function next(){ openAt(idx + 1); }
+
+    grid.addEventListener("click", function(e){
+      var t = e.target;
+      if (t && t.classList.contains("gym-thumb")) {
+        openAt(parseInt(t.getAttribute("data-idx"), 10) || 0);
       }
-      function close(){
-        lb.classList.remove("open");
-        img.src = "";
-      }
-      function prev(){ openAt(idx - 1); }
-      function next(){ openAt(idx + 1); }
-
-      grid.addEventListener("click", function(e){
-        var t = e.target;
-        if (t && t.classList.contains("gym-thumb")) {
-          openAt(parseInt(t.getAttribute("data-idx"), 10) || 0);
-        }
-      });
-
-      btnPrev.addEventListener("click", function(e){ e.stopPropagation(); prev(); });
-      btnNext.addEventListener("click", function(e){ e.stopPropagation(); next(); });
-      btnClose.addEventListener("click", function(e){ e.stopPropagation(); close(); });
-
-      /* Fermer si clic sur le fond */
-      lb.addEventListener("click", function(e){
-        if (e.target === lb) close();
-      });
-
-      /* Navigation clavier */
-      document.addEventListener("keydown", function(e){
-        if (!lb.classList.contains("open")) return;
-        if (e.key === "Escape") close();
-        if (e.key === "ArrowLeft") prev();
-        if (e.key === "ArrowRight") next();
-      });
-    })();
+    });
+    btnPrev.addEventListener("click", function(e){ e.stopPropagation(); prev(); });
+    btnNext.addEventListener("click", function(e){ e.stopPropagation(); next(); });
+    btnClose.addEventListener("click", function(e){ e.stopPropagation(); close(); });
+    lb.addEventListener("click", function(e){ if (e.target === lb) close(); });
+    document.addEventListener("keydown", function(e){
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    });
+  })();
   </script>
 
   <script>
