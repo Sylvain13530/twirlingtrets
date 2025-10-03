@@ -6,7 +6,6 @@
   <title>Ligue N3 – 25–26 avril 2026 – Twirling Bâton Trets</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Galerie gymnase + lightbox */
     .gym-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -215,10 +214,81 @@
           <tbody></tbody>
         </table>
       </div>
+
+      <p class="note">
+        Pour modifier la carte, éditez le fichier
+        <code>menu.json</code>.
+      </p>
+    </section>
+
+    <!-- Réservations clubs (intégrées sous la buvette) -->
+    <section class="card">
+      <h2>Réservations clubs</h2>
+      <p class="muted">
+        Réservez vos repas ou commandes à l’avance : nous préparons et vous retirez sur place (paiement au retrait).
+      </p>
+
+      <div class="form-grid" style="display:grid;grid-template-columns:repeat(12,1fr);gap:12px">
+        <div class="col-6" style="grid-column:span 6">
+          <label for="club2">Nom du club</label>
+          <input id="club2" type="text" placeholder="Ex. TBT Marseille" />
+        </div>
+
+        <div class="col-6" style="grid-column:span 6">
+          <label for="contact2">Contact (nom + téléphone / e-mail)</label>
+          <input id="contact2" type="text" placeholder="Ex. Dupont 06 12 34 56 78" />
+        </div>
+
+        <div class="col-12" style="grid-column:span 12">
+          <label for="commande2">Détails de commande</label>
+          <textarea id="commande2" placeholder="Ex. 6 sandwich saucisse, 4 panini jambon, 10 Coca, 8 crêpes Nutella…" style="min-height:120px"></textarea>
+        </div>
+
+        <div class="col-12" style="grid-column:span 12; display:flex; gap:8px; flex-wrap:wrap; align-items:center">
+          <button id="btnMail2">📧 Envoyer la demande</button>
+          <span class="muted">
+            Pour toute autre demande concernant la buvette :
+            <a href="mailto:buvettetbt@gmail.com">buvettetbt@gmail.com</a>
+          </span>
+        </div>
+      </div>
+
+      <script>
+        (function(){
+          const RESA_EMAIL = "buvettetbt@gmail.com";
+          const SUBJECT = "Réservation clubs – Ligue N3 25–26 avril 2026";
+          function body(lines){ return encodeURIComponent(lines.join("\n")); }
+
+          var btn = document.getElementById("btnMail2");
+          if (!btn) return;
+          btn.addEventListener("click", function(){
+            var club = (document.getElementById("club2").value || "").trim();
+            var contact = (document.getElementById("contact2").value || "").trim();
+            var commande = (document.getElementById("commande2").value || "").trim();
+
+            var lines = [
+              "Bonjour,",
+              "",
+              "Je souhaite effectuer une réservation pour la buvette :",
+              "Club : " + (club || "—"),
+              "Contact : " + (contact || "—"),
+              "",
+              "Commande :",
+              (commande || "—"),
+              "",
+              "Merci !"
+            ];
+
+            var href = "mailto:" + encodeURIComponent(RESA_EMAIL)
+                     + "?subject=" + encodeURIComponent(SUBJECT)
+                     + "&body=" + body(lines);
+            window.location.href = href;
+          });
+        })();
+      </script>
     </section>
   </main>
 
-  <!-- LIGHTBOX -->
   <div
     id="lightbox"
     class="lightbox"
@@ -237,7 +307,6 @@
   <script src="assets/inject-footer.js" defer></script>
 
   <script>
-    /* Mise en avant du lien carte selon l'appareil */
     (function(){
       try {
         var ua = navigator.userAgent || "";
@@ -254,7 +323,6 @@
   </script>
 
   <script>
-    /* ====== GALERIE GYMNASE : liste des fichiers dans /assets/ ====== */
     const GYM_FILES = [
       "Gymnase-INT-1.jpg",
       "Gymnase-INT-2.jpg",
@@ -266,58 +334,59 @@
       "Photo gymnase depuis parking.png",
       "Photo gymnase.png"
     ];
+    const urlGym = (f) => "assets/gymnase/" + encodeURIComponent(f).replace(/%2F/g,"/");
 
- const url = (f) => "assets/gymnase/" + encodeURIComponent(f).replace(/%2F/g,"/");
+    (function(){
+      var grid = document.getElementById("gymGrid");
+      if (!grid) return;
 
-  (function(){
-    var grid = document.getElementById("gymGrid");
-    if (!grid) return;
+      grid.innerHTML = GYM_FILES.map(function(file, i){
+        return '<img class="gym-thumb" src="'+urlGym(file)+'" alt="Photo gymnase '+(i+1)+'" loading="lazy" data-idx="'+i+'" />';
+      }).join("");
 
-    // Inject vignettes
-    grid.innerHTML = GYM_FILES.map(function(file, i){
-      return '<img class="gym-thumb" src="'+url(file)+'" alt="Photo gymnase '+(i+1)+'" loading="lazy" data-idx="'+i+'" />';
-    }).join("");
+      var lb = document.getElementById("lightbox");
+      var img = document.getElementById("lbImg");
+      var btnPrev = document.getElementById("lbPrev");
+      var btnNext = document.getElementById("lbNext");
+      var btnClose = document.getElementById("lbClose");
+      var count = document.getElementById("lbCount");
+      var idx = 0;
 
-    // Lightbox
-    var lb = document.getElementById("lightbox");
-    var img = document.getElementById("lbImg");
-    var btnPrev = document.getElementById("lbPrev");
-    var btnNext = document.getElementById("lbNext");
-    var btnClose = document.getElementById("lbClose");
-    var count = document.getElementById("lbCount");
-    var idx = 0;
-
-    function openAt(i){
-      idx = (i + GYM_FILES.length) % GYM_FILES.length;
-      img.src = url(GYM_FILES[idx]);
-      count.textContent = (idx+1) + " / " + GYM_FILES.length;
-      lb.classList.add("open");
-    }
-    function close(){ lb.classList.remove("open"); img.src = ""; }
-    function prev(){ openAt(idx - 1); }
-    function next(){ openAt(idx + 1); }
-
-    grid.addEventListener("click", function(e){
-      var t = e.target;
-      if (t && t.classList.contains("gym-thumb")) {
-        openAt(parseInt(t.getAttribute("data-idx"), 10) || 0);
+      function openAt(i){
+        idx = (i + GYM_FILES.length) % GYM_FILES.length;
+        img.src = urlGym(GYM_FILES[idx]);
+        count.textContent = (idx+1) + " / " + GYM_FILES.length;
+        lb.classList.add("open");
       }
-    });
-    btnPrev.addEventListener("click", function(e){ e.stopPropagation(); prev(); });
-    btnNext.addEventListener("click", function(e){ e.stopPropagation(); next(); });
-    btnClose.addEventListener("click", function(e){ e.stopPropagation(); close(); });
-    lb.addEventListener("click", function(e){ if (e.target === lb) close(); });
-    document.addEventListener("keydown", function(e){
-      if (!lb.classList.contains("open")) return;
-      if (e.key === "Escape") close();
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
-    });
-  })();
+      function close(){
+        lb.classList.remove("open");
+        img.src = "";
+      }
+      function prev(){ openAt(idx - 1); }
+      function next(){ openAt(idx + 1); }
+
+      document.getElementById("gymGrid").addEventListener("click", function(e){
+        var t = e.target;
+        if (t && t.classList.contains("gym-thumb")) {
+          openAt(parseInt(t.getAttribute("data-idx"), 10) || 0);
+        }
+      });
+      btnPrev.addEventListener("click", function(e){ e.stopPropagation(); prev(); });
+      btnNext.addEventListener("click", function(e){ e.stopPropagation(); next(); });
+      btnClose.addEventListener("click", function(e){ e.stopPropagation(); close(); });
+      document.getElementById("lightbox").addEventListener("click", function(e){
+        if (e.target === document.getElementById("lightbox")) close();
+      });
+      document.addEventListener("keydown", function(e){
+        if (!document.getElementById("lightbox").classList.contains("open")) return;
+        if (e.key === "Escape") close();
+        if (e.key === "ArrowLeft") prev();
+        if (e.key === "ArrowRight") next();
+      });
+    })();
   </script>
 
   <script>
-    /* ====== Buvette: chargement du menu + recherche/filtre ====== */
     const fmt = (p) => {
       const s = String(p);
       if (s.includes('x') || s.includes(',')) {
