@@ -5,6 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ligue N3 – 25–26 avril 2026 – Twirling Bâton Trets</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Galerie gymnase + lightbox */
+    .gym-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+      gap:12px;
+    }
+    .gym-thumb {
+      width:100%;
+      height:120px;
+      object-fit:cover;
+      border-radius:12px;
+      border:1px solid var(--line);
+      cursor:pointer;
+      background:#f1f5f9;
+      display:block;
+    }
+    .lightbox {
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.85);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:60;
+    }
+    .lightbox.open { display:flex; }
+    .lightbox img {
+      max-width:min(92vw,1400px);
+      max-height:90vh;
+      border-radius:12px;
+      box-shadow:0 10px 30px rgba(0,0,0,.4);
+      display:block;
+    }
+    .lb-close,
+    .lb-prev,
+    .lb-next {
+      position:fixed;
+      top:50%;
+      transform:translateY(-50%);
+      background:rgba(255,255,255,.12);
+      backdrop-filter:blur(6px);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.28);
+      border-radius:999px;
+      width:44px;
+      height:44px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      font-size:20px;
+      user-select:none;
+    }
+    .lb-close {
+      top:24px;
+      right:24px;
+      transform:none;
+      width:42px;
+      height:42px;
+      font-size:18px;
+    }
+    .lb-prev { left:24px; }
+    .lb-next { right:24px; }
+    .lb-counter {
+      position:fixed;
+      bottom:20px;
+      left:50%;
+      transform:translateX(-50%);
+      color:#fff;
+      font-weight:700;
+      background:rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.18);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:14px;
+    }
+    @media (max-width:700px){
+      .lb-prev, .lb-next { display:none; }
+    }
+  </style>
 </head>
 <body>
   <div id="site-header"></div>
@@ -38,6 +119,14 @@
   </section>
 
   <main class="wrap">
+    <!-- GALERIE GYMNASE -->
+    <section class="card">
+      <h2>Le gymnase</h2>
+      <p class="muted">Aperçu intérieur et extérieur. Cliquez sur une photo pour l’agrandir.</p>
+      <div id="gymGrid" class="gym-grid"></div>
+    </section>
+
+    <!-- BUVETTE -->
     <section class="card">
       <h2>Buvette – Ligue N3 (25–26 avril 2026)</h2>
       <p class="muted" style="margin-top:-4px">
@@ -67,6 +156,15 @@
     </section>
   </main>
 
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Agrandissement photo">
+    <button class="lb-close" id="lbClose" aria-label="Fermer">✕</button>
+    <button class="lb-prev" id="lbPrev" aria-label="Précédente">‹</button>
+    <img id="lbImg" alt="Photo gymnase" />
+    <button class="lb-next" id="lbNext" aria-label="Suivante">›</button>
+    <div class="lb-counter" id="lbCount">1 / 1</div>
+  </div>
+
   <div id="site-footer"></div>
   <script src="assets/inject-footer.js" defer></script>
 
@@ -88,7 +186,73 @@
   </script>
 
   <script>
-    // Buvette: chargement du menu depuis menu.json + recherche/filtre
+    // -------- Galerie gymnase (miniatures + lightbox) --------
+    // ➜ Remplace/complète les noms ci-dessous par tes vrais fichiers
+    const GYM_PHOTOS = [
+      "ext1.jpg",
+      "ext2.jpg",
+      "int1.jpg",
+      "int2.jpg"
+    ].map(function(n){ return "assets/gymnase/" + n; });
+
+    (function(){
+      var grid = document.getElementById("gymGrid");
+      if (!grid) return;
+
+      // Inject thumbnails
+      grid.innerHTML = GYM_PHOTOS.map(function(src, i){
+        return '<img class="gym-thumb" src="'+src+'" alt="Photo gymnase '+(i+1)+'" data-idx="'+i+'" loading="lazy" />';
+      }).join("");
+
+      var lb = document.getElementById("lightbox");
+      var img = document.getElementById("lbImg");
+      var btnPrev = document.getElementById("lbPrev");
+      var btnNext = document.getElementById("lbNext");
+      var btnClose = document.getElementById("lbClose");
+      var count = document.getElementById("lbCount");
+      var idx = 0;
+
+      function openAt(i){
+        idx = (i + GYM_PHOTOS.length) % GYM_PHOTOS.length;
+        img.src = GYM_PHOTOS[idx];
+        count.textContent = (idx+1) + " / " + GYM_PHOTOS.length;
+        lb.classList.add("open");
+      }
+      function close(){
+        lb.classList.remove("open");
+        img.src = "";
+      }
+      function prev(){ openAt(idx - 1); }
+      function next(){ openAt(idx + 1); }
+
+      grid.addEventListener("click", function(e){
+        var t = e.target;
+        if (t && t.classList.contains("gym-thumb")) {
+          openAt(parseInt(t.getAttribute("data-idx"), 10) || 0);
+        }
+      });
+
+      btnPrev.addEventListener("click", function(e){ e.stopPropagation(); prev(); });
+      btnNext.addEventListener("click", function(e){ e.stopPropagation(); next(); });
+      btnClose.addEventListener("click", function(e){ e.stopPropagation(); close(); });
+
+      // Fermer si clic sur le fond
+      lb.addEventListener("click", function(e){
+        if (e.target === lb) close();
+      });
+
+      // Navigation clavier
+      document.addEventListener("keydown", function(e){
+        if (!lb.classList.contains("open")) return;
+        if (e.key === "Escape") close();
+        if (e.key === "ArrowLeft") prev();
+        if (e.key === "ArrowRight") next();
+      });
+    })();
+  </script>
+
+  <script>
+    // -------- Buvette: chargement du menu + recherche/filtre --------
     const fmt = (p) => {
       const s = String(p);
       if (s.includes('x') || s.includes(',')) {
@@ -101,7 +265,6 @@
     fetch('menu.json')
       .then(r => r.json())
       .then(ITEMS => {
-        // Catégories
         const select = document.getElementById('filterCat');
         const cats = [...new Set(ITEMS.map(i => i.category))].filter(Boolean);
         select.innerHTML = '<option value="">Catégorie : toutes</option>' + cats.map(c => '<option>' + c + '</option>').join('');
