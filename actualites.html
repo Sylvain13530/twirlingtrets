@@ -1,33 +1,30 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Actualités – Twirling Bâton Trets</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <div id="site-header"></div>
-  <script src="assets/inject-header.js" defer></script>
-  <section class="hero wrap">
-    <h1>Actualités</h1>
-    <p>Widget Facebook (page : <strong>TWIRLING BATON TRETS TBT</strong>)</p>
-  </section>
-  <main class="wrap card">
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v18.0"></script>
-    <div class="fb-page" data-href="https://www.facebook.com/TWIRLING-BATON-TRETS-TBT" data-tabs="timeline" data-width="960" data-hide-cover="false" data-show-facepile="true">
-      <blockquote class="fb-xfbml-parse-ignore">
-        <a href="https://www.facebook.com/TWIRLING-BATON-TRETS-TBT" target="_blank" rel="noopener">Notre page Facebook</a>
-      </blockquote>
-    </div>
-  </main>
-  <footer class="footer wrap">
-    <div>© <span id="year"></span> Twirling Bâton Trets • Site statique simple</div>
-  </footer>
-  <script>
-    document.querySelectorAll('#year').forEach(function(n){ n.textContent = new Date().getFullYear(); });
-  </script>
+<section class="hero wrap">
+  <h1>Actualités</h1>
+  <p>Suivez nos dernières nouvelles publiées sur Facebook.</p>
+</section>
 
-</body>
-</html>
+<main class="wrap card">
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v19.0"></script>
+
+  <div
+    class="fb-page"
+    data-href="https://www.facebook.com/twirlingtrets?locale=fr_FR"
+    data-tabs="timeline"
+    data-width="960"
+    data-height="700"
+    data-small-header="false"
+    data-adapt-container-width="true"
+    data-hide-cover="false"
+    data-show-facepile="true">
+    <blockquote class="fb-xfbml-parse-ignore">
+      <a href="https://www.facebook.com/twirlingtrets?locale=fr_FR" target="_blank" rel="noopener">
+        TWIRLING BATON TRETS TBT
+      </a>
+    </blockquote>
+  </div>
+
+  <noscript>
+    Veuillez activer JavaScript pour afficher la timeline Facebook.
+  </noscript>
+</main>
