@@ -70,13 +70,11 @@
   <main class="wrap" style="display:grid;grid-template-columns:repeat(12,1fr);gap:16px">
     <section class="card" style="grid-column:span 12">
       <h2>Carte de la buvette</h2>
-
       <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:12px">
         <input id="q" type="search" placeholder="Rechercher un article…" aria-label="Rechercher" />
         <select id="filterCat" aria-label="Filtrer par catégorie"></select>
         <button onclick="window.print()">🖨️ Imprimer</button>
       </div>
-
       <div style="overflow:auto">
         <table id="menuTable">
           <thead>
@@ -89,7 +87,6 @@
           <tbody></tbody>
         </table>
       </div>
-
       <p class="note">
         Pour modifier la carte, éditez le fichier
         <code>menu.json</code>.
@@ -107,19 +104,16 @@
           <label for="club">Nom du club</label>
           <input id="club" type="text" placeholder="Ex. TBT Marseille" />
         </div>
-
         <div class="col-6">
           <label for="contact">Contact (nom + téléphone / e-mail)</label>
           <input id="contact" type="text" placeholder="Ex. Dupont 06 12 34 56 78" />
         </div>
-
         <div class="col-12">
           <label for="commande">Détails de commande</label>
           <textarea id="commande" placeholder="Ex. 6 sandwich saucisse, 4 panini jambon, 10 Coca, 8 crêpes Nutella…"></textarea>
         </div>
-
         <div class="col-12" style="display:flex; gap:8px; flex-wrap:wrap; align-items:center">
-          <button id="btnMail">📧 Envoyer la demande</button>
+          <button id="btnMail" type="button">📧 Envoyer la demande</button>
           <span class="muted">
             Pour toute autre demande concernant la buvette :
             <a href="mailto:buvettetbt@gmail.com">buvettetbt@gmail.com</a>
@@ -127,38 +121,51 @@
         </div>
       </div>
 
+      <a id="mailtoTmp" href="#" style="display:none">mail</a>
       <script>
-        const RESA_EMAIL = "buvettetbt@gmail.com";
-        const SUBJECT = "Réservation clubs – Ligue N3 25–26 avril 2026";
+        (function(){
+          const RESA_EMAIL = "buvettetbt@gmail.com";
+          const SUBJECT = "Réservation clubs – Ligue N3 25–26 avril 2026";
 
-        function encodeBody(lines){
-          return encodeURIComponent(lines.join("\n"));
-        }
+          function buildBody(lines){
+            return encodeURIComponent(lines.join("\r\n"));
+          }
+          function openMailto(href){
+            try {
+              var a = document.getElementById("mailtoTmp");
+              if (a) {
+                a.setAttribute("href", href);
+                a.click();
+              }
+              window.open(href, "_self");
+            } catch(e){
+              alert("Si l’e-mail ne s’ouvre pas, envoyez votre demande à : " + RESA_EMAIL);
+            }
+          }
+          document.getElementById("btnMail").addEventListener("click", function(e){
+            e.preventDefault();
+            var club = (document.getElementById("club").value || "").trim();
+            var contact = (document.getElementById("contact").value || "").trim();
+            var commande = (document.getElementById("commande").value || "").trim();
 
-        document.getElementById("btnMail").addEventListener("click", function(){
-          var club = document.getElementById("club").value.trim();
-          var contact = document.getElementById("contact").value.trim();
-          var commande = document.getElementById("commande").value.trim();
-
-          var bodyLines = [
-            "Bonjour,",
-            "",
-            "Je souhaite effectuer une réservation pour la buvette :",
-            "Club : " + (club || "—"),
-            "Contact : " + (contact || "—"),
-            "",
-            "Commande :",
-            (commande || "—"),
-            "",
-            "Merci !"
-          ];
-
-          var href = "mailto:" + encodeURIComponent(RESA_EMAIL)
-                   + "?subject=" + encodeURIComponent(SUBJECT)
-                   + "&body=" + encodeBody(bodyLines);
-
-          window.location.href = href;
-        });
+            var bodyLines = [
+              "Bonjour,",
+              "",
+              "Je souhaite effectuer une réservation pour la buvette :",
+              "Club : " + (club || "—"),
+              "Contact : " + (contact || "—"),
+              "",
+              "Commande :",
+              (commande || "—"),
+              "",
+              "Merci !"
+            ];
+            var href = "mailto:" + encodeURIComponent(RESA_EMAIL)
+                     + "?subject=" + encodeURIComponent(SUBJECT)
+                     + "&body=" + buildBody(bodyLines);
+            openMailto(href);
+          });
+        })();
       </script>
     </section>
   </main>
@@ -175,14 +182,12 @@
       const n = Number(p);
       return (isNaN(n) ? s : n.toFixed(2).replace('.', ',')) + ' €';
     };
-
     fetch('menu.json')
       .then(r => r.json())
       .then(ITEMS => {
         const select = document.getElementById('filterCat');
         const cats = [...new Set(ITEMS.map(i => i.category))].filter(Boolean);
         select.innerHTML = '<option value="">Catégorie : toutes</option>' + cats.map(c => '<option>' + c + '</option>').join('');
-
         function render() {
           const q = (document.getElementById('q').value || '').trim().toLowerCase();
           const cat = select.value;
@@ -196,11 +201,9 @@
                 '<td class="price">' + fmt(i.price) + '</td>' +
               '</tr>'
             ).join('');
-
           document.querySelector('#menuTable tbody').innerHTML =
             rows || '<tr><td colspan="3" class="muted">Aucun article…</td></tr>';
         }
-
         document.getElementById('q').addEventListener('input', render);
         select.addEventListener('input', render);
         render();
