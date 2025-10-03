@@ -6,84 +6,93 @@
   <title>Ligue N3 – 25–26 avril 2026 – Twirling Bâton Trets</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Galerie gymnase + lightbox (rappel) */
+    /* Galerie gymnase + lightbox */
     .gym-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-      gap:12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
     }
     .gym-thumb {
-      width:100%;
-      height:120px;
-      object-fit:cover;
-      border-radius:12px;
-      border:1px solid var(--line);
-      cursor:pointer;
-      background:#f1f5f9;
-      display:block;
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      background: #f1f5f9;
+      display: block;
     }
     .lightbox {
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.85);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:60;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 60;
     }
-    .lightbox.open { display:flex; }
+    .lightbox.open {
+      display: flex;
+    }
     .lightbox img {
-      max-width:min(92vw,1400px);
-      max-height:90vh;
-      border-radius:12px;
-      box-shadow:0 10px 30px rgba(0,0,0,.4);
-      display:block;
+      max-width: min(92vw, 1400px);
+      max-height: 90vh;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.4);
+      display: block;
     }
     .lb-close,
     .lb-prev,
     .lb-next {
-      position:fixed;
-      top:50%;
-      transform:translateY(-50%);
-      background:rgba(255,255,255,.12);
-      backdrop-filter:blur(6px);
-      color:#fff;
-      border:1px solid rgba(255,255,255,.28);
-      border-radius:999px;
-      width:44px;
-      height:44px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      font-size:20px;
-      user-select:none;
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,.12);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      user-select: none;
     }
     .lb-close {
-      top:24px;
-      right:24px;
-      transform:none;
-      width:42px;
-      height:42px;
-      font-size:18px;
+      top: 24px;
+      right: 24px;
+      transform: none;
+      width: 42px;
+      height: 42px;
+      font-size: 18px;
     }
-    .lb-prev { left:24px; }
-    .lb-next { right:24px; }
+    .lb-prev {
+      left: 24px;
+    }
+    .lb-next {
+      right: 24px;
+    }
     .lb-counter {
-      position:fixed;
-      bottom:20px;
-      left:50%;
-      transform:translateX(-50%);
-      color:#fff;
-      font-weight:700;
-      background:rgba(0,0,0,.35);
-      border:1px solid rgba(255,255,255,.18);
-      padding:6px 10px;
-      border-radius:999px;
-      font-size:14px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-weight: 700;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.18);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 14px;
     }
-    @media (max-width:700px){
-      .lb-prev, .lb-next { display:none; }
+    @media (max-width:700px) {
+      .lb-prev,
+      .lb-next {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -95,10 +104,22 @@
     <span class="badge">🏆 Ligue N3 PACA — 25–26 avril 2026</span>
     <h1>Informations évènement</h1>
     <ul>
-      <li><strong>Lieu :</strong> Gymnase de la Gardi — 1120 Av. Marius Joly, 13530 Trets</li>
-      <li><strong>Accès parking :</strong> Chemin de Fond de Tuile — GPS 43.445891, 5.702016</li>
-      <li><strong>Buvette :</strong> paiements espèces et carte, <em>pas de chèques</em> ; système de tickets</li>
-      <li class="rule"><strong>Règlement :</strong> Interdiction de manger dans le gymnase — seules bouteilles d’eau et gourdes sont acceptées.</li>
+      <li>
+        <strong>Lieu :</strong>
+        Gymnase de la Gardi — 1120 Av. Marius Joly, 13530 Trets
+      </li>
+      <li>
+        <strong>Accès parking :</strong>
+        Chemin de Fond de Tuile — GPS 43.445891, 5.702016
+      </li>
+      <li>
+        <strong>Buvette :</strong>
+        paiements espèces et carte, <em>pas de chèques</em> ; système de tickets
+      </li>
+      <li class="rule">
+        <strong>Règlement :</strong>
+        Interdiction de manger dans le gymnase — seules bouteilles d’eau et gourdes sont acceptées.
+      </li>
     </ul>
     <p>
       📍 Ouvrir le plan d’accès :
@@ -107,19 +128,22 @@
         href="https://www.google.com/maps/search/?api=1&query=43.445891,5.702016"
         target="_blank"
         rel="noopener"
-      >Google Maps</a>
+      >
+        Google Maps
+      </a>
       •
       <a
         id="amaps"
         href="https://maps.apple.com/?ll=43.445891,5.702016&q=Gymnase%20de%20la%20Gardi"
         target="_blank"
         rel="noopener"
-      >Apple Plans</a>
+      >
+        Apple Plans
+      </a>
     </p>
   </section>
 
   <main class="wrap">
-    <!-- TARIFS ENTREES -->
     <section class="card">
       <h2>Tarifs des entrées</h2>
       <table>
@@ -152,21 +176,25 @@
           </tr>
         </tbody>
       </table>
-      <p class="note">Remplacer les <em>x €</em> par les tarifs définitifs.</p>
+      <p class="note">
+        Remplacer les <em>x €</em> par les tarifs définitifs.
+      </p>
     </section>
 
-    <!-- GALERIE GYMNASE -->
     <section class="card">
       <h2>Le gymnase</h2>
-      <p class="muted">Aperçu intérieur et extérieur. Cliquez sur une photo pour l’agrandir.</p>
+      <p class="muted">
+        Aperçu intérieur et extérieur. Cliquez sur une photo pour l’agrandir.
+      </p>
       <div id="gymGrid" class="gym-grid"></div>
     </section>
 
-    <!-- BUVETTE -->
     <section class="card">
       <h2>Buvette – Ligue N3 (25–26 avril 2026)</h2>
       <p class="muted" style="margin-top:-4px">
-        Encaissement = <strong>ticket</strong> → remise du produit. Paiements : <strong>espèces et carte</strong>. <em>Pas de chèques.</em>
+        Encaissement = <strong>ticket</strong> → remise du produit.
+        Paiements : <strong>espèces et carte</strong>.
+        <em>Pas de chèques.</em>
       </p>
 
       <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:12px 0">
@@ -188,12 +216,21 @@
         </table>
       </div>
 
-      <p class="note">Pour modifier la carte, éditez le fichier <code>menu.json</code>.</p>
+      <p class="note">
+        Pour modifier la carte, éditez le fichier
+        <code>menu.json</code>.
+      </p>
     </section>
   </main>
 
   <!-- LIGHTBOX -->
-  <div id="lightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Agrandissement photo">
+  <div
+    id="lightbox"
+    class="lightbox"
+    aria-modal="true"
+    role="dialog"
+    aria-label="Agrandissement photo"
+  >
     <button class="lb-close" id="lbClose" aria-label="Fermer">✕</button>
     <button class="lb-prev" id="lbPrev" aria-label="Précédente">‹</button>
     <img id="lbImg" alt="Photo gymnase" />
@@ -205,7 +242,7 @@
   <script src="assets/inject-footer.js" defer></script>
 
   <script>
-    // Mise en avant du lien carte selon l'appareil
+    /* Mise en avant du lien carte selon l'appareil */
     (function(){
       try {
         var ua = navigator.userAgent || "";
@@ -222,24 +259,41 @@
   </script>
 
   <script>
-    // -------- Galerie gymnase (miniatures + lightbox) --------
-    // ➜ Remplace/complète les noms ci-dessous par tes vrais fichiers
-    const GYM_PHOTOS = [
-      "ext1.jpg",
-      "ext2.jpg",
-      "int1.jpg",
-      "int2.jpg"
-    ].map(function(n){ return "assets/gymnase/" + n; });
+    /* ====== GALERIE GYMNASE : liste des fichiers dans /assets/ ====== */
+    const GYM_FILES = [
+      "Gymnase-INT-1.jpg",
+      "Gymnase-INT-2.jpg",
+      "Gymnase-INT-3.jpg",
+      "Gymnase-INT-4.jpg",
+      "Gymnase-INT-5.jpg",
+      "Gymnase-INT-6.jpg",
+      "Gymnase-INT-7.jpg",
+      "Photo gymnase depuis parking.png",
+      "Photo gymnase.png"
+    ];
+
+    /* Construit des URL sûres (gère espaces/accents) */
+    const fullUrl = (f) => "assets/" + encodeURIComponent(f).replace(/%2F/g, "/");
 
     (function(){
       var grid = document.getElementById("gymGrid");
       if (!grid) return;
 
-      // Inject thumbnails
-      grid.innerHTML = GYM_PHOTOS.map(function(src, i){
-        return '<img class="gym-thumb" src="'+src+'" alt="Photo gymnase '+(i+1)+'" data-idx="'+i+'" loading="lazy" />';
+      /* Inject miniatures (ici on utilise directement les originaux redimensionnés par CSS) */
+      grid.innerHTML = GYM_FILES.map(function(file, i){
+        const f = fullUrl(file);
+        return (
+          '<img ' +
+            'class="gym-thumb" ' +
+            'src="' + f + '" ' +
+            'alt="Photo gymnase ' + (i+1) + '" ' +
+            'loading="lazy" ' +
+            'data-idx="' + i + '"' +
+          ' />'
+        );
       }).join("");
 
+      /* Lightbox */
       var lb = document.getElementById("lightbox");
       var img = document.getElementById("lbImg");
       var btnPrev = document.getElementById("lbPrev");
@@ -249,9 +303,9 @@
       var idx = 0;
 
       function openAt(i){
-        idx = (i + GYM_PHOTOS.length) % GYM_PHOTOS.length;
-        img.src = GYM_PHOTOS[idx];
-        count.textContent = (idx+1) + " / " + GYM_PHOTOS.length;
+        idx = (i + GYM_FILES.length) % GYM_FILES.length;
+        img.src = fullUrl(GYM_FILES[idx]);
+        count.textContent = (idx+1) + " / " + GYM_FILES.length;
         lb.classList.add("open");
       }
       function close(){
@@ -272,12 +326,12 @@
       btnNext.addEventListener("click", function(e){ e.stopPropagation(); next(); });
       btnClose.addEventListener("click", function(e){ e.stopPropagation(); close(); });
 
-      // Fermer si clic sur le fond
+      /* Fermer si clic sur le fond */
       lb.addEventListener("click", function(e){
         if (e.target === lb) close();
       });
 
-      // Navigation clavier
+      /* Navigation clavier */
       document.addEventListener("keydown", function(e){
         if (!lb.classList.contains("open")) return;
         if (e.key === "Escape") close();
@@ -288,7 +342,7 @@
   </script>
 
   <script>
-    // -------- Buvette: chargement du menu + recherche/filtre --------
+    /* ====== Buvette: chargement du menu + recherche/filtre ====== */
     const fmt = (p) => {
       const s = String(p);
       if (s.includes('x') || s.includes(',')) {
@@ -299,25 +353,29 @@
     };
 
     fetch('menu.json')
-      .then(r => r.json())
-      .then(ITEMS => {
+      .then(function(r){ return r.json(); })
+      .then(function(ITEMS){
         const select = document.getElementById('filterCat');
         const cats = [...new Set(ITEMS.map(i => i.category))].filter(Boolean);
-        select.innerHTML = '<option value="">Catégorie : toutes</option>' + cats.map(c => '<option>' + c + '</option>').join('');
+        select.innerHTML =
+          '<option value="">Catégorie : toutes</option>' +
+          cats.map(function(c){ return '<option>' + c + '</option>'; }).join('');
 
         function render() {
           const q = (document.getElementById('q').value || '').trim().toLowerCase();
           const cat = select.value;
           const rows = ITEMS
-            .filter(i => !cat || i.category === cat)
-            .filter(i => !q || (i.name || '').toLowerCase().includes(q))
-            .map(i =>
-              '<tr>' +
-                '<td>' + i.name + '</td>' +
-                '<td><span class="pill">' + (i.category || '') + '</span></td>' +
-                '<td class="price">' + fmt(i.price) + '</td>' +
-              '</tr>'
-            ).join('');
+            .filter(function(i){ return !cat || i.category === cat; })
+            .filter(function(i){ return !q || (i.name || '').toLowerCase().includes(q); })
+            .map(function(i){
+              return (
+                '<tr>' +
+                  '<td>' + i.name + '</td>' +
+                  '<td><span class="pill">' + (i.category || '') + '</span></td>' +
+                  '<td class="price">' + fmt(i.price) + '</td>' +
+                '</tr>'
+              );
+            }).join('');
 
           document.querySelector('#menuTable tbody').innerHTML =
             rows || '<tr><td colspan="3" class="muted">Aucun article…</td></tr>';
