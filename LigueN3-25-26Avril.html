@@ -270,13 +270,15 @@
             }
           }
           var btn = document.getElementById("btnMail2");
+          alert("A");
           if (!btn) return;
+          alert("B");
           btn.addEventListener("click", function(e){
             e.preventDefault();
             var club = (document.getElementById("club2").value || "").trim();
             var contact = (document.getElementById("contact2").value || "").trim();
             var commande = (document.getElementById("commande2").value || "").trim();
-
+alert("C");
             var lines = [
               "Bonjour,",
               "",
@@ -289,10 +291,12 @@
               "",
               "Merci !"
             ];
+            alert("D");
             var href = "mailto:" + encodeURIComponent(RESA_EMAIL)
                      + "?subject=" + encodeURIComponent(SUBJECT)
                      + "&body=" + buildBody(lines);
             openMailto(href);
+            alert("E");
           });
         })();
       </script>
