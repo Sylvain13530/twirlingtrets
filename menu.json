@@ -65,6 +65,11 @@
     "price": "x.xx"
   },
   {
+    "name": "Sandwich camembert",
+    "category": "Salé",
+    "price": "x.xx"
+  },
+  {
     "name": "Part de pizza fromage",
     "category": "Salé",
     "price": "x.xx"
