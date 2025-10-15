@@ -220,16 +220,12 @@
         <tbody></tbody>
       </table>
     </div>
-    <p class="note">
-      Pour modifier la carte, éditez le fichier
-      <code>menu.json</code>.
-    </p>
   </section>
 
   <section class="card">
     <h2>Réservations clubs</h2>
     <p class="muted">
-      Réservez vos repas ou commandes à l’avance : nous préparons et vous retirez sur place (paiement au retrait).
+      Réservez vos tickets à l’avance : nous les préparons et vous retirez sur place (paiement au retrait). Toutes reservations sera confirmé par téléphone ou par email
     </p>
     <div class="form-grid" style="display:grid;grid-template-columns:repeat(12,1fr);gap:12px">
       <div class="col-6" style="grid-column:span 6">
@@ -249,57 +245,61 @@
         <a id="btnMail2" href="#" role="button" class="button">📧 Envoyer la demande</a>
         <span class="muted">
           Pour toute autre demande concernant la buvette :
-          <a href="mailto:buvettetbt@gmail.com">buvettetbt@gmail.com</a>
+          <a id="btnMail2" href="mailto:buvettetbt@gmail.com" role="button" class="button">📧 Envoyer la demande</a>
         </span>
       </div>
     </div>
 
-    <!-- ✅ Nouveau script mailto (sans preventDefault, href posé sur pointerdown) -->
-    <script>
-      (function(){
-        const RESA_EMAIL = "buvettetbt@gmail.com";
-        const SUBJECT = "Réservation clubs – Ligue N3 25–26 avril 2026";
+<script>
+  (function(){
+    const RESA_EMAIL = "buvettetbt@gmail.com";
+    const SUBJECT = "Réservation clubs – Ligue N3 25–26 avril 2026";
 
-        function buildBody(lines){
-          return encodeURIComponent(lines.join("\r\n"));
-        }
-        function makeHref(){
-          var club = (document.getElementById("club2").value || "").trim();
-          var contact = (document.getElementById("contact2").value || "").trim();
-          var commande = (document.getElementById("commande2").value || "").trim();
+    function buildBody(lines){
+      return encodeURIComponent(lines.join("\r\n"));
+    }
+    function makeHref(){
+      var club = (document.getElementById("club2").value || "").trim();
+      var contact = (document.getElementById("contact2").value || "").trim();
+      var commande = (document.getElementById("commande2").value || "").trim();
 
-          var lines = [
-            "Bonjour,",
-            "",
-            "Je souhaite effectuer une réservation pour la buvette :",
-            "Club : " + (club || "—"),
-            "Contact : " + (contact || "—"),
-            "",
-            "Commande :",
-            (commande || "—"),
-            "",
-            "Merci !"
-          ];
-          return "mailto:" + encodeURIComponent(RESA_EMAIL)
-               + "?subject=" + encodeURIComponent(SUBJECT)
-               + "&body=" + buildBody(lines);
-        }
+      var lines = [
+        "Bonjour,",
+        "",
+        "Je souhaite effectuer une réservation pour la buvette :",
+        "Club : " + (club || "—"),
+        "Contact : " + (contact || "—"),
+        "",
+        "Commande :",
+        (commande || "—"),
+        "",
+        "Merci !"
+      ];
+      return "mailto:" + encodeURIComponent(RESA_EMAIL)
+           + "?subject=" + encodeURIComponent(SUBJECT)
+           + "&body=" + buildBody(lines);
+    }
 
-        var link = document.getElementById("btnMail2");
-        if (!link) return;
+    var link = document.getElementById("btnMail2");
+    if (!link) return;
 
-        link.addEventListener("pointerdown", function(){
-          link.setAttribute("href", makeHref());
-          link.setAttribute("target", "_self");
-        });
+    // Pose le mailto juste AVANT que le navigateur suive le lien (tous cas)
+    ["pointerdown","mousedown","touchstart","click"].forEach(function(evt){
+      link.addEventListener(evt, function(){
+        link.setAttribute("href", makeHref());
+        link.removeAttribute("target"); // s'assure d'ouvrir dans le client par défaut
+      }, { passive: true });
+    });
 
-        link.addEventListener("keydown", function(e){
-          if (e.key === "Enter" || e.key === " ") {
-            link.setAttribute("href", makeHref());
-          }
-        });
-      })();
-    </script>
+    // Clavier (Enter/Espace)
+    link.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " ") {
+        link.setAttribute("href", makeHref());
+      }
+    });
+  })();
+</script>
+
   </section>
 
   <div id="lightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Agrandissement photo">
