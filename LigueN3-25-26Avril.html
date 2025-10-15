@@ -128,190 +128,179 @@
     </p>
   </section>
   
-<main class="wrap">
+  <main class="wrap">
 
-  <!-- Plan d’accès (miniature cliquable -> lightbox) -->
-  <section class="card" style="margin-top:16px; grid-column:span 12;">
-    <h2>Plan d’accès</h2>
+    <!-- Plan d’accès (miniature cliquable -> lightbox) -->
+    <section class="card" style="margin-top:16px; grid-column:span 12;">
+      <h2>Plan d’accès</h2>
+      <p class="muted">
+        Parking et trajet piéton vers le gymnase :
+      </p>
+      <figure style="margin:8px auto 0; text-align:center; max-width:520px;">
+        <img
+          id="planThumb"
+          src="assets/Carte.jpg"
+          alt="Plan d’accès au gymnase de la Gardi – Trets"
+          loading="lazy"
+          style="width:100%;border-radius:12px;border:1px solid var(--line);cursor:zoom-in;max-width:520px;"
+        />
+        <figcaption class="muted" style="margin-top:6px;text-align:center;">
+          Touchez / cliquez pour agrandir
+        </figcaption>
+      </figure>
+    </section>
+
+  </main>
+
+  <style>
+    /* Quand on ouvre juste la carte, on masque les flèches/counter de la lightbox */
+    .lightbox.single .lb-prev,
+    .lightbox.single .lb-next,
+    .lightbox.single .lb-counter {
+      display: none !important;
+    }
+  </style>
+
+  <!-- ✅ Correction : attendre DOMContentLoaded avant d’utiliser la lightbox -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      var thumb = document.getElementById('planThumb');
+      var lb = document.getElementById('lightbox');
+      var img = document.getElementById('lbImg');
+      var count = document.getElementById('lbCount');
+      var lbClose = document.getElementById('lbClose');
+
+      if (!thumb || !lb || !img) return;
+
+      thumb.addEventListener('click', function(){
+        img.src = 'assets/Carte.jpg';
+        if (count) count.textContent = '';
+        lb.classList.add('single'); /* masque flèches + compteur */
+        lb.classList.add('open');
+      });
+
+      function clearSingle(){ lb.classList.remove('single'); }
+      if (lbClose) lbClose.addEventListener('click', clearSingle);
+      lb.addEventListener('click', function(e){ if (e.target === lb) clearSingle(); });
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape' && lb.classList.contains('open')) clearSingle();
+      });
+    });
+  </script>
+
+  <section class="card">
+    <h2>Le gymnase</h2>
     <p class="muted">
-      Parking et trajet piéton vers le gymnase :
+      Aperçu intérieur et extérieur. Cliquez sur une photo pour l’agrandir.
     </p>
-    <figure style="margin:8px auto 0; text-align:center; max-width:520px;">
-      <img
-        id="planThumb"
-        src="assets/Carte.jpg"
-        alt="Plan d’accès au gymnase de la Gardi – Trets"
-        loading="lazy"
-        style="width:100%;border-radius:12px;border:1px solid var(--line);cursor:zoom-in;max-width:520px;"
-      />
-      <figcaption class="muted" style="margin-top:6px;text-align:center;">
-        Touchez / cliquez pour agrandir
-      </figcaption>
-    </figure>
+    <div id="gymGrid" class="gym-grid"></div>
   </section>
 
-</main>
+  <section class="card">
+    <h2>Buvette – Ligue N3 (25–26 avril 2026)</h2>
+    <p class="muted" style="margin-top:-4px">
+      Encaissement = <strong>ticket</strong> → remise du produit.
+      Paiements : <strong>espèces et carte</strong>.
+      <em>Pas de chèques.</em>
+    </p>
+    <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:12px 0">
+      <input id="q" type="search" placeholder="Rechercher un article…" aria-label="Rechercher" />
+      <select id="filterCat" aria-label="Filtrer par catégorie"></select>
+      <button onclick="window.print()">🖨️ Imprimer</button>
+    </div>
+    <div style="overflow:auto">
+      <table id="menuTable">
+        <thead>
+          <tr>
+            <th>Article</th>
+            <th>Catégorie</th>
+            <th>Prix</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="note">
+      Pour modifier la carte, éditez le fichier
+      <code>menu.json</code>.
+    </p>
+  </section>
 
-<style>
-  /* Quand on ouvre juste la carte, on masque les flèches/counter de la lightbox */
-  .lightbox.single .lb-prev,
-  .lightbox.single .lb-next,
-  .lightbox.single .lb-counter {
-    display: none !important;
-  }
-</style>
-
-<script>
-  (function(){
-    var thumb = document.getElementById('planThumb');
-    var lb = document.getElementById('lightbox');
-    var img = document.getElementById('lbImg');
-    var count = document.getElementById('lbCount');
-
-    if (!thumb || !lb || !img) return;
-
-    thumb.addEventListener('click', function(){
-      // Affiche uniquement la carte dans la lightbox
-      img.src = 'assets/Carte.jpg';
-      if (count) count.textContent = '';
-      lb.classList.add('single'); // cache flèches et compteur
-      lb.classList.add('open');
-    });
-
-    // Quand on ferme, on enlève le mode "single" pour ne pas gêner la galerie
-    var lbClose = document.getElementById('lbClose');
-    function clearSingle(){
-      lb.classList.remove('single');
-    }
-    if (lbClose) lbClose.addEventListener('click', clearSingle);
-    lb.addEventListener('click', function(e){
-      if (e.target === lb) clearSingle();
-    });
-    document.addEventListener('keydown', function(e){
-      if (e.key === 'Escape' && lb.classList.contains('open')) clearSingle();
-    });
-  })();
-</script>
-
-    <section class="card">
-      <h2>Le gymnase</h2>
-      <p class="muted">
-        Aperçu intérieur et extérieur. Cliquez sur une photo pour l’agrandir.
-      </p>
-      <div id="gymGrid" class="gym-grid"></div>
-    </section>
-
-    <section class="card">
-      <h2>Buvette – Ligue N3 (25–26 avril 2026)</h2>
-      <p class="muted" style="margin-top:-4px">
-        Encaissement = <strong>ticket</strong> → remise du produit.
-        Paiements : <strong>espèces et carte</strong>.
-        <em>Pas de chèques.</em>
-      </p>
-
-      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:12px 0">
-        <input id="q" type="search" placeholder="Rechercher un article…" aria-label="Rechercher" />
-        <select id="filterCat" aria-label="Filtrer par catégorie"></select>
-        <button onclick="window.print()">🖨️ Imprimer</button>
+  <section class="card">
+    <h2>Réservations clubs</h2>
+    <p class="muted">
+      Réservez vos repas ou commandes à l’avance : nous préparons et vous retirez sur place (paiement au retrait).
+    </p>
+    <div class="form-grid" style="display:grid;grid-template-columns:repeat(12,1fr);gap:12px">
+      <div class="col-6" style="grid-column:span 6">
+        <label for="club2">Nom du club</label>
+        <input id="club2" type="text" />
       </div>
-
-      <div style="overflow:auto">
-        <table id="menuTable">
-          <thead>
-            <tr>
-              <th>Article</th>
-              <th>Catégorie</th>
-              <th>Prix</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+      <div class="col-6" style="grid-column:span 6">
+        <label for="contact2">Contact (nom + téléphone / e-mail)</label>
+        <input id="contact2" type="text" />
       </div>
-
-      <p class="note">
-        Pour modifier la carte, éditez le fichier
-        <code>menu.json</code>.
-      </p>
-    </section>
-
-    <section class="card">
-      <h2>Réservations clubs</h2>
-      <p class="muted">
-        Réservez vos repas ou commandes à l’avance : nous préparons et vous retirez sur place (paiement au retrait).
-      </p>
-
-      <div class="form-grid" style="display:grid;grid-template-columns:repeat(12,1fr);gap:12px">
-        <div class="col-6" style="grid-column:span 6">
-          <label for="club2">Nom du club</label>
-          <input id="club2" type="text"/>
-        </div>
-        <div class="col-6" style="grid-column:span 6">
-          <label for="contact2">Contact (nom + téléphone / e-mail)</label>
-          <input id="contact2" type="text"/>
-        </div>
-        <div class="col-12" style="grid-column:span 12">
-          <label for="commande2">Détails de commande</label>
-          <textarea id="commande2" style="min-height:120px"></textarea>
-        </div>
-        <div class="col-12" style="grid-column:span 12; display:flex; gap:8px; flex-wrap:wrap; align-items:center">
-          <button id="btnMail2" type="button">📧 Envoyer la demande</button>
-          <span class="muted">
-            Pour toute autre demande concernant la buvette :
-            <a href="mailto:buvettetbt@gmail.com">buvettetbt@gmail.com</a>
-          </span>
-        </div>
+      <div class="col-12" style="grid-column:span 12">
+        <label for="commande2">Détails de commande</label>
+        <textarea id="commande2" style="min-height:120px"></textarea>
       </div>
+      <div class="col-12" style="grid-column:span 12; display:flex; gap:8px; flex-wrap:wrap; align-items:center">
+        <!-- ✅ Correction : utiliser un lien qui prépare le mailto au moment du geste -->
+        <a id="btnMail2" href="#" role="button" class="button">📧 Envoyer la demande</a>
+        <span class="muted">
+          Pour toute autre demande concernant la buvette :
+          <a href="mailto:buvettetbt@gmail.com">buvettetbt@gmail.com</a>
+        </span>
+      </div>
+    </div>
 
-      <a id="mailtoTmp2" href="#" style="display:none">mail</a>
-      <script>
-        (function(){
-          const RESA_EMAIL = "buvettetbt@gmail.com";
-          const SUBJECT = "Réservation clubs – Ligue N3 25–26 avril 2026";
+    <!-- ✅ Nouveau script mailto (sans preventDefault, href posé sur pointerdown) -->
+    <script>
+      (function(){
+        const RESA_EMAIL = "buvettetbt@gmail.com";
+        const SUBJECT = "Réservation clubs – Ligue N3 25–26 avril 2026";
 
-          function buildBody(lines){
-            return encodeURIComponent(lines.join("\r\n"));
+        function buildBody(lines){
+          return encodeURIComponent(lines.join("\r\n"));
+        }
+        function makeHref(){
+          var club = (document.getElementById("club2").value || "").trim();
+          var contact = (document.getElementById("contact2").value || "").trim();
+          var commande = (document.getElementById("commande2").value || "").trim();
+
+          var lines = [
+            "Bonjour,",
+            "",
+            "Je souhaite effectuer une réservation pour la buvette :",
+            "Club : " + (club || "—"),
+            "Contact : " + (contact || "—"),
+            "",
+            "Commande :",
+            (commande || "—"),
+            "",
+            "Merci !"
+          ];
+          return "mailto:" + encodeURIComponent(RESA_EMAIL)
+               + "?subject=" + encodeURIComponent(SUBJECT)
+               + "&body=" + buildBody(lines);
+        }
+
+        var link = document.getElementById("btnMail2");
+        if (!link) return;
+
+        link.addEventListener("pointerdown", function(){
+          link.setAttribute("href", makeHref());
+          link.setAttribute("target", "_self");
+        });
+
+        link.addEventListener("keydown", function(e){
+          if (e.key === "Enter" || e.key === " ") {
+            link.setAttribute("href", makeHref());
           }
-          function openMailto(href){
-            try {
-              var a = document.getElementById("mailtoTmp2");
-              if (a) {
-                a.setAttribute("href", href);
-                a.click();
-              }
-              window.open(href, "_self");
-            } catch(e){
-              alert("Si l’e-mail ne s’ouvre pas, envoyez votre demande à : " + RESA_EMAIL);
-            }
-          }
-          var btn = document.getElementById("btnMail2");
-          if (!btn) return;
-          btn.addEventListener("click", function(e){
-            e.preventDefault();
-            var club = (document.getElementById("club2").value || "").trim();
-            var contact = (document.getElementById("contact2").value || "").trim();
-            var commande = (document.getElementById("commande2").value || "").trim();
-
-            var lines = [
-              "Bonjour,",
-              "",
-              "Je souhaite effectuer une réservation pour la buvette :",
-              "Club : " + (club || "—"),
-              "Contact : " + (contact || "—"),
-              "",
-              "Commande :",
-              (commande || "—"),
-              "",
-              "Merci !"
-            ];
-            var href = "mailto:" + encodeURIComponent(RESA_EMAIL)
-                     + "?subject=" + encodeURIComponent(SUBJECT)
-                     + "&body=" + buildBody(lines);
-            openMailto(href);
-          });
-        })();
-      </script>
-    </section>
-  </main>
+        });
+      })();
+    </script>
+  </section>
 
   <div id="lightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Agrandissement photo">
     <button class="lb-close" id="lbClose" aria-label="Fermer">✕</button>
