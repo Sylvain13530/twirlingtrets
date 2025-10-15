@@ -127,31 +127,38 @@
       <a id="amaps" href="https://maps.apple.com/?ll=43.445891,5.702016&q=Gymnase%20de%20la%20Gardi" target="_blank" rel="noopener">Apple Plans</a>
     </p>
   </section>
-<!-- Plan d’accès (miniature cliquable -> lightbox) -->
-<section class="card" style="margin-top:16px">
-  <h2>Plan d’accès</h2>
-  <p class="muted">
-    Parking et trajet piéton vers le gymnase :
-  </p>
-  <figure style="margin:8px 0 0">
-    <img
-      id="planThumb"
-      src="assets/Carte.jpg"
-      alt="Plan d’accès au gymnase de la Gardi – Trets"
-      loading="lazy"
-      style="width:100%;max-width:420px;border-radius:12px;border:1px solid var(--line);cursor:zoom-in"
-    />
-    <figcaption class="muted" style="margin-top:6px">
-      Touchez / cliquez pour agrandir
-    </figcaption>
-  </figure>
-</section>
+  
+<main class="wrap">
+
+  <!-- Plan d’accès (miniature cliquable -> lightbox) -->
+  <section class="card" style="margin-top:16px; grid-column:span 12;">
+    <h2>Plan d’accès</h2>
+    <p class="muted">
+      Parking et trajet piéton vers le gymnase :
+    </p>
+    <figure style="margin:8px auto 0; text-align:center; max-width:520px;">
+      <img
+        id="planThumb"
+        src="assets/Carte.jpg"
+        alt="Plan d’accès au gymnase de la Gardi – Trets"
+        loading="lazy"
+        style="width:100%;border-radius:12px;border:1px solid var(--line);cursor:zoom-in;max-width:520px;"
+      />
+      <figcaption class="muted" style="margin-top:6px;text-align:center;">
+        Touchez / cliquez pour agrandir
+      </figcaption>
+    </figure>
+  </section>
+
+</main>
 
 <style>
   /* Quand on ouvre juste la carte, on masque les flèches/counter de la lightbox */
   .lightbox.single .lb-prev,
   .lightbox.single .lb-next,
-  .lightbox.single .lb-counter { display: none !important; }
+  .lightbox.single .lb-counter {
+    display: none !important;
+  }
 </style>
 
 <script>
@@ -164,14 +171,14 @@
     if (!thumb || !lb || !img) return;
 
     thumb.addEventListener('click', function(){
-      // on affiche uniquement la carte dans la lightbox
+      // Affiche uniquement la carte dans la lightbox
       img.src = 'assets/Carte.jpg';
       if (count) count.textContent = '';
-      lb.classList.add('single');   // cache flèches et compteur
+      lb.classList.add('single'); // cache flèches et compteur
       lb.classList.add('open');
     });
 
-    // quand on ferme, on enlève le mode "single" pour ne pas gêner la galerie
+    // Quand on ferme, on enlève le mode "single" pour ne pas gêner la galerie
     var lbClose = document.getElementById('lbClose');
     function clearSingle(){
       lb.classList.remove('single');
@@ -185,43 +192,6 @@
     });
   })();
 </script>
-  <main class="wrap">
-    <section class="card">
-      <h2>Tarifs des entrées</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Catégorie</th>
-            <th>Tarif</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Adulte (1 jour)</td>
-            <td><strong>x €</strong></td>
-          </tr>
-          <tr>
-            <td>Jeune (-12 ans) (1 jour)</td>
-            <td><strong>x €</strong></td>
-          </tr>
-          <tr>
-            <td>Moins de 6 ans</td>
-            <td><strong>Gratuit</strong></td>
-          </tr>
-          <tr>
-            <td>Pass 2 jours — Adulte</td>
-            <td><strong>x €</strong></td>
-          </tr>
-          <tr>
-            <td>Pass 2 jours — Jeune (-12 ans)</td>
-            <td><strong>x €</strong></td>
-          </tr>
-        </tbody>
-      </table>
-      <p class="note">
-        Remplacer les <em>x €</em> par les tarifs définitifs.
-      </p>
-    </section>
 
     <section class="card">
       <h2>Le gymnase</h2>
