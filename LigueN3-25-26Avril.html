@@ -127,19 +127,64 @@
       <a id="amaps" href="https://maps.apple.com/?ll=43.445891,5.702016&q=Gymnase%20de%20la%20Gardi" target="_blank" rel="noopener">Apple Plans</a>
     </p>
   </section>
-<!-- Carte d'accès locale -->
+<!-- Plan d’accès (miniature cliquable -> lightbox) -->
 <section class="card" style="margin-top:16px">
   <h2>Plan d’accès</h2>
   <p class="muted">
-    Pour mieux situer le parking et le trajet piéton vers le gymnase :
+    Parking et trajet piéton vers le gymnase :
   </p>
-  <img
-    src="assets/Carte.jpg"
-    alt="Plan d’accès au gymnase de la Gardi – Trets"
-    style="width:100%;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.15);margin-top:8px"
-  />
+  <figure style="margin:8px 0 0">
+    <img
+      id="planThumb"
+      src="assets/Carte.jpg"
+      alt="Plan d’accès au gymnase de la Gardi – Trets"
+      loading="lazy"
+      style="width:100%;max-width:420px;border-radius:12px;border:1px solid var(--line);cursor:zoom-in"
+    />
+    <figcaption class="muted" style="margin-top:6px">
+      Touchez / cliquez pour agrandir
+    </figcaption>
+  </figure>
 </section>
 
+<style>
+  /* Quand on ouvre juste la carte, on masque les flèches/counter de la lightbox */
+  .lightbox.single .lb-prev,
+  .lightbox.single .lb-next,
+  .lightbox.single .lb-counter { display: none !important; }
+</style>
+
+<script>
+  (function(){
+    var thumb = document.getElementById('planThumb');
+    var lb = document.getElementById('lightbox');
+    var img = document.getElementById('lbImg');
+    var count = document.getElementById('lbCount');
+
+    if (!thumb || !lb || !img) return;
+
+    thumb.addEventListener('click', function(){
+      // on affiche uniquement la carte dans la lightbox
+      img.src = 'assets/Carte.jpg';
+      if (count) count.textContent = '';
+      lb.classList.add('single');   // cache flèches et compteur
+      lb.classList.add('open');
+    });
+
+    // quand on ferme, on enlève le mode "single" pour ne pas gêner la galerie
+    var lbClose = document.getElementById('lbClose');
+    function clearSingle(){
+      lb.classList.remove('single');
+    }
+    if (lbClose) lbClose.addEventListener('click', clearSingle);
+    lb.addEventListener('click', function(e){
+      if (e.target === lb) clearSingle();
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && lb.classList.contains('open')) clearSingle();
+    });
+  })();
+</script>
   <main class="wrap">
     <section class="card">
       <h2>Tarifs des entrées</h2>
