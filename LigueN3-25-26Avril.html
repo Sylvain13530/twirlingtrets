@@ -240,65 +240,62 @@
         <label for="commande2">Détails de commande</label>
         <textarea id="commande2" style="min-height:120px"></textarea>
       </div>
-      <div class="col-12" style="grid-column:span 12; display:flex; gap:8px; flex-wrap:wrap; align-items:center">
-        <!-- ✅ Correction : utiliser un lien qui prépare le mailto au moment du geste -->
-        <a id="btnMail2" href="#" role="button" class="button">📧 Envoyer la demande</a>
-        <span class="muted">
-          Pour toute autre demande concernant la buvette :
-          <a id="btnMail2" href="mailto:buvettetbt@gmail.com" role="button" class="button">📧 Envoyer la demande</a>
-        </span>
-      </div>
+        <div class="col-12" style="grid-column:span 12; display:flex; gap:8px; flex-wrap:wrap; align-items:center">
+          <button id="btnMail2" type="button">📧 Envoyer la demande</button>
+          <span class="muted">
+            Pour toute autre demande concernant la buvette :
+            <a href="mailto:buvettetbt@gmail.com">buvettetbt@gmail.com</a>
+          </span>
+        </div>
     </div>
 
-<script>
-  (function(){
-    const RESA_EMAIL = "buvettetbt@gmail.com";
-    const SUBJECT = "Réservation clubs – Ligue N3 25–26 avril 2026";
+      <script>
+        (function(){
+          const RESA_EMAIL = "buvettetbt@gmail.com";
+          const SUBJECT = "Réservation clubs – Ligue N3 25–26 avril 2026";
 
-    function buildBody(lines){
-      return encodeURIComponent(lines.join("\r\n"));
-    }
-    function makeHref(){
-      var club = (document.getElementById("club2").value || "").trim();
-      var contact = (document.getElementById("contact2").value || "").trim();
-      var commande = (document.getElementById("commande2").value || "").trim();
+          function buildBody(lines){
+            return encodeURIComponent(lines.join("\r\n"));
+          }
+          function openMailto(href){
+            try {
+              var a = document.getElementById("mailtoTmp2");
+              if (a) {
+                a.setAttribute("href", href);
+                a.click();
+              }
+              window.open(href, "_self");
+            } catch(e){
+              alert("Si l’e-mail ne s’ouvre pas, envoyez votre demande à : " + RESA_EMAIL);
+            }
+          }
+          var btn = document.getElementById("btnMail2");
+          if (!btn) return;
+          btn.addEventListener("click", function(e){
+            e.preventDefault();
+            var club = (document.getElementById("club2").value || "").trim();
+            var contact = (document.getElementById("contact2").value || "").trim();
+            var commande = (document.getElementById("commande2").value || "").trim();
 
-      var lines = [
-        "Bonjour,",
-        "",
-        "Je souhaite effectuer une réservation pour la buvette :",
-        "Club : " + (club || "—"),
-        "Contact : " + (contact || "—"),
-        "",
-        "Commande :",
-        (commande || "—"),
-        "",
-        "Merci !"
-      ];
-      return "mailto:" + encodeURIComponent(RESA_EMAIL)
-           + "?subject=" + encodeURIComponent(SUBJECT)
-           + "&body=" + buildBody(lines);
-    }
-
-    var link = document.getElementById("btnMail2");
-    if (!link) return;
-
-    // Pose le mailto juste AVANT que le navigateur suive le lien (tous cas)
-    ["pointerdown","mousedown","touchstart","click"].forEach(function(evt){
-      link.addEventListener(evt, function(){
-        link.setAttribute("href", makeHref());
-        link.removeAttribute("target"); // s'assure d'ouvrir dans le client par défaut
-      }, { passive: true });
-    });
-
-    // Clavier (Enter/Espace)
-    link.addEventListener("keydown", function(e){
-      if (e.key === "Enter" || e.key === " ") {
-        link.setAttribute("href", makeHref());
-      }
-    });
-  })();
-</script>
+            var lines = [
+              "Bonjour,",
+              "",
+              "Je souhaite effectuer une réservation pour la buvette :",
+              "Club : " + (club || "—"),
+              "Contact : " + (contact || "—"),
+              "",
+              "Commande :",
+              (commande || "—"),
+              "",
+              "Merci !"
+            ];
+            var href = "mailto:" + encodeURIComponent(RESA_EMAIL)
+                     + "?subject=" + encodeURIComponent(SUBJECT)
+                     + "&body=" + buildBody(lines);
+            openMailto(href);
+          });
+        })();
+      </script>
 
   </section>
 
