@@ -4,11 +4,21 @@
     if (!mount) return;
 
     fetch('partials/footer.html', { cache: 'no-cache' })
-      .then(function (r) { return r.text(); })
+      .then(function (r) {
+        if (!r.ok) throw new Error('no-partials');
+        return r.text();
+      })
       .then(function (html) {
         mount.innerHTML = html;
       })
-      .catch(function () { /* noop */ });
+      .catch(function () {
+        fetch('footer.html', { cache: 'no-cache' })
+          .then(function (r) { return r.text(); })
+          .then(function (html) {
+            mount.innerHTML = html;
+          })
+          .catch(function () { /* noop */ });
+      });
   }
 
   document.addEventListener('DOMContentLoaded', injectFooter);
