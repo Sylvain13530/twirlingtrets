@@ -30,9 +30,7 @@
       justify-content: center;
       z-index: 60;
     }
-    .lightbox.open {
-      display: flex;
-    }
+    .lightbox.open { display: flex; }
     .lightbox img {
       max-width: min(92vw, 1400px);
       max-height: 90vh;
@@ -40,58 +38,40 @@
       box-shadow: 0 10px 30px rgba(0,0,0,.4);
       display: block;
     }
-    .lb-close,
-    .lb-prev,
-    .lb-next {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,.12);
-      backdrop-filter: blur(6px);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.28);
-      border-radius: 999px;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 20px;
-      user-select: none;
+    .lb-close,.lb-prev,.lb-next{
+      position: fixed; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,.12); backdrop-filter: blur(6px);
+      color:#fff; border:1px solid rgba(255,255,255,.28);
+      border-radius:999px; width:44px; height:44px; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:20px; user-select:none;
     }
-    .lb-close {
-      top: 24px;
-      right: 24px;
-      transform: none;
-      width: 42px;
-      height: 42px;
-      font-size: 18px;
-    }
-    .lb-prev {
-      left: 24px;
-    }
-    .lb-next {
-      right: 24px;
-    }
+    .lb-close { top:24px; right:24px; transform:none; width:42px; height:42px; font-size:18px }
+    .lb-prev { left:24px } .lb-next { right:24px }
     .lb-counter {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #fff;
-      font-weight: 700;
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.18);
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 14px;
+      position: fixed; bottom:20px; left:50%; transform:translateX(-50%);
+      color:#fff; font-weight:700; background:rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.18); padding:6px 10px; border-radius:999px; font-size:14px
     }
-    @media (max-width:700px) {
-      .lb-prev,
-      .lb-next {
-        display: none;
+    @media (max-width:700px) { .lb-prev, .lb-next { display:none } }
+
+    /* Impression : ne sortir que la section buvette, sans réservations */
+    @media print {
+      body * { visibility: hidden !important; }
+      #buvetteSection, #buvetteSection * { visibility: visible !important; }
+      #buvetteSection {
+        position: absolute !important;
+        left: 0; top: 0; right: 0;
+        width: 100%;
+        box-shadow: none !important;
       }
+      .no-print,
+      #site-header,
+      #site-footer,
+      .banner,
+      .hero,
+      #reservationsSection,
+      .modal,
+      .lightbox { display: none !important; }
     }
   </style>
 </head>
@@ -103,22 +83,10 @@
     <span class="badge">🏆 Ligue N3 PACA — 25–26 avril 2026</span>
     <h1>Informations évènement</h1>
     <ul>
-      <li>
-        <strong>Lieu :</strong>
-        Gymnase de la Gardi — 1120 Av. Marius Joly, 13530 Trets
-      </li>
-      <li>
-        <strong>Accès parking :</strong>
-        Chemin de Fond de Tuile — GPS 43.445891, 5.702016
-      </li>
-      <li>
-        <strong>Buvette :</strong>
-        paiements espèces et carte, <em>pas de chèques</em> ; système de tickets
-      </li>
-      <li class="rule">
-        <strong>Règlement :</strong>
-        Interdiction de manger dans le gymnase — seules bouteilles d’eau et gourdes sont acceptées.
-      </li>
+      <li><strong>Lieu :</strong> Gymnase de la Gardi — 1120 Av. Marius Joly, 13530 Trets</li>
+      <li><strong>Accès parking :</strong> Chemin de Fond de Tuile — GPS 43.445891, 5.702016</li>
+      <li><strong>Buvette :</strong> paiements espèces et carte, <em>pas de chèques</em> ; système de tickets</li>
+      <li class="rule"><strong>Règlement :</strong> Interdiction de manger dans le gymnase — seules bouteilles d’eau et gourdes sont acceptées.</li>
     </ul>
     <p>
       📍 Ouvrir le plan d’accès :
@@ -130,12 +98,10 @@
   
   <main class="wrap">
 
-    <!-- Plan d’accès (miniature cliquable -> lightbox) -->
+    <!-- Plan d’accès -->
     <section class="card" style="margin-top:16px; grid-column:span 12;">
       <h2>Plan d’accès</h2>
-      <p class="muted">
-        Parking et trajet piéton vers le gymnase :
-      </p>
+      <p class="muted">Parking et trajet piéton vers le gymnase :</p>
       <figure style="margin:8px auto 0; text-align:center; max-width:520px;">
         <img
           id="planThumb"
@@ -150,15 +116,9 @@
   </main>
 
   <style>
-    /* Quand on ouvre juste la carte, on masque les flèches/counter de la lightbox */
-    .lightbox.single .lb-prev,
-    .lightbox.single .lb-next,
-    .lightbox.single .lb-counter {
-      display: none !important;
-    }
+    .lightbox.single .lb-prev,.lightbox.single .lb-next,.lightbox.single .lb-counter{ display:none !important; }
   </style>
 
-  <!-- ✅ Correction : attendre DOMContentLoaded avant d’utiliser la lightbox -->
   <script>
     document.addEventListener('DOMContentLoaded', function(){
       var thumb = document.getElementById('planThumb');
@@ -172,7 +132,7 @@
       thumb.addEventListener('click', function(){
         img.src = 'assets/Carte.jpg';
         if (count) count.textContent = '';
-        lb.classList.add('single'); /* masque flèches + compteur */
+        lb.classList.add('single');
         lb.classList.add('open');
       });
 
@@ -190,7 +150,8 @@
     <div id="gymGrid" class="gym-grid"></div>
   </section>
 
-  <section class="card">
+  <!-- === BU V E T T E === -->
+  <section id="buvetteSection" class="card">
     <h2>Buvette – Ligue N3 (25–26 avril 2026)</h2>
     <p class="muted" style="margin-top:-4px">
       Encaissement = <strong>ticket</strong> → remise du produit.
@@ -200,7 +161,7 @@
     <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:12px 0">
       <input id="q" type="search" placeholder="Rechercher un article…" aria-label="Rechercher" />
       <select id="filterCat" aria-label="Filtrer par catégorie"></select>
-      <button onclick="window.print()">🖨️ Imprimer</button>
+      <button class="no-print" onclick="window.print()">🖨️ Imprimer</button>
     </div>
     <div style="overflow:auto">
       <table id="menuTable">
@@ -216,7 +177,8 @@
     </div>
   </section>
 
-  <section class="card">
+  <!-- === R É S E R V A T I O N S === -->
+  <section id="reservationsSection" class="card">
     <h2>Réservations clubs</h2>
     <p class="muted">
       Réservez vos tickets à l’avance : nous les préparons et vous retirez sur place (paiement au retrait). Toute réservation sera confirmée par téléphone ou par e-mail
@@ -234,63 +196,47 @@
         <label for="commande2">Détails de commande</label>
         <textarea id="commande2" style="min-height:120px; width: 420px; height: 120px;"></textarea>
       </div>
-        <div class="col-12" style="grid-column:span 12; display:flex; gap:8px; flex-wrap:wrap; align-items:center">
-          <button id="btnMail2" type="button">📧 Envoyer la demande</button>
-          <span class="muted">
-            Pour toute autre demande concernant la buvette :
-            <a href="mailto:buvettetbt@gmail.com">buvettetbt@gmail.com</a>
-          </span>
-        </div>
+      <div class="col-12" style="grid-column:span 12; display:flex; gap:8px; flex-wrap:wrap; align-items:center">
+        <a id="btnMail2" href="mailto:buvettetbt@gmail.com" role="button" class="button">📧 Envoyer la demande</a>
+        <span class="muted">
+          Pour toute autre demande concernant la buvette :
+          <a href="mailto:buvettetbt@gmail.com">buvettetbt@gmail.com</a>
+        </span>
+      </div>
     </div>
 
-      <script>
-        (function(){
-          const RESA_EMAIL = "buvettetbt@gmail.com";
-          const SUBJECT = "Réservation clubs – Ligue N3 25–26 avril 2026";
-
-          function buildBody(lines){
-            return encodeURIComponent(lines.join("\r\n"));
-          }
-          function openMailto(href){
-            try {
-              var a = document.getElementById("mailtoTmp2");
-              if (a) {
-                a.setAttribute("href", href);
-                a.click();
-              }
-              window.open(href, "_self");
-            } catch(e){
-              alert("Si l’e-mail ne s’ouvre pas, envoyez votre demande à : " + RESA_EMAIL);
-            }
-          }
-          var btn = document.getElementById("btnMail2");
-          if (!btn) return;
-          btn.addEventListener("click", function(e){
-            e.preventDefault();
-            var club = (document.getElementById("club2").value || "").trim();
-            var contact = (document.getElementById("contact2").value || "").trim();
-            var commande = (document.getElementById("commande2").value || "").trim();
-            var lines = [
-              "Bonjour,",
-              "",
-              "Je souhaite effectuer une réservation pour la buvette :",
-              "Club : " + (club || "—"),
-              "Contact : " + (contact || "—"),
-              "",
-              "Commande :",
-              (commande || "—"),
-              "",
-              "Merci !"
-            ];
-            var href = "mailto:" + encodeURIComponent(RESA_EMAIL)
-                     + "?subject=" + encodeURIComponent(SUBJECT)
-                     + "&body=" + buildBody(lines);
-            openMailto(href);
-            alert(href);
-          });
-        })();
-      </script>
-
+    <script>
+      (function(){
+        const RESA_EMAIL = "buvettetbt@gmail.com";
+        const SUBJECT = "Réservation clubs – Ligue N3 25–26 avril 2026";
+        function buildBody(lines){ return encodeURIComponent(lines.join("\r\n")); }
+        function makeHref(){
+          var club = (document.getElementById("club2").value || "").trim();
+          var contact = (document.getElementById("contact2").value || "").trim();
+          var commande = (document.getElementById("commande2").value || "").trim();
+          var lines = [
+            "Bonjour,","","Je souhaite effectuer une réservation pour la buvette :",
+            "Club : " + (club || "—"),
+            "Contact : " + (contact || "—"),"",
+            "Commande :", (commande || "—"),"", "Merci !"
+          ];
+          return "mailto:" + encodeURIComponent(RESA_EMAIL)
+               + "?subject=" + encodeURIComponent(SUBJECT)
+               + "&body=" + buildBody(lines);
+        }
+        var link = document.getElementById("btnMail2");
+        if (!link) return;
+        ["pointerdown","mousedown","touchstart","click"].forEach(function(evt){
+          link.addEventListener(evt, function(){
+            link.setAttribute("href", makeHref());
+            link.removeAttribute("target");
+          }, { passive:true });
+        });
+        link.addEventListener("keydown", function(e){
+          if (e.key === "Enter" || e.key === " ") link.setAttribute("href", makeHref());
+        });
+      })();
+    </script>
   </section>
 
   <div id="lightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Agrandissement photo">
@@ -309,39 +255,24 @@
       try {
         var ua = navigator.userAgent || "";
         var isApple = /iPhone|iPad|Macintosh/.test(ua);
-        if (isApple) {
-          var a = document.getElementById('amaps');
-          if (a) a.style.fontWeight = '800';
-        } else {
-          var g = document.getElementById('gmaps');
-          if (g) g.style.fontWeight = '800';
-        }
+        if (isApple) { var a = document.getElementById('amaps'); if (a) a.style.fontWeight = '800'; }
+        else { var g = document.getElementById('gmaps'); if (g) g.style.fontWeight = '800'; }
       } catch(e) {}
     })();
   </script>
 
   <script>
     const GYM_FILES = [
-      "Gymnase-INT-1.jpg",
-      "Gymnase-INT-2.jpg",
-      "Gymnase-INT-3.jpg",
-      "Gymnase-INT-4.jpg",
-      "Gymnase-INT-5.jpg",
-      "Gymnase-INT-6.jpg",
-      "Gymnase-INT-7.jpg",
-      "Photo gymnase depuis parking.png",
-      "Photo gymnase.png"
+      "Gymnase-INT-1.jpg","Gymnase-INT-2.jpg","Gymnase-INT-3.jpg",
+      "Gymnase-INT-4.jpg","Gymnase-INT-5.jpg","Gymnase-INT-6.jpg","Gymnase-INT-7.jpg",
+      "Photo gymnase depuis parking.png","Photo gymnase.png"
     ];
     const urlGym = (f) => "assets/gymnase/" + encodeURIComponent(f).replace(/%2F/g,"/");
-
     (function(){
-      var grid = document.getElementById("gymGrid");
-      if (!grid) return;
-
+      var grid = document.getElementById("gymGrid"); if (!grid) return;
       grid.innerHTML = GYM_FILES.map(function(file, i){
         return '<img class="gym-thumb" src="'+urlGym(file)+'" alt="Photo gymnase '+(i+1)+'" loading="lazy" data-idx="'+i+'" />';
       }).join("");
-
       var lb = document.getElementById("lightbox");
       var img = document.getElementById("lbImg");
       var btnPrev = document.getElementById("lbPrev");
@@ -349,25 +280,11 @@
       var btnClose = document.getElementById("lbClose");
       var count = document.getElementById("lbCount");
       var idx = 0;
-
-      function openAt(i){
-        idx = (i + GYM_FILES.length) % GYM_FILES.length;
-        img.src = urlGym(GYM_FILES[idx]);
-        count.textContent = (idx+1) + " / " + GYM_FILES.length;
-        lb.classList.add("open");
-      }
-      function close(){
-        lb.classList.remove("open");
-        img.src = "";
-      }
-      function prev(){ openAt(idx - 1); }
-      function next(){ openAt(idx + 1); }
-
+      function openAt(i){ idx = (i + GYM_FILES.length) % GYM_FILES.length; img.src = urlGym(GYM_FILES[idx]); count.textContent = (idx+1) + " / " + GYM_FILES.length; lb.classList.add("open"); }
+      function close(){ lb.classList.remove("open"); img.src = ""; }
+      function prev(){ openAt(idx - 1); } function next(){ openAt(idx + 1); }
       document.getElementById("gymGrid").addEventListener("click", function(e){
-        var t = e.target;
-        if (t && t.classList.contains("gym-thumb")) {
-          openAt(parseInt(t.getAttribute("data-idx"), 10) || 0);
-        }
+        var t = e.target; if (t && t.classList.contains("gym-thumb")) { openAt(parseInt(t.getAttribute("data-idx"), 10) || 0); }
       });
       btnPrev.addEventListener("click", function(e){ e.stopPropagation(); prev(); });
       btnNext.addEventListener("click", function(e){ e.stopPropagation(); next(); });
