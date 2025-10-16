@@ -3,18 +3,30 @@
     var mount = document.getElementById('site-header');
     if (!mount) return;
 
+    // 1) tente partials/header.html, 2) sinon header.html (racine)
     fetch('partials/header.html', { cache: 'no-cache' })
-      .then(function (r) { return r.text(); })
+      .then(function (r) {
+        if (!r.ok) throw new Error('no-partials');
+        return r.text();
+      })
       .then(function (html) {
         mount.innerHTML = html;
         afterHeaderInjected();
       })
-      .catch(function () { /* noop */ });
+      .catch(function () {
+        fetch('header.html', { cache: 'no-cache' })
+          .then(function (r) { return r.text(); })
+          .then(function (html) {
+            mount.innerHTML = html;
+            afterHeaderInjected();
+          })
+          .catch(function () { /* noop */ });
+      });
   }
 
   function afterHeaderInjected() {
     try {
-      // ----- Marquee: fallback JS si l'anim CSS est désactivée -----
+      // Marquee fallback JS si anim CSS off
       var track = document.getElementById('marqueeTrack');
       if (track) {
         var cssAnimOn = getComputedStyle(track).animationName !== 'none';
@@ -31,31 +43,14 @@
         }
       }
 
-      // ----- Bandeau: cacher UNIQUEMENT sur la page buvette.html -----
+      // Cacher bandeau UNIQUEMENT sur buvette.html
       var hideBanner = /(^|\/)buvette\.html$/i.test(location.pathname);
       if (hideBanner) {
         var banner = document.querySelector('.banner');
         if (banner) banner.style.display = 'none';
       }
 
-      // ----- Popup auto (1er janv. -> 26 avril 2026), mémorisation fermeture -----
-      var popup = document.getElementById('popup');
-      var btnClose = document.getElementById('closePopup');
-      if (popup && btnClose) {
-        var today = new Date();
-        var start = new Date('2026-01-01T00:00:00');
-        var end = new Date('2026-04-26T23:59:59');
-        var dismissed = localStorage.getItem('popupDismissed2026') === '1';
-        if (!dismissed && today >= start && today <= end) {
-          popup.style.display = 'flex';
-        }
-        btnClose.addEventListener('click', function () {
-          popup.style.display = 'none';
-          localStorage.setItem('popupDismissed2026', '1');
-        });
-      }
-
-      // ----- Lien actif dans la nav -----
+      // Lien actif dans la nav
       var links = document.querySelectorAll('header nav a[href]');
       var current = location.pathname.split('/').pop() || 'index.html';
       links.forEach(function (a) {
@@ -63,9 +58,7 @@
           a.setAttribute('data-active', 'true');
         }
       });
-    } catch (e) {
-      // silence is golden :)
-    }
+    } catch (e) { /* silence */ }
   }
 
   document.addEventListener('DOMContentLoaded', injectHeader);
