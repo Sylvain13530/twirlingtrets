@@ -1,122 +1,26 @@
 [
-  {
-    "name": "Coca-Cola",
-    "category": "Boissons",
-    "price": "x.xx"
-  },
-  {
-    "name": "Coca-Cola Zéro",
-    "category": "Boissons",
-    "price": "x.xx"
-  },
-  {
-    "name": "Fanta",
-    "category": "Boissons",
-    "price": "x.xx"
-  },
-  {
-    "name": "Oasis",
-    "category": "Boissons",
-    "price": "x.xx"
-  },
-  {
-    "name": "Ice Tea",
-    "category": "Boissons",
-    "price": "x.xx"
-  },
-  {
-    "name": "Cristaline",
-    "category": "Boissons",
-    "price": "x.xx"
-  },
-  {
-    "name": "Perrier",
-    "category": "Boissons",
-    "price": "x.xx"
-  },
-  {
-    "name": "Cristaline pétillante",
-    "category": "Boissons",
-    "price": "x.xx"
-  },
-  {
-    "name": "Café",
-    "category": "Chaud",
-    "price": "x.xx"
-  },
-  {
-    "name": "Thé",
-    "category": "Chaud",
-    "price": "x.xx"
-  },
-  {
-    "name": "Chocolat chaud",
-    "category": "Chaud",
-    "price": "x.xx"
-  },
-  {
-    "name": "Sandwich saucisse",
-    "category": "Salé",
-    "price": "x.xx"
-  },
-  {
-    "name": "Sandwich merguez",
-    "category": "Salé",
-    "price": "x.xx"
-  },
-  {
-    "name": "Sandwich camembert",
-    "category": "Salé",
-    "price": "x.xx"
-  },
-  {
-    "name": "Part de pizza fromage",
-    "category": "Salé",
-    "price": "x.xx"
-  },
-  {
-    "name": "Panini jambon",
-    "category": "Salé",
-    "price": "x.xx"
-  },
-  {
-    "name": "Panini Nutella",
-    "category": "Sucré",
-    "price": "x.xx"
-  },
-  {
-    "name": "Crêpe sucre",
-    "category": "Sucré",
-    "price": "x.xx"
-  },
-  {
-    "name": "Crêpe Nutella",
-    "category": "Sucré",
-    "price": "x.xx"
-  },
-  {
-    "name": "Mars",
-    "category": "Friandises",
-    "price": "x.xx"
-  },
-  {
-    "name": "Twix",
-    "category": "Friandises",
-    "price": "x.xx"
-  },
-  {
-    "name": "Lion",
-    "category": "Friandises",
-    "price": "x.xx"
-  },
-  {
-    "name": "Bounty",
-    "category": "Friandises",
-    "price": "x.xx"
-  },
-  {
-    "name": "Formule petit-déjeuner (1 viennoiserie + 1 boisson chaude)",
-    "category": "Chaud",
-    "price": "x.xx"
-  }
+  {"name": "Coca-Cola", "category": "Boissons", "price": 2, "image": ""},
+  {"name": "Coca-Cola Zéro", "category": "Boissons", "price": 2, "image": ""},
+  {"name": "Fanta", "category": "Boissons", "price": 2, "image": ""},
+  {"name": "Oasis", "category": "Boissons", "price": 2, "image": ""},
+  {"name": "Ice Tea", "category": "Boissons", "price": 2, "image": ""},
+  {"name": "Cristaline", "category": "Boissons", "price": 1.5, "image": ""},
+  {"name": "Perrier", "category": "Boissons", "price": 2, "image": ""},
+  {"name": "Cristaline pétillante", "category": "Boissons", "price": 2, "image": ""},
+  {"name": "Café", "category": "Chaud", "price": 1.5, "image": ""},
+  {"name": "Thé", "category": "Chaud", "price": 1.5, "image": ""},
+  {"name": "Chocolat chaud", "category": "Chaud", "price": 1.5, "image": ""},
+  {"name": "Sandwich saucisse", "category": "Salé", "price": 4, "image": ""},
+  {"name": "Sandwich merguez", "category": "Salé", "price": 4, "image": ""},
+  {"name": "Sandwich camembert", "category": "Salé", "price": 4, "image": ""},
+  {"name": "Part de pizza fromage", "category": "Salé", "price": 4, "image": ""},
+  {"name": "Panini jambon", "category": "Salé", "price": 5, "image": ""},
+  {"name": "Panini Nutella", "category": "Sucré", "price": 5, "image": ""},
+  {"name": "Crêpe sucre", "category": "Sucré", "price": 2, "image": ""},
+  {"name": "Crêpe Nutella", "category": "Sucré", "price": 3, "image": ""},
+  {"name": "Mars", "category": "Friandises", "price": 2, "image": ""},
+  {"name": "Twix", "category": "Friandises", "price": 2, "image": ""},
+  {"name": "Lion", "category": "Friandises", "price": 2, "image": ""},
+  {"name": "Bounty", "category": "Friandises", "price": 2, "image": ""},
+  {"name": "Formule petit-déjeuner (1 viennoiserie + 1 boisson chaude)", "category": "Formule", "price": 3, "image": ""}
 ]
