@@ -43,74 +43,47 @@
   <div id="site-footer"></div>
   <script src="assets/inject-footer.js" defer></script>
 
-  <script>
-    /* Liste des fichiers présents dans assets/galerie/ */
-    const photos = [
-      "Champions de la ville de Trets 1.jpg",
-      "Compet 1.jpg",
-      "Compet 10.jpg",
-      "Compet 11.jpg",
-      "Compet 12.jpg",
-      "Compet 2.jpg",
-      "Compet 3.jpg",
-      "Compet 4.jpg",
-      "Compet 5.jpg",
-      "Compet 6.jpg",
-      "Compet 7.jpg",
-      "Compet 8.jpg",
-      "Compet 9.jpg",
-      "Gala 2023.jpg",
-      "Gala 2024.jpg",
-      "Gala 2025 2.jpg",
-      "Journées des associations 2025 1.jpg",
-      "Journées des associations 2025 2.jpg",
-      "Journées des associations 2025 3.jpg",
-      "formation-icn4-1.jpg",
-    "formation-icn4-2.jpg",
-    "championnat-departemental-13-1.jpg",
-    "championnat-departemental-13-2.jpg",
-    "championnat-departemental-13-3.jpg",
-    "championnat-departemental-13-4.jpg",
-    "championnat-departemental-13-5.jpg",
-    "championnat-departemental-13-6.jpg",
-    "championnat-departemental-13-7.jpg",
-    "championnat-departemental-13-8.jpg",
-    "championnat-departemental-13-9.jpg",
-    "championnat-departemental-13-10.jpg",
-    "championnat-departemental-13-11.jpg",
-    "championnat-departemental-13-12.jpg",
-    "championnat-departemental-13-13.jpg",
-    "championnat-departemental-13-14.jpg",
-    "championnat-departemental-13-15.jpg",
-    "championnat-departemental-13-16.jpg",
-    "championnat-departemental-13-17.jpg",
-    "championnat-regional-paca-1.jpg",
-    "championnat-regional-paca-2.jpg",
-    "championnat-regional-paca-3.jpg",
-    "championnat-regional-paca-4.jpg",
-    "championnat-regional-paca-5.jpg",
-    "championnat-regional-paca-6.jpg",
-    "championnat-regional-paca-7.jpg",
-    "championnat-regional-paca-8.jpg",
-    "championnat-regional-paca-9.jpg",
-    "championnat-regional-paca-10.jpg",
-    "championnat-regional-paca-11.jpg",
-    "championnat-regional-paca-12.jpg",
-    "championnat-regional-paca-13.jpg"
-    ];
+<script>
+  const photos = [
+    { src: "assets/galerie/Champions de la ville de Trets 1.jpg" },
+    { src: "assets/galerie/Compet 1.jpg" },
+    { src: "assets/galerie/Compet 10.jpg" },
+    { src: "assets/galerie/Compet 11.jpg" },
+    { src: "assets/galerie/Compet 12.jpg" },
+    { src: "assets/galerie/Compet 2.jpg" },
+    { src: "assets/galerie/Compet 3.jpg" },
+    { src: "assets/galerie/Compet 4.jpg" },
+    { src: "assets/galerie/Compet 5.jpg" },
+    { src: "assets/galerie/Compet 6.jpg" },
+    { src: "assets/galerie/Compet 7.jpg" },
+    { src: "assets/galerie/Compet 8.jpg" },
+    { src: "assets/galerie/Compet 9.jpg" },
+    { src: "assets/galerie/Gala 2023.jpg" },
+    { src: "assets/galerie/Gala 2024.jpg" },
+    { src: "assets/galerie/Gala 2025 2.jpg" },
+    { src: "assets/galerie/Journées des associations 2025 1.jpg" },
+    { src: "assets/galerie/Journées des associations 2025 2.jpg" },
+    { src: "assets/galerie/Journées des associations 2025 3.jpg" },
 
-    /* Génération du HTML sans figcaption */
-    const root = document.getElementById("gallery");
-    const escapeAttr = (s) => s.replace(/"/g, "&quot;");
+    { src: "assets/actus/formation-icn4-1.jpg" },
+    { src: "assets/actus/formation-icn4-2.jpg" }
 
-    root.innerHTML = photos.map(function(file){
-      const src = "assets/galerie/" + file;
-      return (
-        '<figure class="gallery-item">' +
-          '<img src="' + escapeAttr(src) + '" alt="Photo du club" loading="lazy" />' +
-        '</figure>'
-      );
-    }).join("");
-  </script>
-</body>
+    /* ajoute ici les autres images d'actus */
+    /* ex :
+    { src: "assets/actus/championnat-departemental-13-1.jpg" },
+    { src: "assets/actus/championnat-departemental-13-2.jpg" }
+    */
+  ];
+
+  const root = document.getElementById("gallery");
+  const escapeAttr = (s) => String(s).replace(/"/g, "&quot;");
+
+  root.innerHTML = photos.map(function(photo){
+    return (
+      '<figure class="gallery-item">' +
+        '<img src="' + escapeAttr(photo.src) + '" alt="Photo du club" loading="lazy" />' +
+      '</figure>'
+    );
+  }).join("");
+</script>
 </html>
