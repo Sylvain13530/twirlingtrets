@@ -20,5 +20,5 @@
   {"name": "Twix", "category": "Friandises", "price": 1, "image": "img/Twix.jpg"},
   {"name": "Bounty", "category": "Friandises", "price": 1, "image": "img/Bounty.jpg"},
   {"name": "Kitkat", "category": "Friandises", "price": 1, "image": "img/Kitkat.jpg"},
-  {"name": "Formule petit-déjeuner (1 viennoiserie + 1 boisson chaude)", "category": "Petit dej", "price": 3, "image": "img/Formule petit dej.jpg"}
+  {"name": "Formule petit-déjeuner (1 viennoiserie + 1 boisson chaude) UNIQUEMENT SUR RESERVATION", "category": "Petit dej", "price": 3, "image": "img/Formule petit dej.jpg"}
 ]
