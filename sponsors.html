@@ -8,7 +8,7 @@
   <style>
     .partners-section {
       display: grid;
-      gap: 24px;
+      gap: 28px;
     }
 
     .partners-block h2 {
@@ -19,11 +19,16 @@
       margin-top: 0;
     }
 
-    .sponsors-grid {
+    .partners-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 16px;
       margin-top: 16px;
+    }
+
+    .partner-link {
+      text-decoration: none;
+      color: inherit;
     }
 
     .partner-card {
@@ -36,7 +41,6 @@
       align-items: center;
       justify-content: center;
       min-height: 140px;
-      text-align: center;
       transition: transform .15s ease, box-shadow .15s ease;
     }
 
@@ -52,32 +56,10 @@
       display: block;
     }
 
-    .partner-link {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .event-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    .event-card {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 18px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    .partner-card.text-only {
       text-align: center;
       font-weight: 700;
-    }
-
-    .event-card a {
-      text-decoration: none;
-      color: inherit;
-      display: block;
+      font-size: 18px;
     }
   </style>
 </head>
@@ -96,7 +78,7 @@
         <h2>Sponsors annuels</h2>
         <p class="muted">Ils accompagnent le club tout au long de l’année.</p>
 
-        <div class="sponsors-grid">
+        <div class="partners-grid">
           <a
             class="partner-link"
             href="https://www.trets.fr/"
@@ -127,26 +109,66 @@
         <h2>Partenaires évènementiels – Ligue N3</h2>
         <p class="muted">Merci aux partenaires qui soutiennent l’organisation de la Ligue N3.</p>
 
-        <div class="event-grid">
-          <div class="event-card">
-            <a href="https://www.maxicoffee.com/" target="_blank" rel="noopener">MaxiCoffee</a>
-          </div>
+        <div class="partners-grid">
+          <a
+            class="partner-link"
+            href="https://www.maxicoffee.com/"
+            target="_blank"
+            rel="noopener"
+            title="MaxiCoffee"
+          >
+            <div class="partner-card">
+              <img src="assets/sponsor-maxicoffee.svg" alt="MaxiCoffee" />
+            </div>
+          </a>
 
-          <div class="event-card">
-            <a href="https://www.nestenn.com/" target="_blank" rel="noopener">Nestenn</a>
-          </div>
+          <a
+            class="partner-link"
+            href="https://www.nestenn.com/"
+            target="_blank"
+            rel="noopener"
+            title="Nestenn"
+          >
+            <div class="partner-card">
+              <img src="assets/sponsor-nestenn.svg" alt="Nestenn" />
+            </div>
+          </a>
 
-          <div class="event-card">
-            <a href="https://www.syal-services.fr/" target="_blank" rel="noopener">Syal Services</a>
-          </div>
+          <a
+            class="partner-link"
+            href="https://www.syal-services.fr/"
+            target="_blank"
+            rel="noopener"
+            title="Syal Services"
+          >
+            <div class="partner-card">
+              <img src="assets/sponsor-syal.jpg" alt="Syal Services" />
+            </div>
+          </a>
 
-          <div class="event-card">
-            <a href="https://www.biocoop.fr/" target="_blank" rel="noopener">Biocoop</a>
-          </div>
+          <a
+            class="partner-link"
+            href="https://www.biocoop.fr/"
+            target="_blank"
+            rel="noopener"
+            title="Biocoop"
+          >
+            <div class="partner-card">
+              <img src="assets/sponsor-biocoop.webp" alt="Biocoop" />
+            </div>
+          </a>
 
-          <div class="event-card">
-            <a href="https://tenup.fft.fr/club/62130243" target="_blank" rel="noopener">Tennis Club de Trets</a>
-          </div>
+          <a
+            class="partner-link"
+            href="https://tenup.fft.fr/club/62130243"
+            target="_blank"
+            rel="noopener"
+            title="Tennis Club de Trets"
+          >
+            <div class="partner-card">
+              <img src="assets/sponsor-tennis-trets.avif" alt="Tennis Club de Trets" />
+            </div>
+          </a>
         </div>
       </div>
     </section>
