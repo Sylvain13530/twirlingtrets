@@ -13,6 +13,7 @@
   {"name": "Sandwich merguez", "category": "Salé", "price": 4, "image": "img/Sandwich merguez.jpg"},
   {"name": "Panini jambon fromage", "category": "Salé", "price": 5, "image": "img/Panini jambon.jpg"},
   {"name": "Panini tomates mozza pesto", "category": "Salé", "price": 5, "image": "img/Panini jambon.jpg"},
+  {"name": "Barquette de frites", "category": "Salé", "price": 2.5, "image": "img/Frites.jpg"},
   {"name": "Panini Nutella", "category": "Sucré", "price": 4, "image": "img/Panini Nutella.jpg"},
   {"name": "Crêpe sucre", "category": "Sucré", "price": 1.50, "image": "img/Crêpe sucre.jpg"},
   {"name": "Crêpe Nutella", "category": "Sucré", "price": 2, "image": "img/Crêpe Nutella.jpg"},
