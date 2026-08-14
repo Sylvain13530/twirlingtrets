@@ -55,7 +55,6 @@ content:
       - name: images
         label: Photos
         type: image
-        list: true
         required: false
         options:
           media: actualites
