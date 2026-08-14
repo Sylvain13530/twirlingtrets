@@ -60,6 +60,9 @@ content:
         options:
           media: actualites
           path: assets/actus
+          multiple:
+          max: 50
+          unique: true
           rename: safe
 
       - name: lien
@@ -120,6 +123,9 @@ content:
         options:
           media: galerie
           path: assets/galerie
+          multiple:
+          max: 50
+          unique: true
           rename: safe
   # =========================
   # SPONSORS
