@@ -175,45 +175,45 @@ content:
               label: Nom uniquement
             - value: fond-bleu
               label: Logo sur fond bleu
-        # =========================
-        # LE CLUB
-        # =========================
-      
-        - name: club
-          label: Le club
-          type: file
-          path: assets/club.json
-          format: json
-      
-          fields:
-            - name: intro
-              label: Texte d'introduction
-              type: string
-              required: true
-      
-            - name: presentation
-              label: Présentation
-              type: rich-text
-              required: true
-              options:
-                format: html
-                switcher: false
-      
-            - name: encadrement
-              label: Encadrement et fonctionnement
-              type: rich-text
-              required: true
-              options:
-                format: html
-                switcher: false
-      
-            - name: histoire
-              label: Histoire du club
-              type: rich-text
-              required: true
-              options:
-                format: html
-                switcher: false
+  # =========================
+  # LE CLUB
+  # =========================
+
+  - name: club
+    label: Le club
+    type: file
+    path: assets/club.json
+    format: json
+
+    fields:
+      - name: intro
+        label: Texte d'introduction
+        type: string
+        required: true
+
+      - name: presentation
+        label: Présentation
+        type: rich-text
+        required: true
+        options:
+          format: html
+          switcher: false
+
+      - name: encadrement
+        label: Encadrement et fonctionnement
+        type: rich-text
+        required: true
+        options:
+          format: html
+          switcher: false
+
+      - name: histoire
+        label: Histoire du club
+        type: rich-text
+        required: true
+        options:
+          format: html
+          switcher: false
   # =========================
   # INFORMATIONS DU SITE
   # =========================
