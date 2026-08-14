@@ -7,71 +7,203 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
   <div id="site-header"></div>
   <script src="assets/inject-header.js" defer></script>
 
   <section class="hero wrap">
     <h1>Le club</h1>
-    <p>Découvrez l’histoire, les valeurs et l’encadrement du Twirling Bâton Trets.</p>
+    <p id="clubIntro">
+      Chargement…
+    </p>
   </section>
 
   <main class="wrap">
     <section class="card" style="display:grid; gap:2px;">
+
       <h2>Présentation</h2>
-
-      <p>
-        Depuis sa création, le club a pour vocation de faire découvrir, pratiquer et promouvoir
-        le twirling bâton dans un esprit sportif fondé sur le respect, le fair-play et le goût de l’effort.
-      </p>
-
-      <p>
-        Année après année, le TBT s’est structuré autour d’une même ambition :
-        transmettre la passion du twirling, accompagner les athlètes dans leur progression
-        et faire rayonner le club lors des compétitions officielles.
-      </p>
-
-      <p>
-        Affilié à la FFSTB, le club participe aux championnats nationaux,
-        et a même pris part en 2019 à la Coupe du monde IBTF.
-        Il accompagne ses athlètes aussi bien dans l’apprentissage technique
-        que dans le développement artistique, gymnique et chorégraphique.
-      </p>
+      <div id="clubPresentation">
+        <p>Chargement…</p>
+      </div>
 
       <h2>Encadrement et fonctionnement</h2>
-
-      <p>
-        Aujourd’hui, l’encadrement du club repose sur plusieurs compétences complémentaires.
-      </p>
-
-      <p>
-        Son bureau administratif, composé de bénévoles dynamiques, est présidé par Madame Denise Sindt,
-        présidente, et Madame Alexandra Montoy, vice-présidente.
-      </p>
-
-      <p>
-        Le contenu technique est assuré par Erika Stark, entraîneur national 2 (ETN2),
-        et Johanna Stark, entraîneur national 3 (ETN3), Alexandra Montoy pour la partie gymnique,
-        ainsi que Coralie Mure et Océane Combredet, qui encadrent les débutantes
-        et qui sont toutes deux instructrices club national ICN4.
-      </p>
+      <div id="clubEncadrement">
+        <p>Chargement…</p>
+      </div>
 
       <h2>Histoire du club</h2>
-      <p>
-        Le Twirling Bâton Trets (TBT) est une association loi 1901 créée le 6 août 2016 à Trets.
-      </p>
-      <p>
-        Aujourd’hui, le Twirling Bâton Trets est en plein essor, porté par l’engagement
-        de ses entraîneurs, de ses athlètes, de ses bénévoles et de ses parents supporters.
-      </p>
+      <div id="clubHistoire">
+        <p>Chargement…</p>
+      </div>
 
-      <p>
-        En 2026, le club entre dans sa 10e année d’existence,
-        une étape symbolique qui reflète le travail accompli depuis sa création.
-      </p>
     </section>
   </main>
 
   <div id="site-footer"></div>
   <script src="assets/inject-footer.js" defer></script>
+
+  <script>
+    (function(){
+
+      var intro =
+        document.getElementById("clubIntro");
+
+      var presentation =
+        document.getElementById("clubPresentation");
+
+      var encadrement =
+        document.getElementById("clubEncadrement");
+
+      var histoire =
+        document.getElementById("clubHistoire");
+
+
+      function escapeHtml(value) {
+
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+
+      }
+
+
+      function sanitizeHtml(content) {
+
+        if (!content) {
+          return "";
+        }
+
+        var parser = new DOMParser();
+
+        var doc =
+          parser.parseFromString(
+            "<div>" + String(content) + "</div>",
+            "text/html"
+          );
+
+        var wrapper =
+          doc.body.firstElementChild;
+
+        if (!wrapper) {
+          return "";
+        }
+
+        wrapper
+          .querySelectorAll(
+            "script, style, iframe, object, embed, form"
+          )
+          .forEach(function(element){
+            element.remove();
+          });
+
+
+        wrapper
+          .querySelectorAll("*")
+          .forEach(function(element){
+
+            Array
+              .from(element.attributes)
+              .forEach(function(attribute){
+
+                var name =
+                  attribute.name.toLowerCase();
+
+                var value =
+                  attribute.value
+                    .trim()
+                    .toLowerCase();
+
+
+                if (
+                  name.indexOf("on") === 0
+                ) {
+                  element.removeAttribute(
+                    attribute.name
+                  );
+                }
+
+
+                if (
+                  (
+                    name === "href" ||
+                    name === "src"
+                  ) &&
+                  value.indexOf(
+                    "javascript:"
+                  ) === 0
+                ) {
+                  element.removeAttribute(
+                    attribute.name
+                  );
+                }
+
+              });
+
+          });
+
+        return wrapper.innerHTML;
+
+      }
+
+
+      fetch("assets/club.json")
+
+        .then(function(response){
+
+          if (!response.ok) {
+
+            throw new Error(
+              "Impossible de charger assets/club.json"
+            );
+
+          }
+
+          return response.json();
+
+        })
+
+        .then(function(data){
+
+          intro.innerHTML =
+            escapeHtml(
+              data.intro || ""
+            );
+
+          presentation.innerHTML =
+            sanitizeHtml(
+              data.presentation || ""
+            );
+
+          encadrement.innerHTML =
+            sanitizeHtml(
+              data.encadrement || ""
+            );
+
+          histoire.innerHTML =
+            sanitizeHtml(
+              data.histoire || ""
+            );
+
+        })
+
+        .catch(function(error){
+
+          console.error(error);
+
+          intro.textContent =
+            "Impossible de charger les informations du club.";
+
+          presentation.innerHTML = "";
+          encadrement.innerHTML = "";
+          histoire.innerHTML = "";
+
+        });
+
+    })();
+  </script>
+
 </body>
 </html>
