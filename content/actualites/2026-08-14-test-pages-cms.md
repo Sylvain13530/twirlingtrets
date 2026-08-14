@@ -1,6 +1,8 @@
 ---
 titre: Test Pages CMS
 date: 2026-08-14
+images:
+  - /assets/actus/championnat-departemental-13-15.jpg
 ---
 Une partie du TBT en mode supporter aux championnats du monde IBTF 
 
@@ -12,4 +14,3 @@ Une partie du TBT en mode supporter aux championnats du monde IBTF
 
 ![🐺](https://static.xx.fbcdn.net/images/emoji.php/v9/tda/1/16/1f43a.png)
 
-  
