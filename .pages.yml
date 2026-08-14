@@ -214,3 +214,33 @@ content:
               options:
                 format: html
                 switcher: false
+  # =========================
+  # INFORMATIONS DU SITE
+  # =========================
+
+  - name: site
+    label: Informations du site
+    type: file
+    path: assets/site.json
+    format: json
+
+    fields:
+      - name: titreAccueil
+        label: Titre de l'accueil
+        type: string
+        required: true
+
+      - name: texteAccueil
+        label: Texte sous le titre
+        type: string
+        required: true
+
+      - name: bandeauActif
+        label: Afficher le bandeau
+        type: boolean
+        required: true
+
+      - name: bandeauTexte
+        label: Texte du bandeau
+        type: string
+        required: false
