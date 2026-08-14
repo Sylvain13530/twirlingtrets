@@ -116,3 +116,34 @@ content:
           media: galerie
           path: assets/galerie
           rename: safe
+
+  # =========================
+  # SPONSORS
+  # =========================
+
+  - name: sponsors
+    label: Sponsors
+    type: file
+    path: assets/sponsors.json
+    format: json
+    list: true
+
+    fields:
+      - name: nom
+        label: Nom
+        type: string
+        required: true
+
+      - name: image
+        label: Logo
+        type: image
+        required: true
+        options:
+          media: galerie
+          path: assets
+          rename: safe
+
+      - name: lien
+        label: Site internet
+        type: string
+        required: false
