@@ -63,7 +63,7 @@ content:
   - name: calendrier
     label: Calendrier
     type: file
-    path: calendrier.json
+    path: assets/calendrier.json
     format: json
     list: true
 
