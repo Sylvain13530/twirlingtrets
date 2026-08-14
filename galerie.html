@@ -26,6 +26,7 @@
       height: 220px;
       object-fit: cover;
       display: block;
+      cursor: zoom-in;
     }
 
     .gallery-message {
@@ -33,6 +34,84 @@
       text-align: center;
       color: #64748b;
       padding: 24px;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.45);
+    }
+
+    .lb-close,
+    .lb-prev,
+    .lb-next {
+      position: fixed;
+      background: rgba(255,255,255,.14);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 999px;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 22px;
+      user-select: none;
+    }
+
+    .lb-close {
+      top: 20px;
+      right: 20px;
+    }
+
+    .lb-prev {
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .lb-next {
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .lb-counter {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      background: rgba(0,0,0,.4);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    @media (max-width:700px) {
+      .lb-prev,
+      .lb-next {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -55,15 +134,81 @@
     </div>
   </main>
 
+  <div
+    id="lightbox"
+    class="lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Agrandissement photo"
+  >
+    <button
+      id="lbClose"
+      class="lb-close"
+      aria-label="Fermer"
+    >
+      ✕
+    </button>
+
+    <button
+      id="lbPrev"
+      class="lb-prev"
+      aria-label="Photo précédente"
+    >
+      ‹
+    </button>
+
+    <img
+      id="lbImg"
+      src=""
+      alt="Photo du club"
+    />
+
+    <button
+      id="lbNext"
+      class="lb-next"
+      aria-label="Photo suivante"
+    >
+      ›
+    </button>
+
+    <div
+      id="lbCount"
+      class="lb-counter"
+    >
+      1 / 1
+    </div>
+  </div>
+
   <div id="site-footer"></div>
   <script src="assets/inject-footer.js" defer></script>
-
 
   <script>
     (function(){
 
       var root =
         document.getElementById("gallery");
+
+      var lightbox =
+        document.getElementById("lightbox");
+
+      var lbImg =
+        document.getElementById("lbImg");
+
+      var lbClose =
+        document.getElementById("lbClose");
+
+      var lbPrev =
+        document.getElementById("lbPrev");
+
+      var lbNext =
+        document.getElementById("lbNext");
+
+      var lbCount =
+        document.getElementById("lbCount");
+
+      var photos = [];
+      var currentIndex = 0;
+
 
       function escapeAttr(value) {
 
@@ -73,6 +218,47 @@
           .replace(/</g, "&lt;")
           .replace(/>/g, "&gt;");
 
+      }
+
+
+      function openAt(index) {
+
+        if (!photos.length) {
+          return;
+        }
+
+        currentIndex =
+          (index + photos.length) %
+          photos.length;
+
+        lbImg.src =
+          photos[currentIndex];
+
+        lbCount.textContent =
+          (currentIndex + 1) +
+          " / " +
+          photos.length;
+
+        lightbox.classList.add("open");
+
+      }
+
+
+      function closeLightbox() {
+
+        lightbox.classList.remove("open");
+        lbImg.src = "";
+
+      }
+
+
+      function previousPhoto() {
+        openAt(currentIndex - 1);
+      }
+
+
+      function nextPhoto() {
+        openAt(currentIndex + 1);
       }
 
 
@@ -105,15 +291,18 @@
               '</p>';
 
             return;
+
           }
 
 
-          var photos =
+          photos =
             items
               .map(function(item){
+
                 return item && item.image
                   ? item.image
                   : "";
+
               })
               .filter(Boolean);
 
@@ -126,11 +315,12 @@
               '</p>';
 
             return;
+
           }
 
 
           root.innerHTML =
-            photos.map(function(src){
+            photos.map(function(src, index){
 
               return (
                 '<figure class="gallery-item">' +
@@ -140,6 +330,9 @@
                     '" ' +
                     'alt="Photo du club" ' +
                     'loading="lazy" ' +
+                    'data-index="' +
+                    index +
+                    '" ' +
                   '/>' +
                 '</figure>'
               );
@@ -158,6 +351,102 @@
             '</p>';
 
         });
+
+
+      root.addEventListener(
+        "click",
+        function(event){
+
+          var target = event.target;
+
+          if (
+            target &&
+            target.tagName === "IMG"
+          ) {
+
+            openAt(
+              Number(
+                target.getAttribute(
+                  "data-index"
+                )
+              )
+            );
+
+          }
+
+        }
+      );
+
+
+      lbClose.addEventListener(
+        "click",
+        function(event){
+
+          event.stopPropagation();
+          closeLightbox();
+
+        }
+      );
+
+
+      lbPrev.addEventListener(
+        "click",
+        function(event){
+
+          event.stopPropagation();
+          previousPhoto();
+
+        }
+      );
+
+
+      lbNext.addEventListener(
+        "click",
+        function(event){
+
+          event.stopPropagation();
+          nextPhoto();
+
+        }
+      );
+
+
+      lightbox.addEventListener(
+        "click",
+        function(event){
+
+          if (event.target === lightbox) {
+            closeLightbox();
+          }
+
+        }
+      );
+
+
+      document.addEventListener(
+        "keydown",
+        function(event){
+
+          if (
+            !lightbox.classList.contains("open")
+          ) {
+            return;
+          }
+
+          if (event.key === "Escape") {
+            closeLightbox();
+          }
+
+          if (event.key === "ArrowLeft") {
+            previousPhoto();
+          }
+
+          if (event.key === "ArrowRight") {
+            nextPhoto();
+          }
+
+        }
+      );
 
     })();
   </script>
