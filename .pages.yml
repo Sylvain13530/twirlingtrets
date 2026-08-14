@@ -121,7 +121,6 @@ content:
           media: galerie
           path: assets/galerie
           rename: safe
-
   # =========================
   # SPONSORS
   # =========================
@@ -139,16 +138,40 @@ content:
         type: string
         required: true
 
+      - name: categorie
+        label: Catégorie
+        type: select
+        required: true
+        options:
+          values:
+            - value: annuel
+              label: Sponsor annuel
+            - value: evenement
+              label: Partenaire évènementiel
+
       - name: image
         label: Logo
         type: image
-        required: true
+        required: false
         options:
-        media: sponsors
-        path: assets/sponsors
-        rename: safe
+          media: sponsors
+          path: assets/sponsors
+          rename: safe
 
       - name: lien
-        label: Site internet
+        label: Site internet / réseau social
         type: string
         required: false
+
+      - name: style
+        label: Présentation
+        type: select
+        required: true
+        options:
+          values:
+            - value: normal
+              label: Logo normal
+            - value: texte
+              label: Nom uniquement
+            - value: fond-bleu
+              label: Logo sur fond bleu
