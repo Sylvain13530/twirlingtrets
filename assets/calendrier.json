@@ -1,0 +1,32 @@
+[
+  {
+    "date_debut": "2026-01-31",
+    "date_fin": "2026-02-01",
+    "nom": "Championnat départemental N1-N2-N3",
+    "lieu": "Cavalaire-sur-Mer"
+  },
+  {
+    "date_debut": "2026-02-28",
+    "date_fin": "2026-03-01",
+    "nom": "Championnat sélectif N1-N2-N3",
+    "lieu": "Gap"
+  },
+  {
+    "date_debut": "2026-04-25",
+    "date_fin": "",
+    "nom": "Ligue N3 PACA",
+    "lieu": "Trets"
+  },
+  {
+    "date_debut": "2026-05-30",
+    "date_fin": "2026-05-31",
+    "nom": "Demi-finale N3",
+    "lieu": "Cavalaire-sur-Mer"
+  },
+  {
+    "date_debut": "2026-06-20",
+    "date_fin": "2026-06-21",
+    "nom": "Finale N3",
+    "lieu": "Saint-Dié-des-Vosges"
+  }
+]
