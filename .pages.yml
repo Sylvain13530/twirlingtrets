@@ -1,61 +1,40 @@
+
 media:
-  - name: actualites
-    label: Images des actualités
-    input: assets/actus
-    output: /assets/actus
-    rename: safe
-    extensions:
-      - jpg
-      - jpeg
-      - png
-      - webp
+  input: assets/actus
+  output: /assets/actus
 
 content:
   - name: actualites
     label: Actualités
-    type: collection
-    path: content/actualites
-    format: yaml-frontmatter
+    type: file
+    path: actualites-2026.json
+    format: json
 
-    filename:
-      template: "{year}-{month}-{day}-{primary}.md"
-      field: false
-
-    view:
-      primary: titre
-      fields:
-        - titre
-        - date
-      sort:
-        - date
-        - titre
-      default:
-        sort: date
-        order: desc
+    list:
+      collapsible: true
+      summary: "{date} — {titre}"
 
     fields:
-      - name: titre
-        label: Titre
-        type: string
-        required: true
-
       - name: date
         label: Date
         type: date
         required: true
 
-      - name: body
-        label: Contenu
-        type: rich-text
+      - name: titre
+        label: Titre
+        type: string
+        required: true
+
+      - name: resume
+        label: Texte de l'actualité
+        type: text
         required: true
 
       - name: images
         label: Photos
         type: image
-        list:
-          min: 0
-        options:
-          media: actualites
+        list: true
+        required: false
 
       - name: lien
         label: Lien Facebook
