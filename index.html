@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Accueil – Twirling Bâton Trets</title>
   <link rel="stylesheet" href="styles.css" />
+
   <style>
     /* Cartes */
     .cards {
@@ -12,20 +13,24 @@
       grid-template-columns: repeat(12, 1fr);
       gap: 16px;
     }
-.card-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  height: 100%;
-}
-.card.clickable {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-.card.clickable:hover {
-  box-shadow: 0 6px 18px rgba(0,0,0,.08);
-}
+
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      height: 100%;
+    }
+
+    .card.clickable {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card.clickable:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
+    }
+
     .thumb {
       width: 100%;
       height: 180px;
@@ -34,11 +39,16 @@
       background: #f1f5f9;
       display: block;
     }
+
     .span-4 { grid-column: span 4; }
     .span-8 { grid-column: span 8; }
     .span-12 { grid-column: span 12; }
+
     @media (max-width:900px){
-      .span-4, .span-8 { grid-column: span 12; }
+      .span-4,
+      .span-8 {
+        grid-column: span 12;
+      }
     }
 
     /* Hero avec image de fond + voile */
@@ -51,21 +61,35 @@
       background-position: center;
       border-bottom: 1px solid var(--line);
     }
+
     .hero--bg::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.45));
+      background: linear-gradient(
+        180deg,
+        rgba(0,0,0,.45),
+        rgba(0,0,0,.45)
+      );
     }
+
     .hero--bg .wrap {
       position: relative;
       z-index: 1;
     }
-    .hero--bg h1 { color: #fff; }
-    .hero--bg p { color: #e5e7eb; }
+
+    .hero--bg h1 {
+      color: #fff;
+    }
+
+    .hero--bg p {
+      color: #e5e7eb;
+    }
   </style>
 </head>
+
 <body>
+
   <div id="site-header"></div>
   <script src="assets/inject-header.js" defer></script>
 
@@ -73,151 +97,276 @@
   <section class="hero hero--bg">
     <div class="wrap">
       <h1>Site officiel du Twirling Bâton Trets</h1>
-      <p>Bienvenue. Retrouvez les informations du club et les actualités.</p>
+      <p>
+        Bienvenue. Retrouvez les informations du club et les actualités.
+      </p>
     </div>
   </section>
 
   <main class="wrap cards">
+
+    <!-- LE CLUB -->
     <a href="le-club.html" class="card-link span-8">
       <section class="card clickable">
         <h2>Le club</h2>
-        <p>Présentation, encadrement, fonctionnement, histoire du club</p>
+        <p>
+          Présentation, encadrement, fonctionnement, histoire du club
+        </p>
       </section>
     </a>
 
-<a href="actualites.html" class="card-link span-4">
-  <section class="card clickable">
-    <h2>Actualités</h2>
 
-    <p style="margin:0 0 10px;"><strong>Derniers résultats</strong></p>
+    <!-- ACTUALITÉS -->
+    <a href="actualites.html" class="card-link span-4">
+      <section class="card clickable">
 
-    <p style="margin:0 0 6px;"><strong>Départemental 13 — 02/02/2026</strong></p>
-    <p style="margin:0 0 10px;">7 or • 2 argent • 1 bronze</p>
+        <h2>Actualités</h2>
 
-    <p style="margin:0 0 6px;"><strong>Régional PACA — 02/03/2026</strong></p>
-    <p style="margin:0 0 10px;">5 or • 2 argent • 1 bronze</p>
- 
-    <p style="margin:0 0 6px;"><strong>Ligue PACA — 25/04/2026</strong></p>
-    <p style="margin:0 0 10px;">5 or •  2 bronze</p>   
+        <p style="margin:0 0 10px;">
+          <strong>Derniers résultats</strong>
+        </p>
 
-    <p class="muted" style="margin:0">Cliquez pour voir le fil complet.</p>
-  </section>
-</a>
+        <p style="margin:0 0 6px;">
+          <strong>
+            Départemental 13 — 02/02/2026
+          </strong>
+        </p>
 
+        <p style="margin:0 0 10px;">
+          7 or • 2 argent • 1 bronze
+        </p>
+
+        <p style="margin:0 0 6px;">
+          <strong>
+            Régional PACA — 02/03/2026
+          </strong>
+        </p>
+
+        <p style="margin:0 0 10px;">
+          5 or • 2 argent • 1 bronze
+        </p>
+
+        <p style="margin:0 0 6px;">
+          <strong>
+            Ligue PACA — 25/04/2026
+          </strong>
+        </p>
+
+        <p style="margin:0 0 10px;">
+          5 or • 2 bronze
+        </p>
+
+        <p class="muted" style="margin:0">
+          Cliquez pour voir le fil complet.
+        </p>
+
+      </section>
+    </a>
+
+
+    <!-- GALERIE -->
     <a href="galerie.html" class="card-link span-8">
       <section class="card clickable">
+
         <h2>Galerie</h2>
+
         <div style="position:relative">
-          <img id="slideshow" class="thumb" src="" alt="Aperçu galerie" />
+          <img
+            id="slideshow"
+            class="thumb"
+            src=""
+            alt="Aperçu galerie"
+          />
         </div>
-        <p class="muted">Un aperçu de nos photos récentes.</p>
+
+        <p class="muted">
+          Un aperçu de nos photos récentes.
+        </p>
+
       </section>
     </a>
 
+
+    <!-- CALENDRIER -->
     <a href="calendrier.html" class="card-link span-4">
       <section class="card clickable">
+
         <h2>Calendrier</h2>
-        <ul style="margin:8px 0 0; padding-left:18px">
-      <li>31 janvier et 1 février 2026 — Championnat départemental N1-N2-N3 - Cavalaire sur mer</li>
-      <li>28 février et 1 mars 2026 — Championnat sélectif N1-N2-N3 - Gap</li>
-      <li>25 avril 2026 — Ligue N3 PACA - Trets</li>
-      <li>30 et 31 mai 2026 — Demi-finale N3 - Cavalaire sur mer</li>
-      <li>20 et 21 juin 2026 — Finale N3 Saint Dié des Vosgue</li>
+
+        <ul
+          id="homeCalendrierList"
+          style="margin:8px 0 0; padding-left:18px"
+        >
+          <li>Chargement du calendrier…</li>
         </ul>
+
       </section>
     </a>
-<!--
-    <a href="LigueN3-25-26Avril.html" class="card-link span-12">
+
+
+    <!--
+    <a
+      href="LigueN3-25-26Avril.html"
+      class="card-link span-12"
+    >
       <section class="card clickable">
+
         <h2>Buvette</h2>
+
         <div id="buvetteThumbWrap">
+
           <img
             id="buvetteThumb"
             class="thumb"
             src="assets/Buvette.jpeg"
             alt="Buvette – aperçu"
-            onerror="this.style.display='none';document.getElementById('buvetteFallback').style.display='flex';"
+            onerror="
+              this.style.display='none';
+              document.getElementById(
+                'buvetteFallback'
+              ).style.display='flex';
+            "
           />
+
         </div>
-        <p>Menu, prix, infos pratiques.</p>
+
+        <p>
+          Menu, prix, infos pratiques.
+        </p>
+
       </section>
     </a>
--->
-    <a href="sponsors.html" class="card-link span-12">
+    -->
+
+
+    <!-- SPONSORS -->
+    <a
+      href="sponsors.html"
+      class="card-link span-12"
+    >
       <section class="card clickable">
+
         <h2>Sponsors</h2>
+
         <div class="sponsors">
-          <span style="display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:12px;padding:8px">
-            <img src="assets/sponsor-trets.png" alt="Ville de Trets" style="max-height:56px;max-width:100%" />
+
+          <span
+            style="
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              border:1px solid var(--line);
+              border-radius:12px;
+              padding:8px
+            "
+          >
+            <img
+              src="assets/sponsor-trets.png"
+              alt="Ville de Trets"
+              style="
+                max-height:56px;
+                max-width:100%
+              "
+            />
           </span>
-          <span style="display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:12px;padding:8px">
-            <img src="assets/sponsor-syal.jpg" alt="Syal Services" style="max-height:56px;max-width:100%" />
+
+          <span
+            style="
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              border:1px solid var(--line);
+              border-radius:12px;
+              padding:8px
+            "
+          >
+            <img
+              src="assets/sponsor-syal.jpg"
+              alt="Syal Services"
+              style="
+                max-height:56px;
+                max-width:100%
+              "
+            />
           </span>
+
         </div>
+
       </section>
     </a>
+
   </main>
 
-  <div id="site-footer"></div>
-  <script src="assets/inject-footer.js" defer></script>
 
+  <div id="site-footer"></div>
+  <script
+    src="assets/inject-footer.js"
+    defer
+  ></script>
+
+
+  <!-- DIAPORAMA GALERIE -->
   <script>
     const galleryFiles = [
- "assets/galerie/Champions de la ville de Trets 1.jpg",
-    "assets/galerie/Compet 1.jpg",
-    "assets/galerie/Compet 10.jpg",
-    "assets/galerie/Compet 11.jpg",
-    "assets/galerie/Compet 12.jpg",
-    "assets/galerie/Compet 2.jpg",
-    "assets/galerie/Compet 3.jpg",
-    "assets/galerie/Compet 4.jpg",
-    "assets/galerie/Compet 5.jpg",
-    "assets/galerie/Compet 6.jpg",
-    "assets/galerie/Compet 7.jpg",
-    "assets/galerie/Compet 8.jpg",
-    "assets/galerie/Compet 9.jpg",
-    "assets/galerie/Gala 2023.jpg",
-    "assets/galerie/Gala 2024.jpg",
-    "assets/galerie/Gala 2025 2.jpg",
-    "assets/galerie/Journées des associations 2025 1.jpg",
-    "assets/galerie/Journées des associations 2025 2.jpg",
-    "assets/galerie/Journées des associations 2025 3.jpg",
 
-    "assets/actus/formation-icn4-1.jpg",
-    "assets/actus/formation-icn4-2.jpg",
+      "assets/galerie/Champions de la ville de Trets 1.jpg",
 
-    "assets/actus/championnat-departemental-13-1.jpg",
-    "assets/actus/championnat-departemental-13-2.jpg",
-    "assets/actus/championnat-departemental-13-3.jpg",
-    "assets/actus/championnat-departemental-13-4.jpg",
-    "assets/actus/championnat-departemental-13-5.jpg",
-    "assets/actus/championnat-departemental-13-6.jpg",
-    "assets/actus/championnat-departemental-13-7.jpg",
-    "assets/actus/championnat-departemental-13-8.jpg",
-    "assets/actus/championnat-departemental-13-9.jpg",
-    "assets/actus/championnat-departemental-13-10.jpg",
-    "assets/actus/championnat-departemental-13-11.jpg",
-    "assets/actus/championnat-departemental-13-12.jpg",
-    "assets/actus/championnat-departemental-13-13.jpg",
-    "assets/actus/championnat-departemental-13-14.jpg",
-    "assets/actus/championnat-departemental-13-15.jpg",
-    "assets/actus/championnat-departemental-13-16.jpg",
-    "assets/actus/championnat-departemental-13-17.jpg",
+      "assets/galerie/Compet 1.jpg",
+      "assets/galerie/Compet 10.jpg",
+      "assets/galerie/Compet 11.jpg",
+      "assets/galerie/Compet 12.jpg",
+      "assets/galerie/Compet 2.jpg",
+      "assets/galerie/Compet 3.jpg",
+      "assets/galerie/Compet 4.jpg",
+      "assets/galerie/Compet 5.jpg",
+      "assets/galerie/Compet 6.jpg",
+      "assets/galerie/Compet 7.jpg",
+      "assets/galerie/Compet 8.jpg",
+      "assets/galerie/Compet 9.jpg",
 
-    "assets/actus/Championnat-regional-PACA-1.jpg",
-    "assets/actus/Championnat-regional-PACA-2.jpg",
-    "assets/actus/Championnat-regional-PACA-3.jpg",
-    "assets/actus/Championnat-regional-PACA-4.jpg",
-    "assets/actus/Championnat-regional-PACA-5.jpg",
-    "assets/actus/Championnat-regional-PACA-6.jpg",
-    "assets/actus/Championnat-regional-PACA-7.jpg",
-    "assets/actus/Championnat-regional-PACA-8.jpg",
-    "assets/actus/Championnat-regional-PACA-9.jpg",
-    "assets/actus/Championnat-regional-PACA-10.jpg",
-    "assets/actus/Championnat-regional-PACA-11.jpg",
-    "assets/actus/Championnat-regional-PACA-12.jpg",
-    "assets/actus/Championnat-regional-PACA-13.jpg",
-    
+      "assets/galerie/Gala 2023.jpg",
+      "assets/galerie/Gala 2024.jpg",
+      "assets/galerie/Gala 2025 2.jpg",
+
+      "assets/galerie/Journées des associations 2025 1.jpg",
+      "assets/galerie/Journées des associations 2025 2.jpg",
+      "assets/galerie/Journées des associations 2025 3.jpg",
+
+      "assets/actus/formation-icn4-1.jpg",
+      "assets/actus/formation-icn4-2.jpg",
+
+      "assets/actus/championnat-departemental-13-1.jpg",
+      "assets/actus/championnat-departemental-13-2.jpg",
+      "assets/actus/championnat-departemental-13-3.jpg",
+      "assets/actus/championnat-departemental-13-4.jpg",
+      "assets/actus/championnat-departemental-13-5.jpg",
+      "assets/actus/championnat-departemental-13-6.jpg",
+      "assets/actus/championnat-departemental-13-7.jpg",
+      "assets/actus/championnat-departemental-13-8.jpg",
+      "assets/actus/championnat-departemental-13-9.jpg",
+      "assets/actus/championnat-departemental-13-10.jpg",
+      "assets/actus/championnat-departemental-13-11.jpg",
+      "assets/actus/championnat-departemental-13-12.jpg",
+      "assets/actus/championnat-departemental-13-13.jpg",
+      "assets/actus/championnat-departemental-13-14.jpg",
+      "assets/actus/championnat-departemental-13-15.jpg",
+      "assets/actus/championnat-departemental-13-16.jpg",
+      "assets/actus/championnat-departemental-13-17.jpg",
+
+      "assets/actus/Championnat-regional-PACA-1.jpg",
+      "assets/actus/Championnat-regional-PACA-2.jpg",
+      "assets/actus/Championnat-regional-PACA-3.jpg",
+      "assets/actus/Championnat-regional-PACA-4.jpg",
+      "assets/actus/Championnat-regional-PACA-5.jpg",
+      "assets/actus/Championnat-regional-PACA-6.jpg",
+      "assets/actus/Championnat-regional-PACA-7.jpg",
+      "assets/actus/Championnat-regional-PACA-8.jpg",
+      "assets/actus/Championnat-regional-PACA-9.jpg",
+      "assets/actus/Championnat-regional-PACA-10.jpg",
+      "assets/actus/Championnat-regional-PACA-11.jpg",
+      "assets/actus/Championnat-regional-PACA-12.jpg",
+      "assets/actus/Championnat-regional-PACA-13.jpg",
+
       "assets/actus/Championnat-ligue-PACA-1.jpg",
       "assets/actus/Championnat-ligue-PACA-2.jpg",
       "assets/actus/Championnat-ligue-PACA-3.jpg",
@@ -254,7 +403,7 @@
       "assets/actus/Championnat-ligue-PACA-34.jpg",
       "assets/actus/Championnat-ligue-PACA-35.jpg",
       "assets/actus/Championnat-ligue-PACA-36.jpg",
-    
+
       "assets/actus/Organisation-Championnat-ligue-PACA-1.jpg",
       "assets/actus/Organisation-Championnat-ligue-PACA-2.jpg",
       "assets/actus/Organisation-Championnat-ligue-PACA-3.jpg",
@@ -279,19 +428,275 @@
       "assets/actus/Organisation-Championnat-ligue-PACA-22.jpg",
       "assets/actus/Organisation-Championnat-ligue-PACA-23.jpg",
       "assets/actus/Organisation-Championnat-ligue-PACA-24.jpg"
+
     ];
+
     (function(){
-      var img = document.getElementById("slideshow");
-      if(!img || !galleryFiles.length) return;
+
+      var img =
+        document.getElementById("slideshow");
+
+      if (
+        !img ||
+        !galleryFiles.length
+      ) {
+        return;
+      }
+
       var i = 0;
+
       function setSrc(){
-        var src = galleryFiles[i % galleryFiles.length];
+
+        var src =
+          galleryFiles[
+            i % galleryFiles.length
+          ];
+
         img.src = src;
       }
+
       setSrc();
-      setInterval(function(){ i++; setSrc(); }, 2500);
-      img.addEventListener("error", function(){ i++; setSrc(); });
+
+      setInterval(function(){
+
+        i++;
+        setSrc();
+
+      }, 2500);
+
+      img.addEventListener(
+        "error",
+        function(){
+
+          i++;
+          setSrc();
+
+        }
+      );
+
     })();
   </script>
+
+
+  <!-- CALENDRIER ACCUEIL -->
+  <script>
+    (function(){
+
+      var list =
+        document.getElementById(
+          "homeCalendrierList"
+        );
+
+      if (!list) {
+        return;
+      }
+
+      var mois = [
+        "janvier",
+        "février",
+        "mars",
+        "avril",
+        "mai",
+        "juin",
+        "juillet",
+        "août",
+        "septembre",
+        "octobre",
+        "novembre",
+        "décembre"
+      ];
+
+      function parseDate(value) {
+
+        if (!value) {
+          return null;
+        }
+
+        var parts =
+          value.split("-");
+
+        if (parts.length !== 3) {
+          return null;
+        }
+
+        return {
+          year: Number(parts[0]),
+          month: Number(parts[1]),
+          day: Number(parts[2])
+        };
+      }
+
+
+      function formatDates(
+        debut,
+        fin
+      ) {
+
+        var d1 =
+          parseDate(debut);
+
+        var d2 =
+          parseDate(fin);
+
+        if (!d1) {
+          return "";
+        }
+
+        if (!d2) {
+
+          return (
+            d1.day +
+            " " +
+            mois[d1.month - 1] +
+            " " +
+            d1.year
+          );
+
+        }
+
+        if (
+          d1.year === d2.year &&
+          d1.month === d2.month
+        ) {
+
+          return (
+            d1.day +
+            " et " +
+            d2.day +
+            " " +
+            mois[d1.month - 1] +
+            " " +
+            d1.year
+          );
+
+        }
+
+        if (
+          d1.year === d2.year
+        ) {
+
+          return (
+            d1.day +
+            " " +
+            mois[d1.month - 1] +
+            " et " +
+            d2.day +
+            " " +
+            mois[d2.month - 1] +
+            " " +
+            d1.year
+          );
+
+        }
+
+        return (
+          d1.day +
+          " " +
+          mois[d1.month - 1] +
+          " " +
+          d1.year +
+          " au " +
+          d2.day +
+          " " +
+          mois[d2.month - 1] +
+          " " +
+          d2.year
+        );
+      }
+
+
+      function escapeHtml(value) {
+
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+
+      }
+
+
+      fetch("calendrier.json")
+
+        .then(function(response){
+
+          if (!response.ok) {
+
+            throw new Error(
+              "Impossible de charger calendrier.json"
+            );
+
+          }
+
+          return response.json();
+
+        })
+
+        .then(function(events){
+
+          if (
+            !Array.isArray(events) ||
+            !events.length
+          ) {
+
+            list.innerHTML =
+              "<li>Aucun événement programmé.</li>";
+
+            return;
+          }
+
+          events.sort(function(a, b){
+
+            return String(
+              a.date_debut || ""
+            ).localeCompare(
+              String(
+                b.date_debut || ""
+              )
+            );
+
+          });
+
+          list.innerHTML =
+            events.map(function(event){
+
+              var dates =
+                formatDates(
+                  event.date_debut,
+                  event.date_fin
+                );
+
+              var lieu =
+                event.lieu
+                  ? " - " +
+                    escapeHtml(event.lieu)
+                  : "";
+
+              return (
+                "<li>" +
+                  escapeHtml(dates) +
+                  " — " +
+                  escapeHtml(
+                    event.nom || ""
+                  ) +
+                  lieu +
+                "</li>"
+              );
+
+            }).join("");
+
+        })
+
+        .catch(function(){
+
+          list.innerHTML =
+            "<li>Impossible de charger le calendrier.</li>";
+
+        });
+
+    })();
+  </script>
+
 </body>
 </html>
