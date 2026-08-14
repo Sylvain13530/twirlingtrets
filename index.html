@@ -116,52 +116,22 @@
     </a>
 
 
-    <!-- ACTUALITÉS -->
-    <a href="actualites.html" class="card-link span-4">
-      <section class="card clickable">
+<!-- ACTUALITÉS -->
+<a href="actualites.html" class="card-link span-4">
+  <section class="card clickable">
 
-        <h2>Actualités</h2>
+    <h2>Actualités</h2>
 
-        <p style="margin:0 0 10px;">
-          <strong>Derniers résultats</strong>
-        </p>
+    <div id="homeActualites">
+      <p class="muted">Chargement des actualités…</p>
+    </div>
 
-        <p style="margin:0 0 6px;">
-          <strong>
-            Départemental 13 — 02/02/2026
-          </strong>
-        </p>
+    <p class="muted" style="margin-top:auto">
+      Cliquez pour voir le fil complet.
+    </p>
 
-        <p style="margin:0 0 10px;">
-          7 or • 2 argent • 1 bronze
-        </p>
-
-        <p style="margin:0 0 6px;">
-          <strong>
-            Régional PACA — 02/03/2026
-          </strong>
-        </p>
-
-        <p style="margin:0 0 10px;">
-          5 or • 2 argent • 1 bronze
-        </p>
-
-        <p style="margin:0 0 6px;">
-          <strong>
-            Ligue PACA — 25/04/2026
-          </strong>
-        </p>
-
-        <p style="margin:0 0 10px;">
-          5 or • 2 bronze
-        </p>
-
-        <p class="muted" style="margin:0">
-          Cliquez pour voir le fil complet.
-        </p>
-
-      </section>
-    </a>
+  </section>
+</a>
 
 
     <!-- GALERIE -->
@@ -719,6 +689,143 @@
 
     })();
   </script>
+<!-- ACTUALITÉS ACCUEIL -->
+<script>
+  (function(){
 
+    var root =
+      document.getElementById("homeActualites");
+
+    if (!root) {
+      return;
+    }
+
+
+    function escapeHtml(value) {
+
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    function formatDate(value) {
+
+      if (!value) {
+        return "";
+      }
+
+      var parts =
+        value.split("-");
+
+      if (parts.length !== 3) {
+        return value;
+      }
+
+      return (
+        parts[2] +
+        "/" +
+        parts[1] +
+        "/" +
+        parts[0]
+      );
+
+    }
+
+
+    fetch("actualites-2026.json")
+
+      .then(function(response){
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Impossible de charger actualites-2026.json"
+          );
+
+        }
+
+        return response.json();
+
+      })
+
+      .then(function(items){
+
+        if (
+          !Array.isArray(items) ||
+          !items.length
+        ) {
+
+          root.innerHTML =
+            '<p class="muted">' +
+            'Aucune actualité actuellement.' +
+            '</p>';
+
+          return;
+
+        }
+
+
+        items.sort(function(a, b){
+
+          return String(
+            b.date || ""
+          ).localeCompare(
+            String(
+              a.date || ""
+            )
+          );
+
+        });
+
+
+        var latest =
+          items.slice(0, 3);
+
+
+        root.innerHTML =
+          latest.map(function(item){
+
+            return (
+              '<div style="margin-bottom:12px;">' +
+
+                '<p style="margin:0 0 3px;">' +
+                  '<strong>' +
+                    escapeHtml(
+                      item.titre || "Actualité"
+                    ) +
+                  '</strong>' +
+                '</p>' +
+
+                '<p class="muted" style="margin:0;">' +
+                  escapeHtml(
+                    formatDate(item.date)
+                  ) +
+                '</p>' +
+
+              '</div>'
+            );
+
+          }).join("");
+
+      })
+
+      .catch(function(error){
+
+        console.error(error);
+
+        root.innerHTML =
+          '<p class="muted">' +
+          'Impossible de charger les actualités.' +
+          '</p>';
+
+      });
+
+  })();
+</script>
 </body>
 </html>
