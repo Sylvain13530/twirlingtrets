@@ -1,0 +1,13 @@
+media:
+  input: assets
+  output: /assets
+
+content:
+  - name: buvette
+    label: Buvette
+    type: file
+    path: menu.json
+    fields:
+      - name: json
+        label: Carte de la buvette
+        type: code
