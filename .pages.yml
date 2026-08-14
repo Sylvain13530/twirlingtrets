@@ -6,6 +6,11 @@ media:
     rename: safe
 
 content:
+
+  # =========================
+  # ACTUALITÉS
+  # =========================
+
   - name: actualites
     label: Actualités
     type: file
@@ -47,5 +52,38 @@ content:
 
       - name: lien
         label: Lien Facebook
+        type: string
+        required: false
+
+
+  # =========================
+  # CALENDRIER
+  # =========================
+
+  - name: calendrier
+    label: Calendrier
+    type: file
+    path: calendrier.json
+    format: json
+    list: true
+
+    fields:
+      - name: date_debut
+        label: Date de début
+        type: date
+        required: true
+
+      - name: date_fin
+        label: Date de fin
+        type: date
+        required: false
+
+      - name: nom
+        label: Compétition / événement
+        type: string
+        required: true
+
+      - name: lieu
+        label: Lieu
         type: string
         required: false
