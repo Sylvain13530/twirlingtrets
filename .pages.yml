@@ -61,7 +61,7 @@ content:
           media: actualites
           path: assets/actus
           multiple:
-          max: 50
+            max: 50
           unique: true
           rename: safe
 
