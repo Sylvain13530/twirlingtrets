@@ -1,13 +1,63 @@
 media:
-  input: assets
-  output: /assets
+  - name: actualites
+    label: Images des actualités
+    input: assets/actus
+    output: /assets/actus
+    rename: safe
+    extensions:
+      - jpg
+      - jpeg
+      - png
+      - webp
 
 content:
-  - name: buvette
-    label: Buvette
-    type: file
-    path: menu.json
+  - name: actualites
+    label: Actualités
+    type: collection
+    path: content/actualites
+    format: yaml-frontmatter
+
+    filename:
+      template: "{year}-{month}-{day}-{primary}.md"
+      field: false
+
+    view:
+      primary: titre
+      fields:
+        - titre
+        - date
+      sort:
+        - date
+        - titre
+      default:
+        sort: date
+        order: desc
+
     fields:
-      - name: json
-        label: Carte de la buvette
-        type: code
+      - name: titre
+        label: Titre
+        type: string
+        required: true
+
+      - name: date
+        label: Date
+        type: date
+        required: true
+
+      - name: body
+        label: Contenu
+        type: rich-text
+        required: true
+
+      - name: images
+        label: Photos
+        type: image
+        list:
+          min: 0
+        options:
+          media: actualites
+
+      - name: lien
+        label: Lien Facebook
+        type: string
+        required: false
