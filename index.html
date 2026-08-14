@@ -240,56 +240,15 @@
 
 
     <!-- SPONSORS -->
-    <a
-      href="sponsors.html"
-      class="card-link span-12"
-    >
+    <a href="sponsors.html" class="card-link span-12">
       <section class="card clickable">
 
         <h2>Sponsors</h2>
 
-        <div class="sponsors">
-
-          <span
-            style="
-              display:flex;
-              align-items:center;
-              justify-content:center;
-              border:1px solid var(--line);
-              border-radius:12px;
-              padding:8px
-            "
-          >
-            <img
-              src="assets/sponsor-trets.png"
-              alt="Ville de Trets"
-              style="
-                max-height:56px;
-                max-width:100%
-              "
-            />
+        <div id="homeSponsors" class="sponsors">
+          <span class="muted">
+            Chargement des sponsors…
           </span>
-
-          <span
-            style="
-              display:flex;
-              align-items:center;
-              justify-content:center;
-              border:1px solid var(--line);
-              border-radius:12px;
-              padding:8px
-            "
-          >
-            <img
-              src="assets/sponsor-syal.jpg"
-              alt="Syal Services"
-              style="
-                max-height:56px;
-                max-width:100%
-              "
-            />
-          </span>
-
         </div>
 
       </section>
@@ -306,117 +265,117 @@
 
 
   <!-- DIAPORAMA GALERIE -->
-<script>
-  (function(){
+  <script>
+    (function(){
 
-    var img = document.getElementById("slideshow");
+      var img = document.getElementById("slideshow");
 
-    if (!img) {
-      return;
-    }
-
-    var galleryFiles = [];
-    var index = 0;
-    var timer = null;
-
-
-    function showCurrentImage() {
-
-      if (!galleryFiles.length) {
+      if (!img) {
         return;
       }
 
-      img.src =
-        galleryFiles[
-          index % galleryFiles.length
-        ];
-
-    }
+      var galleryFiles = [];
+      var index = 0;
+      var timer = null;
 
 
-    function startSlideshow() {
-
-      if (!galleryFiles.length) {
-        return;
-      }
-
-      showCurrentImage();
-
-      timer = setInterval(function(){
-
-        index++;
-        showCurrentImage();
-
-      }, 2500);
-
-    }
-
-
-    fetch("assets/galerie.json")
-
-      .then(function(response){
-
-        if (!response.ok) {
-
-          throw new Error(
-            "Impossible de charger assets/galerie.json"
-          );
-
-        }
-
-        return response.json();
-
-      })
-
-      .then(function(items){
-
-        galleryFiles =
-          items
-            .map(function(item){
-
-              return item && item.image
-                ? item.image
-                : "";
-
-            })
-            .filter(Boolean);
-
+      function showCurrentImage() {
 
         if (!galleryFiles.length) {
+          return;
+        }
 
+        img.src =
+          galleryFiles[
+            index % galleryFiles.length
+          ];
+
+      }
+
+
+      function startSlideshow() {
+
+        if (!galleryFiles.length) {
+          return;
+        }
+
+        showCurrentImage();
+
+        timer = setInterval(function(){
+
+          index++;
+          showCurrentImage();
+
+        }, 2500);
+
+      }
+
+
+      fetch("assets/galerie.json")
+
+        .then(function(response){
+
+          if (!response.ok) {
+
+            throw new Error(
+              "Impossible de charger assets/galerie.json"
+            );
+
+          }
+
+          return response.json();
+
+        })
+
+        .then(function(items){
+
+          galleryFiles =
+            items
+              .map(function(item){
+
+                return item && item.image
+                  ? item.image
+                  : "";
+
+              })
+              .filter(Boolean);
+
+
+          if (!galleryFiles.length) {
+
+            img.style.display = "none";
+            return;
+
+          }
+
+          startSlideshow();
+
+        })
+
+        .catch(function(error){
+
+          console.error(error);
           img.style.display = "none";
-          return;
+
+        });
+
+
+      img.addEventListener(
+        "error",
+        function(){
+
+          if (!galleryFiles.length) {
+            return;
+          }
+
+          index++;
+          showCurrentImage();
 
         }
+      );
 
-        startSlideshow();
-
-      })
-
-      .catch(function(error){
-
-        console.error(error);
-        img.style.display = "none";
-
-      });
-
-
-    img.addEventListener(
-      "error",
-      function(){
-
-        if (!galleryFiles.length) {
-          return;
-        }
-
-        index++;
-        showCurrentImage();
-
-      }
-    );
-
-  })();
-</script>
+    })();
+  </script>
 
 
   <!-- CALENDRIER ACCUEIL -->
@@ -446,6 +405,7 @@
         "novembre",
         "décembre"
       ];
+
 
       function parseDate(value) {
 
@@ -633,6 +593,127 @@
 
           list.innerHTML =
             "<li>Impossible de charger le calendrier.</li>";
+
+        });
+
+    })();
+  </script>
+
+
+  <!-- SPONSORS ACCUEIL -->
+  <script>
+    (function(){
+
+      var root =
+        document.getElementById("homeSponsors");
+
+      if (!root) {
+        return;
+      }
+
+
+      function escapeAttr(value) {
+
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+
+      }
+
+
+      fetch("assets/sponsors.json")
+
+        .then(function(response){
+
+          if (!response.ok) {
+
+            throw new Error(
+              "Impossible de charger assets/sponsors.json"
+            );
+
+          }
+
+          return response.json();
+
+        })
+
+        .then(function(items){
+
+          var sponsors =
+            Array.isArray(items)
+              ? items.filter(function(item){
+
+                  return (
+                    item.categorie === "annuel" &&
+                    item.image
+                  );
+
+                })
+              : [];
+
+
+          if (!sponsors.length) {
+
+            root.innerHTML =
+              '<span class="muted">' +
+              'Aucun sponsor actuellement.' +
+              '</span>';
+
+            return;
+          }
+
+
+          root.innerHTML =
+            sponsors.map(function(item){
+
+              var name =
+                escapeAttr(
+                  item.nom || "Sponsor"
+                );
+
+              var image =
+                escapeAttr(item.image);
+
+              return (
+                '<span style="' +
+                  'display:flex;' +
+                  'align-items:center;' +
+                  'justify-content:center;' +
+                  'border:1px solid var(--line);' +
+                  'border-radius:12px;' +
+                  'padding:8px' +
+                '">' +
+
+                  '<img ' +
+                    'src="' +
+                    image +
+                    '" ' +
+                    'alt="' +
+                    name +
+                    '" ' +
+                    'style="' +
+                      'max-height:56px;' +
+                      'max-width:100%' +
+                    '" ' +
+                  '/>' +
+
+                '</span>'
+              );
+
+            }).join("");
+
+        })
+
+        .catch(function(error){
+
+          console.error(error);
+
+          root.innerHTML =
+            '<span class="muted">' +
+            'Impossible de charger les sponsors.' +
+            '</span>';
 
         });
 
