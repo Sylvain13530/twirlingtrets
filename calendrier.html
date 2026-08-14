@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
   <div id="site-header"></div>
   <script src="assets/inject-header.js" defer></script>
 
@@ -16,16 +17,166 @@
   </section>
 
   <main class="wrap card">
-    <ul>
-      <li>31 janvier et 1 février 2026 — <strong>Championnat départemental N1-N2-N3</strong> - Cavalaire sur mer</li>
-      <li>28 février et 1 mars 2026 — <strong>Championnat sélectif N1-N2-N3</strong> - Gap</li>
-      <li>25 avril 2026 — <strong>Ligue N3 PACA</strong> - Trets</li>
-      <li>30 et 31 mai 2026 — <strong>Demi-finale N3</strong> - Cavalaire sur mer</li>
-      <li>20 et 21 juin 2026 — <strong>Finale N3</strong> Saint Dié des Vosgue</li>
+    <ul id="calendrierList">
+      <li>Chargement du calendrier…</li>
     </ul>
   </main>
 
   <div id="site-footer"></div>
   <script src="assets/inject-footer.js" defer></script>
+
+  <script>
+    (function(){
+
+      var list = document.getElementById("calendrierList");
+
+      var mois = [
+        "janvier",
+        "février",
+        "mars",
+        "avril",
+        "mai",
+        "juin",
+        "juillet",
+        "août",
+        "septembre",
+        "octobre",
+        "novembre",
+        "décembre"
+      ];
+
+      function parseDate(value) {
+        if (!value) {
+          return null;
+        }
+
+        var parts = value.split("-");
+
+        if (parts.length !== 3) {
+          return null;
+        }
+
+        return {
+          year: Number(parts[0]),
+          month: Number(parts[1]),
+          day: Number(parts[2])
+        };
+      }
+
+      function formatDates(debut, fin) {
+        var d1 = parseDate(debut);
+        var d2 = parseDate(fin);
+
+        if (!d1) {
+          return "";
+        }
+
+        if (!d2) {
+          return d1.day + " " + mois[d1.month - 1] + " " + d1.year;
+        }
+
+        if (
+          d1.year === d2.year &&
+          d1.month === d2.month
+        ) {
+          return d1.day +
+            " et " +
+            d2.day +
+            " " +
+            mois[d1.month - 1] +
+            " " +
+            d1.year;
+        }
+
+        if (d1.year === d2.year) {
+          return d1.day +
+            " " +
+            mois[d1.month - 1] +
+            " et " +
+            d2.day +
+            " " +
+            mois[d2.month - 1] +
+            " " +
+            d1.year;
+        }
+
+        return d1.day +
+          " " +
+          mois[d1.month - 1] +
+          " " +
+          d1.year +
+          " au " +
+          d2.day +
+          " " +
+          mois[d2.month - 1] +
+          " " +
+          d2.year;
+      }
+
+      function escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      fetch("calendrier.json")
+        .then(function(response){
+
+          if (!response.ok) {
+            throw new Error("Impossible de charger calendrier.json");
+          }
+
+          return response.json();
+        })
+
+        .then(function(events){
+
+          if (!Array.isArray(events) || !events.length) {
+            list.innerHTML =
+              "<li>Aucun événement programmé pour le moment.</li>";
+            return;
+          }
+
+          events.sort(function(a, b){
+            return String(a.date_debut || "")
+              .localeCompare(String(b.date_debut || ""));
+          });
+
+          list.innerHTML = events.map(function(event){
+
+            var dates =
+              formatDates(
+                event.date_debut,
+                event.date_fin
+              );
+
+            var lieu =
+              event.lieu
+                ? " - " + escapeHtml(event.lieu)
+                : "";
+
+            return (
+              "<li>" +
+                escapeHtml(dates) +
+                " — <strong>" +
+                escapeHtml(event.nom) +
+                "</strong>" +
+                lieu +
+              "</li>"
+            );
+          }).join("");
+        })
+
+        .catch(function(){
+          list.innerHTML =
+            "<li>Impossible de charger le calendrier.</li>";
+        });
+
+    })();
+  </script>
+
 </body>
 </html>
