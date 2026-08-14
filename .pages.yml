@@ -1,4 +1,3 @@
-
 media:
   input: assets/actus
   output: /assets/actus
@@ -9,10 +8,7 @@ content:
     type: file
     path: actualites-2026.json
     format: json
-
-    list:
-      collapsible: true
-      summary: "{date} — {titre}"
+    list: true
 
     fields:
       - name: date
