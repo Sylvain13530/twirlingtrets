@@ -96,10 +96,10 @@
   <!-- HERO avec fond d’écran -->
   <section class="hero hero--bg">
     <div class="wrap">
-      <h1>Site officiel du Twirling Bâton Trets</h1>
-      <p>
-        Bienvenue. Retrouvez les informations du club et les actualités.
-      </p>
+<h1 id="homeTitle">Site officiel du Twirling Bâton Trets</h1>
+<p id="homeIntro">
+  Bienvenue. Retrouvez les informations du club et les actualités.
+</p>
     </div>
   </section>
 
@@ -822,6 +822,56 @@
           '<p class="muted">' +
           'Impossible de charger les actualités.' +
           '</p>';
+
+      });
+
+  })();
+</script>
+  <!-- INFORMATIONS GÉNÉRALES DU SITE -->
+<script>
+  (function(){
+
+    var title =
+      document.getElementById("homeTitle");
+
+    var intro =
+      document.getElementById("homeIntro");
+
+    if (!title || !intro) {
+      return;
+    }
+
+    fetch("assets/site.json")
+
+      .then(function(response){
+
+        if (!response.ok) {
+          throw new Error(
+            "Impossible de charger assets/site.json"
+          );
+        }
+
+        return response.json();
+
+      })
+
+      .then(function(data){
+
+        if (data.titreAccueil) {
+          title.textContent =
+            data.titreAccueil;
+        }
+
+        if (data.texteAccueil) {
+          intro.textContent =
+            data.texteAccueil;
+        }
+
+      })
+
+      .catch(function(error){
+
+        console.error(error);
 
       });
 
