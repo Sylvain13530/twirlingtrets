@@ -1,6 +1,9 @@
 media:
-  input: assets/actus
-  output: /assets/actus
+  - name: actualites
+    label: Images des actualités
+    input: assets/actus
+    output: /assets/actus
+    rename: safe
 
 content:
   - name: actualites
@@ -23,14 +26,24 @@ content:
 
       - name: resume
         label: Texte de l'actualité
-        type: text
+        type: rich-text
         required: true
+        options:
+          format: html
+          media: actualites
+          path: assets/actus
+          rename: safe
+          switcher: false
 
       - name: images
         label: Photos
         type: image
         list: true
         required: false
+        options:
+          media: actualites
+          path: assets/actus
+          rename: safe
 
       - name: lien
         label: Lien Facebook
