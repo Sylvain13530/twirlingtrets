@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Actualités – Twirling Bâton Trets</title>
   <link rel="stylesheet" href="styles.css" />
+
   <style>
     .actus-list {
       display: grid;
@@ -30,7 +31,28 @@
 
     .actu-resume {
       margin: 0;
-      white-space: pre-line;
+      line-height: 1.55;
+    }
+
+    .actu-resume p:first-child {
+      margin-top: 0;
+    }
+
+    .actu-resume p:last-child {
+      margin-bottom: 0;
+    }
+
+    .actu-resume img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+      margin: 12px auto;
+    }
+
+    .actu-resume ul,
+    .actu-resume ol {
+      padding-left: 24px;
     }
 
     .actu-gallery {
@@ -116,8 +138,13 @@
       font-size: 18px;
     }
 
-    .lb-prev { left: 24px; }
-    .lb-next { right: 24px; }
+    .lb-prev {
+      left: 24px;
+    }
+
+    .lb-next {
+      right: 24px;
+    }
 
     .lb-counter {
       position: fixed;
@@ -149,7 +176,9 @@
     }
   </style>
 </head>
+
 <body>
+
   <div id="site-header"></div>
   <script src="assets/inject-header.js" defer></script>
 
@@ -160,20 +189,60 @@
 
   <main class="wrap">
     <section class="card">
+
       <div id="actusList" class="actus-list">
         <div class="empty-state">
           <p class="muted">Chargement des actualités…</p>
         </div>
       </div>
+
     </section>
   </main>
 
-  <div id="lightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Agrandissement photo">
-    <button class="lb-close" id="lbClose" aria-label="Fermer">✕</button>
-    <button class="lb-prev" id="lbPrev" aria-label="Précédente">‹</button>
-    <img id="lbImg" alt="Photo actualité" />
-    <button class="lb-next" id="lbNext" aria-label="Suivante">›</button>
-    <div class="lb-counter" id="lbCount">1 / 1</div>
+  <div
+    id="lightbox"
+    class="lightbox"
+    aria-modal="true"
+    role="dialog"
+    aria-label="Agrandissement photo"
+  >
+
+    <button
+      class="lb-close"
+      id="lbClose"
+      aria-label="Fermer"
+    >
+      ✕
+    </button>
+
+    <button
+      class="lb-prev"
+      id="lbPrev"
+      aria-label="Précédente"
+    >
+      ‹
+    </button>
+
+    <img
+      id="lbImg"
+      alt="Photo actualité"
+    />
+
+    <button
+      class="lb-next"
+      id="lbNext"
+      aria-label="Suivante"
+    >
+      ›
+    </button>
+
+    <div
+      class="lb-counter"
+      id="lbCount"
+    >
+      1 / 1
+    </div>
+
   </div>
 
   <div id="site-footer"></div>
@@ -181,6 +250,7 @@
 
   <script>
     (function () {
+
       var allImages = [];
       var currentIndex = 0;
 
@@ -202,22 +272,121 @@
       }
 
       function formatDate(isoDate) {
-        if (!isoDate) return "";
+
+        if (!isoDate) {
+          return "";
+        }
+
         var parts = isoDate.split("-");
-        if (parts.length !== 3) return isoDate;
+
+        if (parts.length !== 3) {
+          return isoDate;
+        }
+
         return parts[2] + "/" + parts[1] + "/" + parts[0];
       }
 
+      /*
+       * Les anciennes actualités utilisent du texte brut.
+       * Les nouvelles Pages CMS peuvent contenir du HTML.
+       */
+      function formatResume(content) {
+
+        if (!content) {
+          return "";
+        }
+
+        var value = String(content);
+
+        /*
+         * Si le contenu ressemble à du HTML produit par Pages CMS,
+         * on le nettoie avant affichage.
+         */
+        if (/<[a-z][\s\S]*>/i.test(value)) {
+
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(
+            "<div>" + value + "</div>",
+            "text/html"
+          );
+
+          var wrapper = doc.body.firstElementChild;
+
+          if (!wrapper) {
+            return "";
+          }
+
+          /*
+           * Supprime les éléments que nous ne voulons jamais
+           * autoriser dans une actualité.
+           */
+          wrapper.querySelectorAll(
+            "script, style, iframe, object, embed, form"
+          ).forEach(function (element) {
+            element.remove();
+          });
+
+          /*
+           * Nettoie les attributs potentiellement dangereux.
+           */
+          wrapper.querySelectorAll("*").forEach(function (element) {
+
+            Array.from(element.attributes).forEach(function (attribute) {
+
+              var name = attribute.name.toLowerCase();
+              var value = attribute.value.trim().toLowerCase();
+
+              if (name.indexOf("on") === 0) {
+                element.removeAttribute(attribute.name);
+              }
+
+              if (
+                (name === "href" || name === "src") &&
+                value.indexOf("javascript:") === 0
+              ) {
+                element.removeAttribute(attribute.name);
+              }
+
+            });
+
+          });
+
+          return wrapper.innerHTML;
+        }
+
+        /*
+         * Anciennes actualités :
+         * texte brut + conservation des retours à la ligne.
+         */
+        return escapeHtml(value).replace(/\n/g, "<br>");
+      }
+
       function openAt(index) {
-        if (!allImages.length) return;
-        currentIndex = (index + allImages.length) % allImages.length;
-        lbImg.src = allImages[currentIndex].src;
-        lbImg.alt = allImages[currentIndex].alt || "Photo actualité";
-        lbCount.textContent = (currentIndex + 1) + " / " + allImages.length;
+
+        if (!allImages.length) {
+          return;
+        }
+
+        currentIndex =
+          (index + allImages.length) % allImages.length;
+
+        lbImg.src =
+          allImages[currentIndex].src;
+
+        lbImg.alt =
+          allImages[currentIndex].alt ||
+          "Photo actualité";
+
+        lbCount.textContent =
+          (currentIndex + 1) +
+          " / " +
+          allImages.length;
+
         lightbox.classList.add("open");
       }
 
       function closeLightbox() {
+
         lightbox.classList.remove("open");
         lbImg.src = "";
       }
@@ -231,104 +400,254 @@
       }
 
       fetch("actualites-2026.json")
+
         .then(function (r) {
-          if (!r.ok) throw new Error("Impossible de charger actualites.json");
+
+          if (!r.ok) {
+            throw new Error(
+              "Impossible de charger actualites-2026.json"
+            );
+          }
+
           return r.json();
         })
+
         .then(function (items) {
-          if (!Array.isArray(items) || items.length === 0) {
+
+          if (
+            !Array.isArray(items) ||
+            items.length === 0
+          ) {
+
             list.innerHTML =
-              '<div class="empty-state"><p class="muted">Aucune actualité n’est disponible pour le moment.</p></div>';
+              '<div class="empty-state">' +
+              '<p class="muted">' +
+              'Aucune actualité n’est disponible pour le moment.' +
+              '</p>' +
+              '</div>';
+
             return;
           }
 
           items.sort(function (a, b) {
-            return String(b.date || "").localeCompare(String(a.date || ""));
+
+            return String(b.date || "")
+              .localeCompare(
+                String(a.date || "")
+              );
+
           });
 
           allImages = [];
 
-          list.innerHTML = items.map(function (item, actIndex) {
-            var images = Array.isArray(item.images) ? item.images : [];
-
-            var galleryHtml = "";
-            if (images.length) {
-              galleryHtml =
-                '<div class="actu-gallery">' +
-                images.map(function (src, imgIndex) {
-                  var globalIndex = allImages.length;
-                  allImages.push({
-                    src: src,
-                    alt: item.titre ? ("Photo - " + item.titre) : "Photo actualité"
-                  });
-
-                  return (
-                    '<img class="actu-thumb" ' +
-                    'src="' + escapeHtml(src) + '" ' +
-                    'alt="' + escapeHtml(item.titre || "Actualité") + '" ' +
-                    'loading="lazy" ' +
-                    'data-global-idx="' + globalIndex + '" ' +
-                    '/>'
-                  );
-                }).join("") +
-                '</div>';
-            }
-
-            var buttonHtml = item.lien
-              ? '<div class="actu-actions"><a class="button" href="' + escapeHtml(item.lien) + '" target="_blank" rel="noopener">Voir sur Facebook</a></div>'
-              : '';
-
-            return (
-              '<article class="card actu-card">' +
-                '<div>' +
-                  '<span class="actu-date">' + escapeHtml(formatDate(item.date)) + '</span>' +
-                  '<h2 class="actu-title">' + escapeHtml(item.titre || "Actualité") + '</h2>' +
-                '</div>' +
-                '<p class="actu-resume">' + escapeHtml(item.resume || "") + '</p>' +
-                galleryHtml +
-                buttonHtml +
-              '</article>'
-            );
-          }).join("");
-
-          list.addEventListener("click", function (e) {
-            var t = e.target;
-            if (t && t.classList.contains("actu-thumb")) {
-              openAt(parseInt(t.getAttribute("data-global-idx"), 10) || 0);
-            }
-          });
-        })
-        .catch(function () {
           list.innerHTML =
-            '<div class="empty-state"><p class="muted">Impossible de charger les actualités.</p></div>';
+            items.map(function (item) {
+
+              var images =
+                Array.isArray(item.images)
+                  ? item.images
+                  : [];
+
+              var galleryHtml = "";
+
+              if (images.length) {
+
+                galleryHtml =
+                  '<div class="actu-gallery">' +
+
+                  images.map(function (src) {
+
+                    var globalIndex =
+                      allImages.length;
+
+                    allImages.push({
+                      src: src,
+                      alt: item.titre
+                        ? "Photo - " + item.titre
+                        : "Photo actualité"
+                    });
+
+                    return (
+                      '<img ' +
+                      'class="actu-thumb" ' +
+                      'src="' +
+                      escapeHtml(src) +
+                      '" ' +
+                      'alt="' +
+                      escapeHtml(
+                        item.titre || "Actualité"
+                      ) +
+                      '" ' +
+                      'loading="lazy" ' +
+                      'data-global-idx="' +
+                      globalIndex +
+                      '" ' +
+                      '/>'
+                    );
+
+                  }).join("") +
+
+                  '</div>';
+              }
+
+              var buttonHtml =
+                item.lien
+
+                  ? (
+                    '<div class="actu-actions">' +
+                    '<a ' +
+                    'class="button" ' +
+                    'href="' +
+                    escapeHtml(item.lien) +
+                    '" ' +
+                    'target="_blank" ' +
+                    'rel="noopener">' +
+                    'Voir sur Facebook' +
+                    '</a>' +
+                    '</div>'
+                  )
+
+                  : "";
+
+              return (
+
+                '<article class="card actu-card">' +
+
+                  '<div>' +
+
+                    '<span class="actu-date">' +
+                    escapeHtml(
+                      formatDate(item.date)
+                    ) +
+                    '</span>' +
+
+                    '<h2 class="actu-title">' +
+                    escapeHtml(
+                      item.titre || "Actualité"
+                    ) +
+                    '</h2>' +
+
+                  '</div>' +
+
+                  '<div class="actu-resume">' +
+                  formatResume(item.resume || "") +
+                  '</div>' +
+
+                  galleryHtml +
+
+                  buttonHtml +
+
+                '</article>'
+              );
+
+            }).join("");
+
+          list.addEventListener(
+            "click",
+            function (e) {
+
+              var t = e.target;
+
+              if (
+                t &&
+                t.classList.contains("actu-thumb")
+              ) {
+
+                openAt(
+                  parseInt(
+                    t.getAttribute(
+                      "data-global-idx"
+                    ),
+                    10
+                  ) || 0
+                );
+
+              }
+
+            }
+          );
+
+        })
+
+        .catch(function () {
+
+          list.innerHTML =
+            '<div class="empty-state">' +
+            '<p class="muted">' +
+            'Impossible de charger les actualités.' +
+            '</p>' +
+            '</div>';
+
         });
 
-      lbPrev.addEventListener("click", function (e) {
-        e.stopPropagation();
-        prevImage();
-      });
+      lbPrev.addEventListener(
+        "click",
+        function (e) {
 
-      lbNext.addEventListener("click", function (e) {
-        e.stopPropagation();
-        nextImage();
-      });
+          e.stopPropagation();
+          prevImage();
 
-      lbClose.addEventListener("click", function (e) {
-        e.stopPropagation();
-        closeLightbox();
-      });
+        }
+      );
 
-      lightbox.addEventListener("click", function (e) {
-        if (e.target === lightbox) closeLightbox();
-      });
+      lbNext.addEventListener(
+        "click",
+        function (e) {
 
-      document.addEventListener("keydown", function (e) {
-        if (!lightbox.classList.contains("open")) return;
-        if (e.key === "Escape") closeLightbox();
-        if (e.key === "ArrowLeft") prevImage();
-        if (e.key === "ArrowRight") nextImage();
-      });
+          e.stopPropagation();
+          nextImage();
+
+        }
+      );
+
+      lbClose.addEventListener(
+        "click",
+        function (e) {
+
+          e.stopPropagation();
+          closeLightbox();
+
+        }
+      );
+
+      lightbox.addEventListener(
+        "click",
+        function (e) {
+
+          if (e.target === lightbox) {
+            closeLightbox();
+          }
+
+        }
+      );
+
+      document.addEventListener(
+        "keydown",
+        function (e) {
+
+          if (
+            !lightbox.classList.contains("open")
+          ) {
+            return;
+          }
+
+          if (e.key === "Escape") {
+            closeLightbox();
+          }
+
+          if (e.key === "ArrowLeft") {
+            prevImage();
+          }
+
+          if (e.key === "ArrowRight") {
+            nextImage();
+          }
+
+        }
+      );
+
     })();
   </script>
+
 </body>
 </html>
