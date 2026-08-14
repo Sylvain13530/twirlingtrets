@@ -11,6 +11,11 @@ media:
     output: /assets/galerie
     rename: safe
 
+  - name: sponsors
+    label: Logos des sponsors
+    input: assets/sponsors
+    output: /assets/sponsors
+    rename: safe
 
 content:
 
