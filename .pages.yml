@@ -144,9 +144,9 @@ content:
         type: image
         required: true
         options:
-          media: galerie
-          path: assets
-          rename: safe
+        media: sponsors
+        path: assets/sponsors
+        rename: safe
 
       - name: lien
         label: Site internet
