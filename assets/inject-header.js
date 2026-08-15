@@ -228,7 +228,61 @@
 
         });
 
+/*
+ * ============================
+ * LIEN INSCRIPTIONS
+ * ============================
+ */
 
+var navInscriptions =
+  document.getElementById(
+    'navInscriptions'
+  );
+
+if (navInscriptions) {
+
+  fetch(
+    'assets/inscriptions.json',
+    { cache: 'no-cache' }
+  )
+
+    .then(function (response) {
+
+      if (!response.ok) {
+        throw new Error(
+          'Impossible de charger assets/inscriptions.json'
+        );
+      }
+
+      return response.json();
+
+    })
+
+    .then(function (data) {
+
+      if (data.actif === true) {
+
+        navInscriptions.style.display =
+          '';
+
+      } else {
+
+        navInscriptions.style.display =
+          'none';
+
+      }
+
+    })
+
+    .catch(function () {
+
+      navInscriptions.style.display =
+        'none';
+
+    });
+
+}
+      
       /*
        * ============================
        * LIEN ACTIF DANS LA NAV
