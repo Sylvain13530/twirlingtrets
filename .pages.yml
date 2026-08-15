@@ -320,3 +320,24 @@ content:
         options:
           format: html
           switcher: false
+
+      - name: essais
+        label: Dates des cours d'essai
+        type: object
+        list: true
+
+        fields:
+          - name: date
+            label: Date
+            type: date
+            required: true
+
+          - name: horaire
+            label: Horaire
+            type: string
+            required: true
+
+          - name: titre
+            label: Libellé
+            type: string
+            required: true
