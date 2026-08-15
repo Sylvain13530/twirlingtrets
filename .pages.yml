@@ -208,6 +208,11 @@ content:
               label: Nom uniquement
             - value: fond-bleu
               label: Logo sur fond bleu
+      - name: actif
+        label: Afficher sur le site
+        type: boolean
+        required: true
+        default: true
   # =========================
   # LE CLUB
   # =========================
