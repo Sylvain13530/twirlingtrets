@@ -68,5 +68,12 @@
     "nom": "Sélectif PACA N1 - N2 - N3",
     "lieu": "Cavalaire (83) - Dates et lieu à confirmer",
     "actif": true
+  },
+  {
+    "date_debut": "2027-04-10",
+    "date_fin": "2027-04-11",
+    "nom": "Ligue N2",
+    "lieu": "Occitanie - Dates et lieu à confirmer",
+    "actif": true
   }
 ]
