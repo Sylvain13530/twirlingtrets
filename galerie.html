@@ -274,11 +274,11 @@ Promise.all([
     return response.json();
   }),
 
-  fetch("actualites-2026.json").then(function(response){
+  fetch("assets/actualites.json").then(function(response){
 
     if (!response.ok) {
       throw new Error(
-        "Impossible de charger actualites-2026.json"
+        "Impossible de charger actualites.json"
       );
     }
 
