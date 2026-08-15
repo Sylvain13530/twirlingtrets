@@ -49,17 +49,7 @@
       .span-8 {
         grid-column: span 12;
       }
-    }
-.span-6 { grid-column: span 6; }
-
-@media (max-width:900px){
-  .span-4,
-  .span-6,
-  .span-8 {
-    grid-column: span 12;
-  }
-}
-    /* Hero avec image de fond + voile */
+    }    /* Hero avec image de fond + voile */
     .hero--bg {
       position: relative;
       color: #fff;
@@ -114,81 +104,81 @@
   <main class="wrap cards">
 
     <!-- LE CLUB -->
-<!-- LE CLUB -->
-<a href="le-club.html" class="card-link span-6">
-  <section class="card clickable">
-    <h2>Le club</h2>
-    <p>
-      Présentation, encadrement, fonctionnement, histoire du club
-    </p>
-  </section>
-</a>
+    <a href="le-club.html" class="card-link span-8">
+      <section class="card clickable">
+        <h2>Le club</h2>
+        <p>
+          Présentation, encadrement, fonctionnement, histoire du club
+        </p>
+      </section>
+    </a>
 
-<!-- INSCRIPTIONS -->
-<a
-  id="homeInscriptionsCard"
-  href="inscriptions.html"
-  class="card-link span-6"
-  style="display:none"
->
-  <section class="card clickable">
 
-    <h2 id="homeInscriptionsTitle">
-      Inscriptions 2026-2027
-    </h2>
+    <!-- ACTUALITÉS -->
+    <a href="actualites.html" class="card-link span-4">
+      <section class="card clickable">
 
-    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+        <h2>Actualités</h2>
 
-      <img
-        id="homeInscriptionsImage"
-        src=""
-        alt="Inscriptions Twirling Bâton Trets"
-        style="
-          width:140px;
-          max-height:160px;
-          object-fit:contain;
-          border-radius:10px;
-          display:none;
-        "
-      />
+        <div id="homeActualites">
+          <p class="muted">Chargement des actualités…</p>
+        </div>
 
-      <div style="flex:1;min-width:180px;">
-
-        <p
-          id="homeInscriptionsText"
-          style="margin:0 0 8px;"
-        >
-          Une nouvelle saison commence au Twirling Bâton Trets !
+        <p class="muted" style="margin-top:auto">
+          Cliquez pour voir le fil complet.
         </p>
 
-        <p class="muted" style="margin:0;">
-          Cours d’essai gratuits – cliquez pour découvrir les dates et les modalités.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-</a>
+      </section>
+    </a>
 
 
-<!-- ACTUALITÉS -->
-<a href="actualites.html" class="card-link span-4">
-  <section class="card clickable">
+    <!-- INSCRIPTIONS -->
+    <a
+      id="homeInscriptionsCard"
+      href="inscriptions.html"
+      class="card-link span-8"
+      style="display:none"
+    >
+      <section class="card clickable">
 
-    <h2>Actualités</h2>
+        <h2 id="homeInscriptionsTitle">
+          Inscriptions 2026-2027
+        </h2>
 
-    <div id="homeActualites">
-      <p class="muted">Chargement des actualités…</p>
-    </div>
+        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
 
-    <p class="muted" style="margin-top:auto">
-      Cliquez pour voir le fil complet.
-    </p>
+          <img
+            id="homeInscriptionsImage"
+            src=""
+            alt="Inscriptions Twirling Bâton Trets"
+            style="
+              width:140px;
+              max-height:160px;
+              object-fit:contain;
+              border-radius:10px;
+              display:none;
+            "
+          />
 
-  </section>
-</a>
+          <div style="flex:1;min-width:180px;">
+
+            <p
+              id="homeInscriptionsText"
+              style="margin:0 0 8px;"
+            >
+              Une nouvelle saison commence au Twirling Bâton Trets !
+            </p>
+
+            <p class="muted" style="margin:0;">
+              Cours d’essai gratuits – cliquez pour découvrir les dates et les modalités.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+    </a>
 
 
     <!-- GALERIE -->
