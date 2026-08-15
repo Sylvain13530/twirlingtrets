@@ -50,7 +50,15 @@
         grid-column: span 12;
       }
     }
+.span-6 { grid-column: span 6; }
 
+@media (max-width:900px){
+  .span-4,
+  .span-6,
+  .span-8 {
+    grid-column: span 12;
+  }
+}
     /* Hero avec image de fond + voile */
     .hero--bg {
       position: relative;
@@ -106,14 +114,63 @@
   <main class="wrap cards">
 
     <!-- LE CLUB -->
-    <a href="le-club.html" class="card-link span-8">
-      <section class="card clickable">
-        <h2>Le club</h2>
-        <p>
-          Présentation, encadrement, fonctionnement, histoire du club
+<!-- LE CLUB -->
+<a href="le-club.html" class="card-link span-6">
+  <section class="card clickable">
+    <h2>Le club</h2>
+    <p>
+      Présentation, encadrement, fonctionnement, histoire du club
+    </p>
+  </section>
+</a>
+
+<!-- INSCRIPTIONS -->
+<a
+  id="homeInscriptionsCard"
+  href="inscriptions.html"
+  class="card-link span-6"
+  style="display:none"
+>
+  <section class="card clickable">
+
+    <h2 id="homeInscriptionsTitle">
+      Inscriptions 2026-2027
+    </h2>
+
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+
+      <img
+        id="homeInscriptionsImage"
+        src=""
+        alt="Inscriptions Twirling Bâton Trets"
+        style="
+          width:140px;
+          max-height:160px;
+          object-fit:contain;
+          border-radius:10px;
+          display:none;
+        "
+      />
+
+      <div style="flex:1;min-width:180px;">
+
+        <p
+          id="homeInscriptionsText"
+          style="margin:0 0 8px;"
+        >
+          Une nouvelle saison commence au Twirling Bâton Trets !
         </p>
-      </section>
-    </a>
+
+        <p class="muted" style="margin:0;">
+          Cours d’essai gratuits – cliquez pour découvrir les dates et les modalités.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+</a>
 
 
 <!-- ACTUALITÉS -->
@@ -874,6 +931,94 @@ events = events.filter(function(event){
       .catch(function(error){
 
         console.error(error);
+
+      });
+
+  })();
+</script>
+<!-- INSCRIPTIONS ACCUEIL -->
+<script>
+  (function(){
+
+    var card =
+      document.getElementById(
+        "homeInscriptionsCard"
+      );
+
+    if (!card) {
+      return;
+    }
+
+    var title =
+      document.getElementById(
+        "homeInscriptionsTitle"
+      );
+
+    var text =
+      document.getElementById(
+        "homeInscriptionsText"
+      );
+
+    var image =
+      document.getElementById(
+        "homeInscriptionsImage"
+      );
+
+
+    fetch("assets/inscriptions.json", {
+      cache: "no-cache"
+    })
+
+      .then(function(response){
+
+        if (!response.ok) {
+          throw new Error(
+            "Impossible de charger assets/inscriptions.json"
+          );
+        }
+
+        return response.json();
+
+      })
+
+      .then(function(data){
+
+        if (data.actif !== true) {
+          card.style.display = "none";
+          return;
+        }
+
+        if (data.titre) {
+          title.textContent =
+            data.titre;
+        }
+
+        if (data.accroche) {
+          text.textContent =
+            data.accroche;
+        }
+
+        if (data.image) {
+
+          image.src =
+            data.image;
+
+          image.style.display =
+            "block";
+
+        }
+
+        card.style.display =
+          "block";
+
+      })
+
+      .catch(function(error){
+
+        console.error(error);
+
+        card.style.display =
+          "none";
 
       });
 
