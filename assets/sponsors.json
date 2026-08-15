@@ -4,90 +4,102 @@
     "categorie": "annuel",
     "image": "assets/sponsor-trets.png",
     "lien": "https://www.trets.fr/",
-    "style": "normal"
+    "style": "normal",
+    "actif": true
   },
   {
     "nom": "Syal Services",
     "categorie": "annuel",
     "image": "assets/sponsor-syal.jpg",
     "lien": "https://www.syal-services.fr/",
-    "style": "normal"
+    "style": "normal",
+    "actif": true
   },
   {
     "nom": "Ville de Trets",
     "categorie": "evenement",
     "image": "assets/sponsor-trets.png",
     "lien": "https://www.trets.fr/",
-    "style": "normal"
+    "style": "normal",
+    "actif": false
   },
   {
     "nom": "Syal Services",
     "categorie": "evenement",
     "image": "assets/sponsor-syal.jpg",
     "lien": "https://www.syal-services.fr/",
-    "style": "normal"
+    "style": "normal",
+    "actif": false
   },
   {
     "nom": "R'Sud Medical Gréasque",
     "categorie": "evenement",
     "image": "assets/sponsor-rsud-medical.jpg",
     "lien": "https://www.rsudmedical.com/",
-    "style": "normal"
+    "style": "normal",
+    "actif": false
   },
   {
     "nom": "MaxiCoffee",
     "categorie": "evenement",
     "image": "assets/sponsor-maxicoffee.svg",
     "lien": "https://www.maxicoffee.com/",
-    "style": "normal"
+    "style": "normal",
+    "actif": false
   },
   {
     "nom": "ESJ Climatisation",
     "categorie": "evenement",
     "image": "assets/sponsor-esj.png",
     "lien": "https://www.esjclimatisation.fr/",
-    "style": "normal"
+    "style": "normal",
+    "actif": false
   },
   {
     "nom": "Biocoop",
     "categorie": "evenement",
     "image": "assets/sponsor-biocoop.webp",
     "lien": "https://www.biocoop.fr/",
-    "style": "fond-bleu"
+    "style": "fond-bleu",
+    "actif": false
   },
   {
     "nom": "Tennis Club de Trets",
     "categorie": "evenement",
     "image": "assets/sponsor-tennis-trets.avif",
     "lien": "https://tenup.fft.fr/club/62130243",
-    "style": "normal"
+    "style": "normal",
+    "actif": false
   },
   {
     "nom": "Le Fournil de la Gare",
     "categorie": "evenement",
-    "image": "",
     "lien": "https://www.instagram.com/le_fournil_de_la_gare_trets/",
-    "style": "texte"
+    "style": "texte",
+    "actif": false
   },
   {
     "nom": "Nestenn",
     "categorie": "evenement",
     "image": "assets/sponsor-nestenn.svg",
     "lien": "https://www.nestenn.com/",
-    "style": "normal"
+    "style": "normal",
+    "actif": false
   },
   {
     "nom": "Domaine de l'Anticaille",
     "categorie": "evenement",
     "image": "assets/sponsor-domaine-de-lanticaille.jpg",
     "lien": "https://www.anticaille.com/",
-    "style": "normal"
+    "style": "normal",
+    "actif": false
   },
   {
     "nom": "Sushi Kohi",
     "categorie": "evenement",
     "image": "assets/sponsor-sushi-kohi.jpg",
     "lien": "https://www.sushikohi.fr/",
-    "style": "normal"
+    "style": "normal",
+    "actif": false
   }
 ]
