@@ -278,17 +278,21 @@
           }
 
 
-          var annual =
-            items.filter(function(item){
-              return item.categorie === "annuel";
-            });
+var annual =
+  items.filter(function(item){
+    return (
+      item.actif !== false &&
+      item.categorie === "annuel"
+    );
+  });
 
-
-          var event =
-            items.filter(function(item){
-              return item.categorie === "evenement";
-            });
-
+var event =
+  items.filter(function(item){
+    return (
+      item.actif !== false &&
+      item.categorie === "evenement"
+    );
+  });
 
           annualRoot.innerHTML =
             annual.length
