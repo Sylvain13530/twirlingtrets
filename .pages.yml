@@ -39,7 +39,7 @@ content:
   - name: actualites
     label: Actualités
     type: file
-    path: actualites-2026.json
+    path: assets/actualites.json
     format: json
     list: true
 
