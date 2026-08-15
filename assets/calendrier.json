@@ -89,5 +89,12 @@
     "nom": "Demi finale N2",
     "lieu": "Gap (05) - Dates et lieu à confirmer",
     "actif": true
+  },
+  {
+    "date_debut": "2027-05-29",
+    "date_fin": "2027-05-30",
+    "nom": "Demi finale N3",
+    "lieu": "AURA - Dates et lieu à confirmer",
+    "actif": true
   }
 ]
