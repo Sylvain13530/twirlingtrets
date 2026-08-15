@@ -82,5 +82,12 @@
     "nom": "Ligue N3",
     "lieu": "Trets (13) - Dates et lieu à confirmer",
     "actif": true
+  },
+  {
+    "date_debut": "2027-05-08",
+    "date_fin": "2027-05-09",
+    "nom": "Demi finale N2",
+    "lieu": "Gap (05) - Dates et lieu à confirmer",
+    "actif": true
   }
 ]
