@@ -94,7 +94,11 @@ content:
         label: Lien Facebook
         type: string
         required: false
-
+        
+      - name: video_youtube
+        label: Vidéo YouTube
+        type: string
+        required: false
 
   # =========================
   # CALENDRIER
