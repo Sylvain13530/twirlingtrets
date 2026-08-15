@@ -127,7 +127,12 @@ content:
         label: Lieu
         type: string
         required: false
-
+        
+      - name: actif
+        label: Afficher sur le site
+        type: boolean
+        required: true
+        default: true
 
   # =========================
   # GALERIE
