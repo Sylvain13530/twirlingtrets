@@ -139,7 +139,9 @@
               "<li>Aucun événement programmé pour le moment.</li>";
             return;
           }
-
+events = events.filter(function(event){
+  return event.actif !== false;
+});
           events.sort(function(a, b){
             return String(a.date_debut || "")
               .localeCompare(String(b.date_debut || ""));
