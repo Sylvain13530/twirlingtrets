@@ -3,48 +3,56 @@
     "date_debut": "2026-01-31",
     "date_fin": "2026-02-01",
     "nom": "Championnat départemental N1-N2-N3",
-    "lieu": "Cavalaire-sur-Mer"
+    "lieu": "Cavalaire-sur-Mer",
+    "actif": false
   },
   {
     "date_debut": "2026-02-28",
     "date_fin": "2026-03-01",
     "nom": "Championnat sélectif N1-N2-N3",
-    "lieu": "Gap"
+    "lieu": "Gap",
+    "actif": false
   },
   {
     "date_debut": "2026-04-25",
     "date_fin": "2026-08-15",
     "nom": "Ligue N3 PACA",
-    "lieu": "Trets"
+    "lieu": "Trets",
+    "actif": false
   },
   {
     "date_debut": "2026-05-30",
     "date_fin": "2026-05-31",
     "nom": "Demi-finale N3",
-    "lieu": "Cavalaire-sur-Mer"
+    "lieu": "Cavalaire-sur-Mer",
+    "actif": false
   },
   {
     "date_debut": "2026-06-20",
     "date_fin": "2026-06-21",
     "nom": "Finale N3",
-    "lieu": "Saint-Dié-des-Vosges"
+    "lieu": "Saint-Dié-des-Vosges",
+    "actif": false
   },
   {
     "date_debut": "2026-09-05",
     "date_fin": "2026-08-15",
     "nom": "Journée des associations – Inscriptions TBT",
-    "lieu": "Trets"
+    "lieu": "Trets",
+    "actif": true
   },
   {
     "date_debut": "2026-09-07",
     "date_fin": "2026-08-15",
     "nom": "Cours d’essai Twirling Bâton – 18h à 19h",
-    "lieu": "Gymnase Burles – Trets"
+    "lieu": "Gymnase Burles – Trets",
+    "actif": true
   },
   {
     "date_debut": "2026-08-12",
     "date_fin": "2026-09-12",
     "nom": "Cours d’essai Twirling Bâton – 10h à 12h",
-    "lieu": "Gymnase Burles – Trets"
+    "lieu": "Gymnase Burles – Trets",
+    "actif": true
   }
 ]
