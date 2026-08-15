@@ -516,7 +516,9 @@
 
             return;
           }
-
+events = events.filter(function(event){
+  return event.actif !== false;
+});
           events.sort(function(a, b){
 
             return String(
