@@ -441,14 +441,21 @@
           allImages = [];
 
           list.innerHTML =
-            items.map(function (item) {
+items.map(function (item) {
 
-var videos =
-  Array.isArray(item.videos)
-    ? item.videos
-    : [];
+  var images =
+    Array.isArray(item.images)
+      ? item.images
+      : [];
 
-var videosHtml = "";
+  var galleryHtml = "";
+
+  var videos =
+    Array.isArray(item.videos)
+      ? item.videos
+      : [];
+
+  var videosHtml = "";
 
 if (videos.length) {
 
