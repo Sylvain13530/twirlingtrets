@@ -43,16 +43,23 @@
   },
   {
     "date_debut": "2026-09-07",
-    "date_fin": "2026-08-15",
+    "date_fin": "2026-09-07",
     "nom": "Cours d’essai Twirling Bâton – 18h à 19h",
     "lieu": "Gymnase Burles – Trets",
     "actif": true
   },
   {
-    "date_debut": "2026-08-12",
+    "date_debut": "2026-09-12",
     "date_fin": "2026-09-12",
     "nom": "Cours d’essai Twirling Bâton – 10h à 12h",
     "lieu": "Gymnase Burles – Trets",
+    "actif": true
+  },
+  {
+    "date_debut": "2027-02-06",
+    "date_fin": "2027-02-07",
+    "nom": "Compétition départementale",
+    "lieu": "Port de Bouc - Dates et lieu à confirmer",
     "actif": true
   }
 ]
