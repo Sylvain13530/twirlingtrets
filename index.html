@@ -674,10 +674,11 @@ events = events.filter(function(event){
             Array.isArray(items)
               ? items.filter(function(item){
 
-                  return (
-                    item.categorie === "annuel" &&
-                    item.image
-                  );
+return (
+  item.actif !== false &&
+  item.categorie === "annuel" &&
+  item.image
+);
 
                 })
               : [];
