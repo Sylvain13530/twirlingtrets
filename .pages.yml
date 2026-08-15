@@ -16,6 +16,13 @@ media:
     input: assets/sponsors
     output: /assets/sponsors
     rename: safe
+    
+  - name: videos
+    label: Vidéos des actualités
+    input: assets/videos
+    output: /assets/videos
+    rename: safe
+    categories: [video]
 
 content:
 
@@ -61,6 +68,19 @@ content:
           path: assets/actus
           multiple:
             max: 50
+          unique: true
+          rename: safe
+
+      - name: videos
+        label: Vidéos
+        type: file
+        required: false
+        options:
+          media: videos
+          path: assets/videos
+          categories: [video]
+          multiple:
+            max: 10
           unique: true
           rename: safe
 
