@@ -44,6 +44,10 @@
     .span-8 { grid-column: span 8; }
     .span-12 { grid-column: span 12; }
 
+    .home-actualites-tall {
+      grid-row: span 2;
+    }
+
     @media (max-width:900px){
       .span-4,
       .span-8 {
@@ -115,7 +119,7 @@
 
 
     <!-- ACTUALITÉS -->
-    <a href="actualites.html" class="card-link span-4">
+    <a id="homeActualitesCard" href="actualites.html" class="card-link span-4">
       <section class="card clickable">
 
         <h2>Actualités</h2>
@@ -935,6 +939,11 @@ events = events.filter(function(event){
         "homeInscriptionsCard"
       );
 
+    var actualitesCard =
+      document.getElementById(
+        "homeActualitesCard"
+      );
+
     if (!card) {
       return;
     }
@@ -975,6 +984,13 @@ events = events.filter(function(event){
 
         if (data.actif !== true) {
           card.style.display = "none";
+
+          if (actualitesCard) {
+            actualitesCard.classList.remove(
+              "home-actualites-tall"
+            );
+          }
+
           return;
         }
 
@@ -1001,6 +1017,12 @@ events = events.filter(function(event){
         card.style.display =
           "block";
 
+        if (actualitesCard) {
+          actualitesCard.classList.add(
+            "home-actualites-tall"
+          );
+        }
+
       })
 
       .catch(function(error){
@@ -1009,6 +1031,12 @@ events = events.filter(function(event){
 
         card.style.display =
           "none";
+
+        if (actualitesCard) {
+          actualitesCard.classList.remove(
+            "home-actualites-tall"
+          );
+        }
 
       });
 
