@@ -58,8 +58,15 @@
   {
     "date_debut": "2027-02-06",
     "date_fin": "2027-02-07",
-    "nom": "Compétition départementale",
-    "lieu": "Port de Bouc - Dates et lieu à confirmer",
+    "nom": "Compétition départementale N1 - N2 - N3",
+    "lieu": "Port de Bouc (13) - Dates et lieu à confirmer",
+    "actif": true
+  },
+  {
+    "date_debut": "2027-02-27",
+    "date_fin": "2027-02-28",
+    "nom": "Sélectif PACA N1 - N2 - N3",
+    "lieu": "Cavalaire (83) - Dates et lieu à confirmer",
     "actif": true
   }
 ]
