@@ -23,7 +23,13 @@ media:
     output: /assets/videos
     rename: safe
     categories: [video]
-
+    
+  - name: inscriptions
+    label: Images inscriptions
+    input: assets/inscriptions
+    output: /assets/inscriptions
+    rename: safe
+    
 content:
 
   # =========================
@@ -266,3 +272,51 @@ content:
         label: Texte du bandeau
         type: string
         required: false
+
+  # =========================
+  # INSCRIPTIONS
+  # =========================
+
+  - name: inscriptions
+    label: Inscriptions 2026-2027
+    type: file
+    path: assets/inscriptions.json
+    format: json
+
+    fields:
+      - name: actif
+        label: Afficher les inscriptions sur le site
+        type: boolean
+        required: true
+
+      - name: titre
+        label: Titre
+        type: string
+        required: true
+
+      - name: accroche
+        label: Accroche
+        type: string
+        required: false
+
+      - name: image
+        label: Affiche
+        type: image
+        required: false
+        options:
+          media: inscriptions
+          path: assets/inscriptions
+          rename: safe
+
+      - name: email
+        label: Adresse e-mail inscriptions
+        type: string
+        required: true
+
+      - name: contenu
+        label: Texte de la page
+        type: rich-text
+        required: true
+        options:
+          format: html
+          switcher: false
