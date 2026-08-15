@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inscriptions 2026-2027 – Twirling Bâton Trets</title>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .inscriptions-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 420px) 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .inscriptions-affiche {
+      width: 100%;
+      display: block;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.10);
+    }
+
+    .inscriptions-content {
+      line-height: 1.65;
+    }
+
+    .inscriptions-content h2 {
+      margin-top: 0;
+    }
+
+    .essais {
+      margin: 24px 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .essai {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .essai-date {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .essai-horaire {
+      font-weight: 700;
+    }
+
+    .inscriptions-contact {
+      margin-top: 26px;
+      padding: 22px;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .inscriptions-contact p {
+      margin-top: 0;
+    }
+
+    .inscriptions-button {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      background: #111827;
+      color: #fff;
+    }
+
+    .inscriptions-button:hover {
+      opacity: .9;
+    }
+
+    @media (max-width: 800px) {
+      .inscriptions-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .inscriptions-affiche {
+        max-width: 480px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .essais {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="site-header"></div>
+  <script src="assets/inject-header.js" defer></script>
+
+  <section class="hero wrap">
+    <h1 id="page-title">Inscriptions 2026-2027</h1>
+    <p id="page-accroche">
+      Une nouvelle saison commence au Twirling Bâton Trets !
+    </p>
+  </section>
+
+  <main class="wrap">
+
+    <section class="card">
+
+      <div class="inscriptions-layout">
+
+        <div id="affiche-container"></div>
+
+        <div>
+
+          <div id="inscriptions-content"
+               class="inscriptions-content">
+            Chargement des informations…
+          </div>
+
+          <div class="essais">
+
+            <div class="essai">
+              <div class="essai-date">
+                Lundi 7 septembre
+              </div>
+
+              <div class="essai-horaire">
+                18h à 19h
+              </div>
+
+              <div>
+                Cours d'essai
+              </div>
+            </div>
+
+            <div class="essai">
+              <div class="essai-date">
+                Samedi 12 septembre
+              </div>
+
+              <div class="essai-horaire">
+                10h à 12h
+              </div>
+
+              <div>
+                Cours d'essai
+              </div>
+            </div>
+
+          </div>
+
+          <div class="inscriptions-contact">
+
+            <p>
+              <strong>
+                Vous souhaitez participer à un cours d'essai ?
+              </strong>
+            </p>
+
+            <p>
+              Indiquez la ou les dates souhaitées,
+              le nom et prénom de votre enfant
+              ainsi qu'un numéro de téléphone.
+            </p>
+
+            <a
+              id="inscriptions-email"
+              class="inscriptions-button"
+              href="mailto:twirlingtrets@gmail.com?subject=Inscription%20cours%20d%27essai%20TBT%202026-2027"
+            >
+              Demander un cours d'essai
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="assets/inject-footer.js" defer></script>
+
+
+  <script>
+    (function () {
+
+      fetch("assets/inscriptions.json", {
+        cache: "no-cache"
+      })
+
+        .then(function (response) {
+
+          if (!response.ok) {
+            throw new Error(
+              "Impossible de charger assets/inscriptions.json"
+            );
+          }
+
+          return response.json();
+
+        })
+
+        .then(function (data) {
+
+          if (data.titre) {
+            document.getElementById("page-title")
+              .textContent = data.titre;
+          }
+
+          if (data.accroche) {
+            document.getElementById("page-accroche")
+              .textContent = data.accroche;
+          }
+
+          var content =
+            document.getElementById(
+              "inscriptions-content"
+            );
+
+          content.innerHTML =
+            data.contenu ||
+            "<p>Les informations d'inscription seront bientôt disponibles.</p>";
+
+
+          var afficheContainer =
+            document.getElementById(
+              "affiche-container"
+            );
+
+          if (data.image) {
+
+            var img =
+              document.createElement("img");
+
+            img.src = data.image;
+            img.alt =
+              "Inscriptions et cours d'essai – Twirling Bâton Trets";
+
+            img.className =
+              "inscriptions-affiche";
+
+            afficheContainer.appendChild(img);
+
+          } else {
+
+            afficheContainer.style.display =
+              "none";
+
+          }
+
+
+          if (data.email) {
+
+            var emailButton =
+              document.getElementById(
+                "inscriptions-email"
+              );
+
+            emailButton.href =
+              "mailto:" +
+              encodeURIComponent(data.email) +
+              "?subject=" +
+              encodeURIComponent(
+                "Inscription cours d'essai TBT 2026-2027"
+              );
+
+          }
+
+        })
+
+        .catch(function (error) {
+
+          console.error(error);
+
+          document.getElementById(
+            "inscriptions-content"
+          ).innerHTML =
+            "<p>Impossible de charger les informations d'inscription.</p>";
+
+        });
+
+    })();
+  </script>
+
+</body>
+</html>
