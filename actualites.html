@@ -443,12 +443,44 @@
           list.innerHTML =
             items.map(function (item) {
 
-              var images =
-                Array.isArray(item.images)
-                  ? item.images
-                  : [];
+var videos =
+  Array.isArray(item.videos)
+    ? item.videos
+    : [];
 
-              var galleryHtml = "";
+var videosHtml = "";
+
+if (videos.length) {
+
+  videosHtml =
+    '<div class="actu-gallery">' +
+
+    videos.map(function(src) {
+
+      return (
+        '<video ' +
+          'controls ' +
+          'preload="metadata" ' +
+          'style="' +
+            'width:100%;' +
+            'max-height:420px;' +
+            'border-radius:12px;' +
+            'background:#000' +
+          '">' +
+
+          '<source src="' +
+            escapeHtml(src) +
+          '">' +
+
+          'Votre navigateur ne peut pas lire cette vidéo.' +
+
+        '</video>'
+      );
+
+    }).join("") +
+
+    '</div>';
+}
 
               if (images.length) {
 
@@ -533,9 +565,11 @@
                   formatResume(item.resume || "") +
                   '</div>' +
 
-                  galleryHtml +
+galleryHtml +
 
-                  buttonHtml +
+videosHtml +
+
+buttonHtml +
 
                 '</article>'
               );
