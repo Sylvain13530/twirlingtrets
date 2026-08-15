@@ -128,21 +128,7 @@
             Chargement des informations…
           </div>
 
-          <div class="essais">
-
-            <div class="essai">
-              <div class="essai-date">
-                Lundi 7 septembre
-              </div>
-
-              <div class="essai-horaire">
-                18h à 19h
-              </div>
-
-              <div>
-                Cours d'essai
-              </div>
-            </div>
+<div id="essais" class="essais"></div>
 
             <div class="essai">
               <div class="essai-date">
@@ -280,7 +266,73 @@
               );
 
           }
+var essaisRoot =
+  document.getElementById("essais");
 
+if (
+  Array.isArray(data.essais) &&
+  data.essais.length
+) {
+
+  var mois = [
+    "janvier",
+    "février",
+    "mars",
+    "avril",
+    "mai",
+    "juin",
+    "juillet",
+    "août",
+    "septembre",
+    "octobre",
+    "novembre",
+    "décembre"
+  ];
+
+  function formatDate(value) {
+
+    var parts =
+      String(value || "").split("-");
+
+    if (parts.length !== 3) {
+      return value || "";
+    }
+
+    return (
+      Number(parts[2]) +
+      " " +
+      mois[Number(parts[1]) - 1]
+    );
+  }
+
+  essaisRoot.innerHTML =
+    data.essais.map(function(essai){
+
+      return (
+        '<div class="essai">' +
+
+          '<div class="essai-date">' +
+            formatDate(essai.date) +
+          '</div>' +
+
+          '<div class="essai-horaire">' +
+            (essai.horaire || "") +
+          '</div>' +
+
+          '<div>' +
+            (essai.titre || "Cours d'essai") +
+          '</div>' +
+
+        '</div>'
+      );
+
+    }).join("");
+
+} else {
+
+  essaisRoot.style.display =
+    "none";
+}
         })
 
         .catch(function (error) {
