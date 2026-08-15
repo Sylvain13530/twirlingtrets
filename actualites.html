@@ -452,13 +452,13 @@
         openAt(currentIndex + 1);
       }
 
-      fetch("actualites-2026.json")
+      fetch("assets/actualites.json")
 
         .then(function (r) {
 
           if (!r.ok) {
             throw new Error(
-              "Impossible de charger actualites-2026.json"
+              "Impossible de charger actualites.json"
             );
           }
 
