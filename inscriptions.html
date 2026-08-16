@@ -153,7 +153,31 @@
             </a>
 
           </div>
+<div
+  id="documents-section"
+  style="
+    margin-top:32px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    display:none;
+  "
+>
+  <h2>Documents d'inscription 2026-2027</h2>
 
+  <p class="muted">
+    Téléchargez les documents nécessaires pour l'inscription ou la ré-inscription.
+  </p>
+
+  <div
+    id="documents-list"
+    style="
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:12px;
+      margin-top:18px;
+    "
+  ></div>
+</div>
         </div>
 
       </div>
@@ -317,7 +341,73 @@ if (
   essaisRoot.style.display =
     "none";
 }
-        })
+        }
+           var documentsSection =
+  document.getElementById(
+    "documents-section"
+  );
+
+var documentsList =
+  document.getElementById(
+    "documents-list"
+  );
+
+if (
+  Array.isArray(data.documents) &&
+  data.documents.length
+) {
+
+  documentsList.innerHTML =
+    data.documents.map(function(document){
+
+      var titre =
+        document.titre ||
+        "Télécharger le document";
+
+      var fichier =
+        document.fichier || "";
+
+      if (!fichier) {
+        return "";
+      }
+
+      return (
+        '<a ' +
+          'href="' + fichier + '" ' +
+          'target="_blank" ' +
+          'rel="noopener" ' +
+          'style="' +
+            'display:flex;' +
+            'align-items:center;' +
+            'gap:10px;' +
+            'padding:14px 16px;' +
+            'border:1px solid var(--line);' +
+            'border-radius:12px;' +
+            'text-decoration:none;' +
+            'color:inherit;' +
+            'background:#fff;' +
+          '">' +
+
+          '<span style="font-size:24px;">📄</span>' +
+
+          '<strong>' +
+            titre +
+          '</strong>' +
+
+        '</a>'
+      );
+
+    }).join("");
+
+  documentsSection.style.display =
+    "block";
+
+} else {
+
+  documentsSection.style.display =
+    "none";
+} 
+             )
 
         .catch(function (error) {
 
