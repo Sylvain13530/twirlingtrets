@@ -345,7 +345,28 @@ content:
         label: Dates des cours d'essai
         type: object
         list: true
+        
+      - name: documents
+        label: Documents d'inscription
+        type: object
+        list: true
 
+        fields:
+          - name: titre
+            label: Nom du document
+            type: string
+            required: true
+
+          - name: fichier
+            label: Fichier PDF
+            type: file
+            required: true
+            options:
+              media: documents-inscriptions
+              path: assets/inscriptions/documents
+              categories: [document]
+              rename: safe
+              
         fields:
           - name: date
             label: Date
