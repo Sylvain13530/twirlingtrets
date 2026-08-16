@@ -30,6 +30,12 @@ media:
     output: /assets/inscriptions
     rename: safe
     
+  - name: documents-inscriptions
+    label: Documents inscriptions
+    input: assets/inscriptions/documents
+    output: /assets/inscriptions/documents
+    rename: safe
+    
 content:
 
   # =========================
