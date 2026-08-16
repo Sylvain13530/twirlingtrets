@@ -16,27 +16,27 @@
       "horaire": "10h à 12h",
       "titre": "Cours d'essai"
     }
+  ],
+  "documents": [
+    {
+      "titre": "Dossier de ré-inscription 2026-2027",
+      "fichier": "assets/inscriptions/documents/DOSSIER DE RE-INSCRIPTION 2026 2027.pdf"
+    },
+    {
+      "titre": "Questionnaire de santé – Mineur",
+      "fichier": "assets/inscriptions/documents/06-qs-mineur(2).pdf"
+    },
+    {
+      "titre": "Questionnaire de santé – Majeur",
+      "fichier": "assets/inscriptions/documents/07-qs-majeur.pdf"
+    },
+    {
+      "titre": "Section loisirs 2026-2027",
+      "fichier": "assets/inscriptions/documents/section loisirs 2027.pdf"
+    },
+    {
+      "titre": "Section compétition 2026-2027",
+      "fichier": "assets/inscriptions/documents/section competition 2027.pdf"
+    }
   ]
-,
-"documents": [
-  {
-    "titre": "Dossier de ré-inscription 2026-2027",
-    "fichier": "assets/inscriptions/documents/DOSSIER DE RE-INSCRIPTION 2026 2027.pdf"
-  },
-  {
-    "titre": "Questionnaire de santé – Mineur",
-    "fichier": "assets/inscriptions/documents/06-qs-mineur(2).pdf"
-  },
-  {
-    "titre": "Questionnaire de santé – Majeur",
-    "fichier": "assets/inscriptions/documents/07-qs-majeur.pdf"
-  },
-  {
-    "titre": "Section loisirs 2026-2027",
-    "fichier": "assets/inscriptions/documents/section loisirs 2027.pdf"
-  },
-  {
-    "titre": "Section compétition 2026-2027",
-    "fichier": "assets/inscriptions/documents/section competition 2027.pdf"
-  }
-]}
+}
